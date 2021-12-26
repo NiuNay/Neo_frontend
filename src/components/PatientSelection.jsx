@@ -2,6 +2,8 @@ import React from 'react';
 import UserService from '../services/UserService';
 import styled from "styled-components";
 import neologo from "./NeoLogo.png";
+import { DropdownButton, Dropdown } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Button = styled.button`
   background-color: #E9E9E9;
@@ -27,9 +29,13 @@ class PatientSelection extends React.Component {
     }
 
     componentDidMount(){
-        UserService.getUsers().then((response) => {
-            this.setState({ users: response.data})
-        });
+        UserService.getUsers()
+            .then((response) => {
+                this.setState({ users: response.data})
+            })
+            .catch(() => {                          // checks data was retrieved
+                alert("Error retrieving baby data");
+            });
     }
 
     render (){
@@ -46,14 +52,14 @@ class PatientSelection extends React.Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {
-                        this.state.users.map(
-                            user =>
-                                <tr key = {user.id}>
-                                    <td> {user.id}</td>
-                                </tr>
-                        )
-                    }
+                        <DropdownButton id="dropdown-basic-button" title="Select Baby">
+                            {
+                                this.state.users.map(
+                                    user =>
+                                        <Dropdown.Item key={user.id}>{user.id}</Dropdown.Item>
+                                )
+                            }
+                        </DropdownButton>
                     </tbody>
                 </table>
                 <a href="./menu">
