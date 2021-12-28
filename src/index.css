@@ -11,3 +11,58 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.button-grid-2 {
+
+position: absolute;
+left: 30%;
+top: 85%;
+width: 30%;
+height: 5%;
+display: grid;
+grid-template-columns: 50% 50%;
+grid-template-rows: auto;
+gap: 20%;
+padding: 0px
+}
+
+.field-grid-3 {
+
+position: relative;
+top: 100px;
+width: 20%;
+height: 10%;
+display: grid;
+grid-template-columns: auto;
+grid-template-rows: auto auto auto;
+gap: 40%;
+
+
+}
+
+.label-grid-3 {
+
+  position: relative;
+  top: 5px;
+  left: -200px;
+  width: 100%;
+  height: 10%;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto auto;
+  gap: 40%;
+  text-align: left;
+}
+
+.grid-columns {
+  position: relative;
+  top: 100px;
+  left: 400px;
+  width: 1%;
+  height: 2%;
+  display: grid;
+  grid-template-columns: 200px 220px;
+  grid-template-rows: auto auto auto;
+  gap: 30%;
+
+}
