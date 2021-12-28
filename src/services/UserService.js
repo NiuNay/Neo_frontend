@@ -1,11 +1,16 @@
 import axios from 'axios'
 
-const USERS_REST_API_URL = 'http://localhost:8080';
+const patient_list_url = 'http://localhost:8080';
+const patient_data_url = 'http://localhost:8080/124790';
 
 class UserService {
 
     getUsers(){
-        return axios.get(USERS_REST_API_URL);
+        return axios.get(patient_list_url);
+    }
+
+    getData(){
+        return axios.get(patient_data_url);
     }
 }
 

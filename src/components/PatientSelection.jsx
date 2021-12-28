@@ -10,7 +10,7 @@ const Button = styled.button`
   color: #515050;
   font-size: 20px;
   font-family: ruluko;
-  padding: 10px 60px;
+  padding: 10px;
   border-radius: 5px;
   margin: 10px 0px;
   cursor: pointer;
@@ -34,7 +34,7 @@ class PatientSelection extends React.Component {
                 this.setState({ users: response.data})
             })
             .catch(() => {                          // checks data was retrieved
-                alert("Error retrieving baby data");
+                alert("Error retrieving patient data");
             });
     }
 

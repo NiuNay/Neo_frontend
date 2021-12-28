@@ -7,7 +7,7 @@ const LoginButton = styled.button`
   color: #515050;
   font-size: 20px;
   font-family: ruluko;
-  padding: 10px 60px;
+  padding: 10px;
   border-radius: 5px;
   margin: 10px 0px;
   cursor: pointer;
