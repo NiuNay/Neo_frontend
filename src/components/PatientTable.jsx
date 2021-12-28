@@ -5,7 +5,7 @@ class PatientTable extends PureComponent {
     constructor(props) {
         super(props);
         this.state = { 
-            id: "No Patient Selected"
+            id: "No Patient Selected" // default value when no patient is selected
         };
     };
 

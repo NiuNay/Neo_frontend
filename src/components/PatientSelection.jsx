@@ -19,7 +19,7 @@ const Button = styled.button`
   margin-right:40%;
 `;
 
-let selectedPatient = "";
+let selectedPatient = ""; // stores selected patient ID
 
 class PatientSelection extends React.Component {
 
@@ -27,10 +27,7 @@ class PatientSelection extends React.Component {
         super(props);
         this.state = {
             users:[],
-            selectedUser: "",
-            timeStamp: "",
         }
-
         this.handleSelect = this.handleSelect.bind(this);
     }
 
@@ -39,15 +36,15 @@ class PatientSelection extends React.Component {
             .then((response) => {
                 this.setState({ users: response.data })
             })
-            .catch(() => {                          // checks data was retrieved
+            .catch(() => { // checks data was retrieved
                 alert("Error retrieving baby data");
             });
     }
 
     handleSelect(eventKey, event) {
         selectedPatient = eventKey;
-        console.log("baby selected!"  + eventKey);               // for programmer to check handleSelect worked as expected
-        localStorage.setItem("selectedPatient", selectedPatient);
+        console.log("baby selected!"  + eventKey);  // for programmer to check handleSelect worked as expected
+        localStorage.setItem("selectedPatient", selectedPatient); // saves selected patient ID into browser local storage, making it retrievable by all other application webpages and components
     }
 
     render (){
@@ -59,9 +56,9 @@ class PatientSelection extends React.Component {
                 <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Patient Selection</h1>
                 <table className = "table table-striped">
                     <thead>
-                    <tr>
-                        <td>Patient ID</td>
-                    </tr>
+                        <tr>
+                            <td>Patient ID</td>
+                        </tr>
                     </thead>
                     <tbody>
                         <DropdownButton
@@ -86,7 +83,6 @@ class PatientSelection extends React.Component {
                     <Button> Next </Button>
                 </a>
             </div>
-
         )
     }
 }

@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import "@fontsource/ruluko"
 import neologo from './NeoLogo.png';
-import PatientTable from './PatientTable'
 
 const Button = styled.button`
   background-color: #F8F8F8;
