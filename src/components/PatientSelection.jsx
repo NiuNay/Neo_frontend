@@ -26,7 +26,8 @@ class PatientSelection extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            users:[]
+            users:[],
+            title: "Select Baby ID"
         }
         this.handleSelect = this.handleSelect.bind(this);
     }
@@ -41,8 +42,9 @@ class PatientSelection extends React.Component {
             });
     }
 
-    handleSelect(eventKey, event) {
+    handleSelect(eventKey) {
         selectedPatient = eventKey;
+        this.setState({title: eventKey})
         console.log("baby selected!"  + eventKey);  // for programmer to check handleSelect worked as expected
         localStorage.setItem("selectedPatient", selectedPatient); // saves selected patient ID into browser local storage, making it retrievable by all other application webpages and components
     }
@@ -63,7 +65,8 @@ class PatientSelection extends React.Component {
                     <tbody>
                         <DropdownButton
                             id="dropdown-basic-button"
-                            title="Select Baby"
+                            title={this.state.title}
+                            // title="Select Baby"
                             onSelect={this.handleSelect}
                         >
                             {
