@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import "@fontsource/ruluko"
 import neologo from './NeoLogo.png';
+import SelectedPatient from './SelectedPatient'
 
 const Button = styled.button`
   background-color: #F8F8F8;
@@ -52,6 +53,7 @@ function MainMenu() {
             <a href="./patientselection">
                 <BackButton> Back </BackButton>
             </a>
+            <SelectedPatient />
         </div>
     )
 }

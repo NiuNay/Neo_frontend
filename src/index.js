@@ -13,7 +13,7 @@ import {
     Comment,
     PrickReading,
     GlucoseLevels,
-    PatientSelection
+    PatientSelection,
 } from "./components";
 
 ReactDOM.render(
@@ -26,6 +26,7 @@ ReactDOM.render(
             <Route path="/prickreading" element={<PrickReading />} />
             <Route path="/glucoselevels" element={<GlucoseLevels />} />
             <Route path="/patientselection" element={<PatientSelection />} />
+
         </Routes>
     </Router>,
 

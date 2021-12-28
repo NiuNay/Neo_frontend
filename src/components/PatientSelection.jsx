@@ -4,6 +4,7 @@ import styled from "styled-components";
 import neologo from "./NeoLogo.png";
 import { DropdownButton, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SelectedPatient from './SelectedPatient';
 
 const Button = styled.button`
   background-color: #E9E9E9;
@@ -19,23 +20,38 @@ const Button = styled.button`
   margin-right:40%;
 `;
 
+// let selectedUser = "";
+
 class PatientSelection extends React.Component {
 
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
-            users:[]
+            users:[],
+            selectedUser: "",
+            timeStamp: "",
         }
+
+        this.handleSelect = this.handleSelect.bind(this);
+        this.selectedpatientElement = React.createRef();
     }
 
     componentDidMount(){
         UserService.getUsers()
             .then((response) => {
-                this.setState({ users: response.data})
+                this.setState({ users: response.data })
             })
             .catch(() => {                          // checks data was retrieved
                 alert("Error retrieving baby data");
             });
+    }
+
+    handleSelect(eventKey, event) {
+        this.setState({selectedUser: eventKey});
+        // selectedUser = eventKey;
+        // console.log("baby selected! " + selectedUser);               // for programmer to check handleSelect worked as expected
+        console.log("baby selected!"  + eventKey);               // for programmer to check handleSelect worked as expected
+        this.selectedpatientElement.current.changeId(eventKey);
     }
 
     render (){
@@ -52,14 +68,26 @@ class PatientSelection extends React.Component {
                     </tr>
                     </thead>
                     <tbody>
-                        <DropdownButton id="dropdown-basic-button" title="Select Baby">
+                        <DropdownButton
+                            id="dropdown-basic-button"
+                            title="Select Baby"
+                            onSelect={this.handleSelect}
+                        >
                             {
                                 this.state.users.map(
                                     user =>
-                                        <Dropdown.Item key={user.id}>{user.id}</Dropdown.Item>
+                                        <Dropdown.Item
+                                            eventKey={user.id}
+                                            value={user.id}
+                                            key={user.id}
+                                        >{user.id}</Dropdown.Item>
                                 )
                             }
                         </DropdownButton>
+                        <SelectedPatient 
+                            id={this.state.selectedUser}
+                            ref={this.selectedpatientElement}
+                        />
                     </tbody>
                 </table>
                 <a href="./menu">
