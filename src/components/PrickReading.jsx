@@ -15,7 +15,7 @@ function PrickReading() {
             <center>
                 <img src={neologo} height={55} width={112} style={{ margin: '30px' }}/>
             </center>
-            <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Comment</h1>
+            <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Prick Readings</h1>
         <div className= "button-grid-2">
             <a href="./menu">
                 <BackButton> Back </BackButton>
@@ -48,7 +48,7 @@ function PrickReading() {
 export default PrickReading
 
   
-const form1 = {
+    const form1 = {
     position: 'absolute',
     top: "40%",
     left: "40%",
