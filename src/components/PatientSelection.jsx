@@ -19,23 +19,32 @@ const Button = styled.button`
   margin-right:40%;
 `;
 
+let selectedPatient = ""; // stores selected patient ID
+
 class PatientSelection extends React.Component {
 
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
             users:[]
         }
+        this.handleSelect = this.handleSelect.bind(this);
     }
 
     componentDidMount(){
         UserService.getUsers()
             .then((response) => {
-                this.setState({ users: response.data})
+                this.setState({ users: response.data })
             })
-            .catch(() => {                          // checks data was retrieved
-                alert("Error retrieving patient data");
+            .catch(() => { // checks data was retrieved
+                alert("Error retrieving baby data");
             });
+    }
+
+    handleSelect(eventKey, event) {
+        selectedPatient = eventKey;
+        console.log("baby selected!"  + eventKey);  // for programmer to check handleSelect worked as expected
+        localStorage.setItem("selectedPatient", selectedPatient); // saves selected patient ID into browser local storage, making it retrievable by all other application webpages and components
     }
 
     render (){
@@ -47,16 +56,24 @@ class PatientSelection extends React.Component {
                 <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Patient Selection</h1>
                 <table className = "table table-striped">
                     <thead>
-                    <tr>
-                        <td>Patient ID</td>
-                    </tr>
+                        <tr>
+                            <td>Patient ID</td>
+                        </tr>
                     </thead>
                     <tbody>
-                        <DropdownButton id="dropdown-basic-button" title="Select Baby">
+                        <DropdownButton
+                            id="dropdown-basic-button"
+                            title="Select Baby"
+                            onSelect={this.handleSelect}
+                        >
                             {
                                 this.state.users.map(
                                     user =>
-                                        <Dropdown.Item key={user.id}>{user.id}</Dropdown.Item>
+                                        <Dropdown.Item
+                                            eventKey={user.id}
+                                            value={user.id}
+                                            key={user.id}
+                                        >{user.id}</Dropdown.Item>
                                 )
                             }
                         </DropdownButton>
@@ -66,7 +83,6 @@ class PatientSelection extends React.Component {
                     <Button> Next </Button>
                 </a>
             </div>
-
         )
     }
 }
