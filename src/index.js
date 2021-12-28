@@ -25,7 +25,7 @@ ReactDOM.render(
             <Route path="/comment" element={<Comment />} />
             <Route path="/prickreading" element={<PrickReading />} />
             <Route path="/glucoselevels" element={<GlucoseLevels />} />
-            <Route path="/patientselection" element={<PatientSelection />} />
+            <Route path="/PatientSelection" element={<PatientSelection />} />
 
         </Routes>
     </Router>,

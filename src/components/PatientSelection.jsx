@@ -4,7 +4,6 @@ import styled from "styled-components";
 import neologo from "./NeoLogo.png";
 import { DropdownButton, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SelectedPatient from './SelectedPatient';
 
 const Button = styled.button`
   background-color: #E9E9E9;
@@ -20,7 +19,7 @@ const Button = styled.button`
   margin-right:40%;
 `;
 
-// let selectedUser = "";
+let selectedPatient = "";
 
 class PatientSelection extends React.Component {
 
@@ -33,7 +32,6 @@ class PatientSelection extends React.Component {
         }
 
         this.handleSelect = this.handleSelect.bind(this);
-        this.selectedpatientElement = React.createRef();
     }
 
     componentDidMount(){
@@ -47,11 +45,9 @@ class PatientSelection extends React.Component {
     }
 
     handleSelect(eventKey, event) {
-        this.setState({selectedUser: eventKey});
-        // selectedUser = eventKey;
-        // console.log("baby selected! " + selectedUser);               // for programmer to check handleSelect worked as expected
+        selectedPatient = eventKey;
         console.log("baby selected!"  + eventKey);               // for programmer to check handleSelect worked as expected
-        this.selectedpatientElement.current.changeId(eventKey);
+        localStorage.setItem("selectedPatient", selectedPatient);
     }
 
     render (){
@@ -84,10 +80,6 @@ class PatientSelection extends React.Component {
                                 )
                             }
                         </DropdownButton>
-                        <SelectedPatient 
-                            id={this.state.selectedUser}
-                            ref={this.selectedpatientElement}
-                        />
                     </tbody>
                 </table>
                 <a href="./menu">
