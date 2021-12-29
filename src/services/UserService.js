@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 const patient_list_url = 'http://localhost:8080';
-const patient_data_url = 'http://localhost:8080/124790';
 
 class UserService {
 
@@ -10,7 +9,27 @@ class UserService {
     }
 
     getData(){
-        return axios.get(patient_data_url);
+        return axios.get(patient_list_url);
+    }
+
+    addCalibration(calibration, id) {
+        return axios.post(patient_list_url +'/'+ id + '/addCalibration', calibration) ;
+    }
+
+    addDelay(delay, id) {
+        return axios.post(patient_list_url +'/'+ id + '/addDelay', delay) ;
+    }
+
+    addPrickData(patient, id) {
+        return axios.post(patient_list_url +'/'+ id + '/addPrickData', patient) ;
+    }
+
+    addNote(patient,id){
+        return axios.post(patient_list_url +'/'+ id + '/addNote', patient) ;
+    }
+
+    getPatientById(id){
+        return axios.get(patient_list_url + '/' + id);
     }
 }
 
