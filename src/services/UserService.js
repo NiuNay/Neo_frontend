@@ -1,9 +1,6 @@
 import axios from 'axios'
 
 const patient_list_url = 'http://localhost:8080';
-const EMPLOYEE_API_BASE_URL = 'http://localhost:8080';
-const patient_data_url = 'http://localhost:8080/124790';
-
 
 class UserService {
 
@@ -12,33 +9,28 @@ class UserService {
     }
 
     getData(){
-        return axios.get(patient_data_url);
+        return axios.get(patient_list_url);
     }
 
+    addCalibration(calibration, id) {
+        return axios.post(patient_list_url +'/'+ id + '/addCalibration', calibration) ;
+    }
 
-getEmployees(){
-    return axios.get(EMPLOYEE_API_BASE_URL);
-}
+    addDelay(delay, id) {
+        return axios.post(patient_list_url +'/'+ id + '/addDelay', delay) ;
+    }
 
-addPrickData(selectedPatient){
-    return axios.post(EMPLOYEE_API_BASE_URL +'/'+ selectedPatient);
-}
+    addPrickData(patient, id) {
+        return axios.post(patient_list_url +'/'+ id + '/addPrickData', patient) ;
+    }
 
-addNote(employee,id){
-    return axios.post(EMPLOYEE_API_BASE_URL +'/'+ id + '/addNote', employee) ;
-}
+    addNote(patient,id){
+        return axios.post(patient_list_url +'/'+ id + '/addNote', patient) ;
+    }
 
-getEmployeeById(employeeId){
-    return axios.get(EMPLOYEE_API_BASE_URL + '/' + employeeId);
-}
-
-updateEmployee(employee, employeeId){
-    return axios.put(EMPLOYEE_API_BASE_URL + '/' + employeeId, employee);
-}
-
-deleteEmployee(employeeId){
-    return axios.delete(EMPLOYEE_API_BASE_URL + '/' + employeeId);
-}
+    getPatientById(id){
+        return axios.get(patient_list_url + '/' + id);
+    }
 }
 
 export default new UserService();

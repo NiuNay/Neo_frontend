@@ -31,26 +31,13 @@ class Comment extends Component {
         this.saveNote = this.saveNote.bind(this);
     }
 
-    componentDidMount(){
-
-            UserService.getEmployeeById(this.state.id).then( (res) =>{
-                let employee = res.data;
-                this.setState({note: employee.note,
-                    time_instant: employee.time_instant,
-                    
-                });
-            });
-               
-    }
-
 
     saveNote = (e) => {
         e.preventDefault();
-        let employee = {note: this.state.note, time_instant: this.state.date + ' ' + this.state.time};
-        console.log('employee => ' + JSON.stringify(employee));
-        UserService.addNote(employee,this.state.id).then(res =>{
-            this.props.history.push('/menu')
-        });
+        let patient = {note: this.state.note, time_instant: this.state.date + ' ' + this.state.time};
+        if (this.state.note) {
+        console.log('patient => ' + JSON.stringify(patient));
+        UserService.addNote(patient,this.state.id);}
         
     }
     
@@ -86,17 +73,18 @@ render(){
             <text style={text1}> Input time </text>
             <TimeInput defaultValue={deftime} className="form-control" value= {this.state.time} onChange={this.changeTimeHandler} /> 
         </div> 
-     
-        <div className= "button-grid-2">
+        
+        <center className="button-grid-2" >
+
+            <a href="./menu">
+                <SaveButton onClick={this.saveNote}>Upload note</SaveButton>
+            </a>
+        
             <a href="./menu">
                 <BackButton> Back to menu </BackButton>
             </a>
-            <a href="./menu">
-                <BackButton onClick={this.saveNote}>Save</BackButton>
-            </a>
 
-        </div>
-    
+        </center>     
      
          </div>
 
@@ -107,42 +95,32 @@ render(){
 export default Comment
 
     
-    const form1 = {
-    position: 'absolute',
-    top: "40%",
-    left: "40%",
-    fontSize: 20,
-    ontFamily: 'ruluko', 
-    color: '#565656',
-    
-    }
-    
-    const form2 = {
-    position: 'absolute',
-    top: "50%",
-    left: "40%",
-    fontSize: 20,
-    ontFamily: 'ruluko', 
-    color: '#565656',
-    }
-    
-    const form3 = {
-    position: 'absolute',
-    top: "60%",
-    left: "40%",
-    fontSize: 20,
-    ontFamily: 'ruluko', 
-    color: '#565656',
-    }
-    
+    const SaveButton = styled.button`
+    background-color: #d3f8d6;
+    color: #515050;
+    font-size: 20px;
+    font-family: ruluko;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    cursor: pointer;
+    width:20%;
+    margin-left:40%;
+    margin-right:40%;
+    `;
+
     const BackButton = styled.button`
     background-color: #E9E9E9;
     color: #515050;
     font-size: 20px;
     font-family: ruluko;
+    padding: 10px;
     border-radius: 5px;
+    margin: 10px 0px;
     cursor: pointer;
-    width: 100%
+    width:20%;
+    margin-left:40%;
+    margin-right:40%;
     `;
 
     const text1 = {

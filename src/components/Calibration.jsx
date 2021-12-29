@@ -1,101 +1,122 @@
-import React from 'react';
+import React, { Component } from 'react';
 import neologo from "./NeoLogo.png";
 import styled from 'styled-components'
+import UserService from '../services/UserService';
 
+const id = localStorage.getItem("selectedPatient");
 
-function Calibration() {
+class Calibration extends Component {
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            id: id,
+            gradient: 1.1,
+            intercept: 0.2,
+            delay: 20
+        }
+        this.changeGradHandler = this.changeGradHandler.bind(this);
+        this.changeInterHandler = this.changeInterHandler.bind(this);
+        this.changeDelayHandler = this.changeDelayHandler.bind(this);
+        this.saveConstants = this.saveConstants.bind(this);
+    }
+
+    saveConstants = (e) => {
+        e.preventDefault();
+        let calibration = {gradient: this.state.gradient, intercept: this.state.intercept};
+        let delay = {delay: this.state.delay}
+        console.log('calibration => ' + JSON.stringify(calibration));
+        console.log('delay => ' + JSON.stringify(delay));
+        UserService.addCalibration(calibration,this.state.id);
+        UserService.addDelay(delay,this.state.id);
+        
+    }
+    
+    changeGradHandler= (event) => {
+
+        this.setState({gradient: event.target.value});
+    }
+
+    changeInterHandler= (event) => {
+
+        this.setState({intercept: event.target.value});
+    }
+
+    changeDelayHandler= (event) => {
+
+        this.setState({delay: event.target.value});
+    }
+
+render(){
     return (
         <div>
+
             <center>
                 <img src={neologo} height={55} width={112} style={{ margin: '30px' }}/>
             </center>
-            <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Calibration and Settings</h1>
-            <h2 style={text1}>Linear Function Callibration</h2>
-            
-            <form style={form1}> 
-                <label>Input slope: 
-                    <input type="text" />
-                </label>
-            </form>
-            <form style={form2}> 
-                <label>Input offset:
-                    <input type="text" />
-                </label>
-            </form>
-            <h2 style={text2}>Sweat reading settings</h2>
-            <form style={form3}> 
-                <label>Time delay:
-                    <input type="text"  />
-                </label>
-            </form>
-            <div className= "button-grid-2">
-                <a href="./menu">
-                    <BackButton> Back </BackButton>
-                </a>
-                <a href="./menu">
-                    <BackButton> Save </BackButton>
-                </a>
-            </div>
-        </div>
+            <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Callibration and Settings</h1>
+       
+         <div className="grid-columns">
+            <text style={text1}> Input gradient parameter (nA)</text>
+            <input name="gradient" className="form-control" value={this.state.gradient} onChange={this.changeGradHandler}/>
+            <text style={text1}> Input intercept parameter (nA) </text>
+            <input name="intercept" className="form-control" value={this.state.intercept} onChange={this.changeInterHandler}/>
+            <text style={text1}> Input time delay (min) </text>
+            <input name="delay" className="form-control" value= {this.state.delay} onChange={this.changeDelayHandler} /> 
+        </div> 
+        
+        <center className="button-grid-2" >
+
+            <a href="./menu">
+                <SaveButton onClick={this.saveConstants}>Calibrate</SaveButton>
+            </a>
+        
+            <a href="./menu">
+                <BackButton> Back to menu </BackButton>
+            </a>
+
+        </center>     
+     
+         </div>
+
+
     )
-}
+}}
 
 export default Calibration
 
-const text1 = {
-    position: 'relative',
-    top: "25px",
-    left: "100px",
-    fontSize: 25,
-    ontFamily: 'ruluko', 
-    fontWeight: "bold",
-    color: '#565656'
-}
+    
+    const SaveButton = styled.button`
+    background-color: #d3f8d6;
+    color: #515050;
+    font-size: 20px;
+    font-family: ruluko;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    cursor: pointer;
+    width:20%;
+    margin-left:40%;
+    margin-right:40%;
+    `;
 
-const text2 = {
-    position: 'relative',
-    top: "150px",
-    left: "100px",
-    fontSize: 25,
-    ontFamily: 'ruluko', 
-    fontWeight: "bold",
-    color: '#565656'
-}
+    const BackButton = styled.button`
+    background-color: #E9E9E9;
+    color: #515050;
+    font-size: 20px;
+    font-family: ruluko;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    cursor: pointer;
+    width:20%;
+    margin-left:40%;
+    margin-right:40%;
+    `;
 
-const form1 = {
-    position: 'absolute',
-    top: "30%",
-    left: "40%",
-    fontSize: 20,
-    ontFamily: 'ruluko', 
-    color: '#565656',
-  
-}
-
-const form2 = {
-    position: 'absolute',
-    top: "40%",
-    left: "40%",
-    fontSize: 20,
-    ontFamily: 'ruluko', 
-    color: '#565656',
-}
-
-const form3 = {
-    position: 'absolute',
-    top: "60%",
-    left: "40%",
-    fontSize: 20,
-    ontFamily: 'ruluko', 
-    color: '#565656',
-}
-
-const BackButton = styled.button`
-  background-color: #E9E9E9;
-  color: #515050;
-  font-size: 20px;
-  font-family: ruluko;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 100%
-`;
+    const text1 = {
+        fontSize: 20,
+        ontFamily: 'ruluko', 
+        color: '#565656',
+    }
