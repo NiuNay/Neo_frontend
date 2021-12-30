@@ -59,11 +59,11 @@ render(){
        
          <div className="grid-columns">
             <text style={text1}> Input gradient parameter (nA)</text>
-            <input name="gradient" className="form-control" value={this.state.gradient} onChange={this.changeGradHandler}/>
+            <input type ="number" name="number" className="form-control" value={this.state.gradient} onChange={this.changeGradHandler}/>
             <text style={text1}> Input intercept parameter (nA) </text>
-            <input name="intercept" className="form-control" value={this.state.intercept} onChange={this.changeInterHandler}/>
+            <input type = "number" name="number" className="form-control" value={this.state.intercept} onChange={this.changeInterHandler}/>
             <text style={text1}> Input time delay (min) </text>
-            <input name="delay" className="form-control" value= {this.state.delay} onChange={this.changeDelayHandler} /> 
+            <input type = "number" name="delay" className="form-control" value= {this.state.delay} onChange={this.changeDelayHandler} /> 
         </div> 
         
         <center className="button-grid-2" >
