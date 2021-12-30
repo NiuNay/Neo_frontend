@@ -46,7 +46,7 @@ class PrickReading extends Component {
 
     savePrickData = (e) => {
         e.preventDefault();
-        let patient = {prick_data: this.state.prick_data, time_instant: this.state.date + ' ' + this.state.time};
+        let patient = {prick_data: this.state.prick_data, time_instant: this.state.date + ' ' + this.state.time + ":00"};
         if (this.state.prick_data) {
         console.log('patient => ' + JSON.stringify(patient));
         UserService.addPrickData(patient,this.state.id).then(res =>{
