@@ -1,106 +1,30 @@
 import React from 'react';
 import neologo from "./NeoLogo.png";
-import styles from "./styles.css"
 import CanvasJSReact from '../lib/canvasjs.react';
 import styled from "styled-components";
 import UserService from "../services/UserService";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const BackButton = styled.button`
-  background-color: #E9E9E9;
-  color: #515050;
-  font-size: 20px;
-  font-family: ruluko;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px 0px;
-  cursor: pointer;
-  width:20%;
-  margin-left:40%;
-  margin-right:40%;
-`;
-
-const options = {
-    animationEnabled: true,
-    exportEnabled: true,
-    theme: "light2", // "light1", "dark1", "dark2"
-    title:{
-        text: "Glucose Levels over Time"
-    },
-    axisY: {
-        title: "Blood Glucose (mmol/L)",
-    },
-    axisX: {
-        title: "Time of Day",
-        interval: 2
-    },
-    toolTip: {
-        shared: true
-    },
-    data: [{
-        type: "line",
-        name: "Sweat Data",
-        showInLegend: true,
-        toolTipContent: "{x}: {y}mmol/L",
-        dataPoints: [
-            { x: 1, y: 64 },
-            { x: 2, y: 61 },
-            { x: 3, y: 64 },
-            { x: 4, y: 62 },
-            { x: 5, y: 64 },
-            { x: 6, y: 60 },
-            { x: 7, y: 58 },
-            { x: 8, y: 59 },
-            { x: 9, y: 53 },
-            { x: 10, y: 54 },
-            { x: 11, y: 61 },
-            { x: 12, y: 60 },
-            { x: 13, y: 55 },
-            { x: 14, y: 60 },
-            { x: 15, y: 56 },
-            { x: 16, y: 60 },
-            { x: 17, y: 59.5 },
-            { x: 18, y: 63 },
-            { x: 19, y: 58 },
-            { x: 20, y: 54 },
-            { x: 21, y: 59 },
-            { x: 22, y: 64 },
-            { x: 23, y: 59 }
-        ]
-    },
-        {
-            type: "scatter",
-            name: "Prick Data",
-            showInLegend: true,
-            toolTipContent: "{x}: {y}mmol/L",
-            dataPoints: [
-                { x: 1, y: 65 },
-                { x: 4, y: 60 },
-                { x: 9, y: 62 },
-                { x: 10, y: 54 },
-                { x: 13, y: 60 },
-                { x: 14, y: 64 },
-                { x: 16, y: 59 },
-                { x: 18, y: 63 },
-                { x: 23, y: 65 }
-            ]
-        }
-    ]
-}
+const id = localStorage.getItem("selectedPatient");
 
 class GlucoseLevels extends React.Component {
 
     constructor(props){
         super(props)
         this.state = {
-            patient_data:[]
+            id: id,
+            time_data:[],
+            current_data: [],
+            length: 0,
+            title: "Select Patient ID"
         }
     }
 
     componentDidMount(){
-        UserService.getData()
+        UserService.getData(this.state.id)
             .then((response) => {
-                this.setState({ patient_data: response.data})
+                this.setState({ time_data: response.data[0], current_data: response.data[1]})
+                this.setState({len: this.state.time_data.length})
             })
             .catch(() => {                          // checks data was retrieved
                 alert("Error retrieving patient data");
@@ -108,8 +32,78 @@ class GlucoseLevels extends React.Component {
     }
 
     render (){
+        const BackButton = styled.button`
+          background-color: #E9E9E9;
+          color: #515050;
+          font-size: 20px;
+          font-family: ruluko;
+          padding: 10px;
+          border-radius: 5px;
+          margin: 10px 0px;
+          cursor: pointer;
+          width:20%;
+          margin-left:40%;
+          margin-right:40%;
+        `;
+
+        const timeData = this.state.time_data
+        const currentData = this.state.current_data
+        var dataPlot = [];
+        var t = new Date();
+        for (let i = 0; i < this.state.len; i++) {
+            t = this.state.time_data[i];
+            dataPlot.push({x: t, y: this.state.current_data[i]})
+        }
+        // RIGHT FORMAT BUT CONVERT TO DATE TIME - didn't work yet...
+
+        const options = {
+            animationEnabled: true,
+            exportEnabled: true,
+            theme: "light2", // "light1", "dark1", "dark2"
+            title:{
+                text: "Glucose Levels over Time"
+            },
+            axisY: {
+                title: "Blood Glucose (mmol/L)",
+            },
+            axisX: {
+                title: "Time of Day",
+                interval: 2
+            },
+            toolTip: {
+                shared: true
+            },
+            data: [{
+                type: "line",
+                name: "Sweat Data",
+                showInLegend: true,
+                toolTipContent: "{x}: {y}mmol/L",
+                dataPoints: []
+                //     [//array
+                //     { x: new Date(2012, 1, 1), y: 26},
+                //     { x: new Date(2012, 1, 3), y: 38},
+                //     { x: new Date(2012, 1, 5), y: 43},
+                //     { x: new Date(2012, 1, 7), y: 29},
+                //     { x: new Date(2012, 1, 11), y: 41},
+                //     { x: new Date(2012, 1, 13), y: 54},
+                //     { x: new Date(2012, 1, 20), y: 66},
+                //     { x: new Date(2012, 1, 21), y: 60},
+                //     { x: new Date(2012, 1, 25), y: 53},
+                //     { x: new Date(2012, 1, 27), y: 60}
+                // ]
+            }, {
+                type: "scatter",
+                name: "Prick Data",
+                showInLegend: true,
+                toolTipContent: "{x}: {y}mmol/L",
+                dataPoints: dataPlot
+                }
+            ]
+        }
+
         return (
             <div>
+                {timeData}
                 <center>
                     <img src={neologo} height={55} width={112} style={{ margin: '30px' }}/>
                 </center>

@@ -8,8 +8,8 @@ class UserService {
         return axios.get(patient_list_url);
     }
 
-    getData(){
-        return axios.get(patient_list_url);
+    getData(id){
+        return axios.get(patient_list_url +'/' + id);
     }
 
     addCalibration(calibration, id) {
