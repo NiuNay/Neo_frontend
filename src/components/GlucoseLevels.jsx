@@ -7,6 +7,10 @@ import UserService from "../services/UserService";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const id = localStorage.getItem("selectedPatient");
+// Default start and end dates for plotting data
+const end = new Date() // today
+const start = new Date(end)
+start.setDate(start.getDate()-1) // yesterday
 
 class GlucoseLevels extends React.Component {
 
@@ -20,6 +24,8 @@ class GlucoseLevels extends React.Component {
             prick_glucose_data: [],
             sweat_data_length: 0,
             prick_data_length: 0,
+            start_time: start,
+            end_time: end,
             title: "Select Patient ID"
         }
     }
@@ -53,7 +59,9 @@ class GlucoseLevels extends React.Component {
         var sweat_data = [];
         for (let i = 0; i < this.state.sweat_data_length; i++) {
             var t = new Date(this.state.sweat_time_data[i]);
+            if(t>this.state.start_time && t<this.state.end_time) {
             sweat_data.push({x: t, y: this.state.sweat_glucose_data[i]})
+            }
         }
 
         var prick_data = [];
@@ -63,6 +71,7 @@ class GlucoseLevels extends React.Component {
         }
 
         const options = {
+            zoomEnabled: true,
             animationEnabled: true,
             exportEnabled: true,
             theme: "light2", // "light1", "dark1", "dark2"
@@ -107,6 +116,7 @@ class GlucoseLevels extends React.Component {
                             <h3 style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold"}}>Selected Patient</h3>
                             {/*I think melissa is writing code for this?*/}
                             <h3 style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold"}}>Comments</h3>
+                            <h3 style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold"}}>Time Frame</h3>
                         </div>
                         <div className='column'>
                             <CanvasJSChart options = {options}/>
