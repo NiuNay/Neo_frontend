@@ -118,6 +118,8 @@ class GlucoseLevels extends React.Component {
                             {/*I think melissa is writing code for this?*/}
                             <h3 style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold"}}>Comments</h3>
                             <h3 style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold"}}>Time Frame</h3>
+                            {/*<text style={text1}> Input date </text>*/}
+                            {/*<input name="time_instant" className="form-control" value={this.state.date} onChange={this.changeDateHandler}/>*/}
                         </div>
                         <div className='column'>
                             <CanvasJSChart options = {options}/>
