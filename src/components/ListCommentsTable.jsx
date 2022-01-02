@@ -1,6 +1,12 @@
 import React, { Component, useState } from 'react'
 import UserService from '../services/UserService'
+import styled from 'styled-components'
+import TimeInput from 'react-input-time';
 
+
+var today = new Date();
+var defDate=today.getDate() + "/" + (today.getMonth()+1) + "/" +  today.getFullYear();
+var deftime =today.getHours() + ":" + today.getMinutes();
 const id = localStorage.getItem("selectedPatient");
 
 
@@ -23,7 +29,7 @@ class ListCommentsTable extends Component {
 componentDidMount(){
     UserService.getPatientById(id).then((res) => {
         this.setState({ time_instant: res.data[4], note: res.data[5]});  
-        this.setState({data_length: this.state.note.length});
+        this.setState({data_length: this.state.time_instant.length});
     });
 }
 
@@ -34,6 +40,22 @@ saveNote = (e) => {
     console.log('patient => ' + JSON.stringify(patient));
     UserService.addNote(patient,this.state.id);}
     
+}
+
+
+changeCommentHandler= (event) => {
+
+    this.setState({note: event.target.value});
+}
+
+changeDateHandler= (event) => {
+
+    this.setState({date: event.target.value});
+}
+
+changeTimeHandler= (event) => {
+
+    this.setState({time: event.target.value});
 }
 
 
@@ -50,8 +72,7 @@ render() {
              
              <br></br>
              <div className = "row">
-                    <table className = "table table-striped table-bordered">
-
+                    <table className = "table table-white table-sm">
                         <thead>
                             <tr>
                                 <th> Time</th>
@@ -69,8 +90,8 @@ render() {
                     </table>
                     
              </div>
-             <div >
-                <button className="btn btn-primary" onClick={this.saveNote}> Add new note</button>
+             <div>
+            <button className="btn btn-primary" onClick={this.saveNote}> Add new note</button>
              </div>
         </div>
     )
@@ -78,3 +99,37 @@ render() {
 
 
 export default ListCommentsTable
+
+const SaveButton = styled.button`
+background-color: #d3f8d6;
+color: #515050;
+font-size: 20px;
+font-family: ruluko;
+padding: 10px;
+border-radius: 5px;
+margin: 10px 0px;
+cursor: pointer;
+width:20%;
+margin-left:40%;
+margin-right:40%;
+`;
+
+const BackButton = styled.button`
+background-color: #E9E9E9;
+color: #515050;
+font-size: 20px;
+font-family: ruluko;
+padding: 10px;
+border-radius: 5px;
+margin: 10px 0px;
+cursor: pointer;
+width:20%;
+margin-left:40%;
+margin-right:40%;
+`;
+
+const text1 = {
+    fontSize: 20,
+    ontFamily: 'ruluko', 
+    color: '#565656',
+}
