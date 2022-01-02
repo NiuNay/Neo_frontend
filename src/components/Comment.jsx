@@ -80,7 +80,7 @@ render(){
             </a>
         
             <a href="./menu">
-                <BackButton> Back to menu </BackButton>
+                <BackButton> Back</BackButton>
             </a>
 
         </center>     
