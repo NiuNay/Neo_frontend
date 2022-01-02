@@ -8,9 +8,6 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const id = localStorage.getItem("selectedPatient");
 // Default start and end dates for plotting data
-const end = new Date() // today
-const start = new Date(end)
-start.setDate(start.getDate()-1) // yesterday
 
 class GlucoseLevels extends React.Component {
 
@@ -24,8 +21,8 @@ class GlucoseLevels extends React.Component {
             prick_glucose_data: [],
             sweat_data_length: 0,
             prick_data_length: 0,
-            start_time: start,
-            end_time: end,
+            start_time: [],
+            end_time: [],
             title: "Select Patient ID"
         }
     }
@@ -35,6 +32,10 @@ class GlucoseLevels extends React.Component {
             .then((response) => {
                 this.setState({ sweat_time_data: response.data[0], sweat_glucose_data: response.data[1], prick_time_data: response.data[2], prick_glucose_data: response.data[3]})
                 this.setState({sweat_data_length: this.state.sweat_time_data.length, prick_data_length: this.state.prick_time_data.length})
+                const end = new Date(this.state.sweat_time_data[this.state.sweat_data_length-1]);
+                const start = new Date(end)
+                start.setDate(start.getDate()-1)
+                this.setState({start_time: start, end_time: end})
             })
             .catch(() => {                          // checks data was retrieved
                 alert("Error retrieving patient data");
