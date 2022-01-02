@@ -30,6 +30,7 @@ class Calibration extends Component {
         console.log('delay => ' + JSON.stringify(delay));
         UserService.addCalibration(calibration,this.state.id);
         UserService.addDelay(delay,this.state.id);
+        alert("Data saved!")
         
     }
     

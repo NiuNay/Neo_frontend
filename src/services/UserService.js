@@ -31,6 +31,7 @@ class UserService {
     getPatientById(id){
         return axios.get(patient_list_url + '/' + id);
     }
+
 }
 
 export default new UserService();
