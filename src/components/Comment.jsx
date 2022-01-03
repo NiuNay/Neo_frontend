@@ -74,30 +74,28 @@ render(){
                             <div className = " col-md-8 offset-md-3 offset-md-3">
 
                     <form>
-                        <center>
+                        
                             <div className = "form-group row">
-                                <label className="col-4 col-form-label" style={text1}> Input comment </label>
+                                <label className="col-5 col-form-label" style={text1}> Input comment </label>
                                 <div class="col-5">
                                 <input placeholder="type note..." name="note" className="form-control" value={this.state.note} onChange={this.changeCommentHandler}/>
                                 </div>
                             </div>
-                        </center>
-                        <center>
+                        
                             <div className = "form-group row">
-                                <label className="col-4 col-form-label" style={text1}> Input date </label>
+                                <label className="col-5 col-form-label" style={text1}> Input date </label>
                                 <div class="col-5">
                                 <input name="time_instant" className="form-control" value={this.state.date} onChange={this.changeDateHandler}/>
                                 </div>
                             </div>
-                        </center>
-                        <center>
+                        
                             <div className = "form-group row">
-                                <label className="col-4 col-form-label" style={text1}> Input time </label>
+                                <label className="col-5 col-form-label" style={text1}> Input time </label>
                                 <div class="col-5">
                                 <TimeInput defaultValue={deftime} className="form-control" value= {this.state.time} onChange={this.changeTimeHandler} /> 
                                 </div>
                             </div>
-                        </center>
+                       
                     </form>
                     </div>
                     </div>  
