@@ -58,14 +58,31 @@ render(){
             </center>
             <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Callibration and Settings</h1>
        
-         <div className="grid-columns">
-            <text style={text1}> Input gradient parameter (nA)</text>
-            <input type ="number" name="number" className="form-control" value={this.state.gradient} onChange={this.changeGradHandler}/>
-            <text style={text1}> Input intercept parameter (nA) </text>
-            <input type = "number" name="number" className="form-control" value={this.state.intercept} onChange={this.changeInterHandler}/>
-            <text style={text1}> Input time delay (min) </text>
-            <input type = "number" name="delay" className="form-control" value= {this.state.delay} onChange={this.changeDelayHandler} /> 
-        </div> 
+      
+                <div className = "container">
+                    <div className = "row">
+                        <div className = " col-md-8 offset-md-3 offset-md-3">
+                            <div className = "form-group row">
+                                <label className="col-5 col-form-label" style={text1}> Input gradient parameter (nA)</label>
+                                <div class="col-5">
+                                    <input type ="number" name="number" className="form-control" value={this.state.gradient} onChange={this.changeGradHandler}/>
+                                </div>
+                            </div>
+                            <div className = "form-group row">
+                                <label className="col-5 col-form-label" style={text1}> Input intercept parameter (nA) </label>
+                                <div class="col-5">
+                                    <input type = "number" name="number" className="form-control" value={this.state.intercept} onChange={this.changeInterHandler}/>
+                                </div>
+                            </div>
+                            <div className = "form-group row">
+                                <label className="col-5 col-form-label" style={text1}> Input time delay (min) </label>
+                                <div class="col-5">
+                                    <input type = "number" name="delay" className="form-control" value= {this.state.delay} onChange={this.changeDelayHandler} /> 
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
         
         <center className="button-grid-2" >
 

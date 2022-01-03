@@ -78,15 +78,32 @@ render(){
             </center>
             <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Prick Readings</h1>
        
-         <div className="grid-columns">
-            <text style={text1}> Input prick readings (nA) </text>
-            <input type = "number" placeholder="input data..." name="data" className="form-control" value={this.state.prick_data} onChange={this.changeDataHandler}/>
-            <text style={text1}> Input date </text>
-            <input name="time_instant" className="form-control" value={this.state.date} onChange={this.changeDateHandler}/>
-            <text style={text1}> Input time </text>
-            <TimeInput defaultValue={deftime} className="form-control" value= {this.state.time} onChange={this.changeTimeHandler} /> 
-            
-        </div> 
+            <div className = "container">
+                <div className = "row">
+                    <div className = " col-md-8 offset-md-3 offset-md-3">
+                    <form>
+                        <div className = "form-group row">
+                            <text className="col-5 col-form-label" style={text1}> Input prick readings (nA) </text>
+                            <div class="col-5">
+                                <input type = "number" placeholder="input data..." name="data" className="form-control" value={this.state.prick_data} onChange={this.changeDataHandler}/>
+                            </div> 
+                        </div>
+                        <div className = "form-group row">
+                            <text className="col-5 col-form-label" style={text1}> Input date </text>
+                            <div class="col-5">
+                                <input name="time_instant" className="form-control" value={this.state.date} onChange={this.changeDateHandler}/>
+                            </div>
+                        </div>
+                        <div className = "form-group row">
+                            <text className="col-5 col-form-label" style={text1}> Input time </text>
+                            <div class="col-5">
+                                <TimeInput defaultValue={deftime} className="form-control" value= {this.state.time} onChange={this.changeTimeHandler} /> 
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div> 
      
         <center className= "button-grid-2">
         <a href="./menu">
