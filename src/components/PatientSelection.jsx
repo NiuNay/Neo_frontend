@@ -2,7 +2,7 @@ import React from 'react';
 import UserService from '../services/UserService';
 import styled from "styled-components";
 import neologo from "./NeoLogo.png";
-import {DropdownButton, Dropdown, Container, Row, Col} from 'react-bootstrap';
+import { DropdownButton, Dropdown, Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Button = styled.button`
@@ -50,7 +50,19 @@ class PatientSelection extends React.Component {
         localStorage.setItem("selectedPatient", selectedPatient); // saves selected patient ID into browser local storage, making it retrievable by all other application webpages and components
     }
 
-    render (){
+    // only allows user to proceed to main menu page if a patient has been selected. Else, throws error.
+    handleClick=()=>{
+        try {
+            if (this.state.title === "Patient ID") {
+                throw "Patient not selected";
+            }
+            window.open("./menu", "_self")
+        } catch(err) {
+            alert("Please select a patient")
+        }
+    }
+
+render (){
         return (
             <div>
                 <center>
@@ -82,9 +94,9 @@ class PatientSelection extends React.Component {
                     </Row>
                 </Container>
 
-                <a href="./menu" >
-                    <Button style={{position:"absolute", top:"80%", alignItems:"centre"}}> Next </Button>
-                </a>
+                <Button style={{position:"absolute", top:"80%", alignItems:"centre"}}
+                        onClick={this.handleClick}
+                >Next</Button>
             </div>
         )
     }
