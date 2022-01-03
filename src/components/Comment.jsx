@@ -7,12 +7,9 @@ import ListCommentsTable from './ListCommentsTable';
 import { ContinueButton } from './ContinueButton';
 import { alignPropType } from 'react-bootstrap/esm/types';
 
-
-var today = new Date(),
-defDate = new String(),
-deftime = new String(),
-defDate=today.getDate() + '/' + (today.getMonth()+1) + '/' +  today.getFullYear()
-deftime =today.getHours() + ':' + today.getMinutes()
+var today = new Date();
+var defDate=today.getDate() + "/" + (today.getMonth()+1) + "/" +  today.getFullYear();
+var deftime =today.getHours() + ":" + today.getMinutes();
 const id = localStorage.getItem("selectedPatient");
 
 
@@ -39,6 +36,7 @@ class Comment extends Component {
         if (this.state.note) {
         console.log('patient => ' + JSON.stringify(patient));
         UserService.addNote(patient,this.state.id);}
+        alert("Data saved!")
         
     }
     

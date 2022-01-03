@@ -6,11 +6,9 @@ import UserService from '../services/UserService';
 
 
 
-var today = new Date(),
-defDate = new String(),
-deftime = new String(),
-defDate=today.getDate() + '/' + (today.getMonth()+1) + '/' +  today.getFullYear()
-deftime =today.getHours() + ':' + today.getMinutes()
+var today = new Date();
+var defDate=today.getDate() + "/" + (today.getMonth()+1) + "/" +  today.getFullYear();
+var deftime =today.getHours() + ":" + today.getMinutes();
 const id = localStorage.getItem("selectedPatient");
 
 class PrickReading extends Component {
@@ -49,9 +47,10 @@ class PrickReading extends Component {
         let patient = {prick_data: this.state.prick_data, time_instant: this.state.date + ' ' + this.state.time + ":00"};
         if (this.state.prick_data) {
         console.log('patient => ' + JSON.stringify(patient));
-        UserService.addPrickData(patient,this.state.id).then(res =>{
-            this.props.history.push('/menu')
-        });}
+        UserService.addPrickData(patient,this.state.id)
+        alert("Data saved!")
+        }
+    
         
     }
     
@@ -81,7 +80,7 @@ render(){
        
          <div className="grid-columns">
             <text style={text1}> Input prick readings (nA) </text>
-            <input placeholder="input data..." name="data" className="form-control" value={this.state.prick_data} onChange={this.changeDataHandler}/>
+            <input type = "number" placeholder="input data..." name="data" className="form-control" value={this.state.prick_data} onChange={this.changeDataHandler}/>
             <text style={text1}> Input date </text>
             <input name="time_instant" className="form-control" value={this.state.date} onChange={this.changeDateHandler}/>
             <text style={text1}> Input time </text>
