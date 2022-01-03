@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class PatientTable extends PureComponent {
 
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             id: "No Patient Selected" // default value when no patient is selected
         };
     };
@@ -17,12 +18,15 @@ class PatientTable extends PureComponent {
     render() {
         return (
             <div>
-                 <table> 
+                <table style={{ fontFamily:"ruluko"}}>
                     <tr>
-                        <td>
-                            Selected Patient ID:
+                        Selected Patient
+                    </tr>
+                    <tr style={{backgroundColor:"white", }}>
+                        <td style={{border:"1px solid black", padding:"5px 10px 5px 10px"}}>
+                            Patient ID:
                         </td>
-                        <td>
+                        <td style={{border:"1px solid black",padding:"5px 10px 5px 10px"}}>
                             {this.state.id}
                         </td>
                     </tr>
