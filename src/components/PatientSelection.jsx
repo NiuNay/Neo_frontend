@@ -2,7 +2,7 @@ import React from 'react';
 import UserService from '../services/UserService';
 import styled from "styled-components";
 import neologo from "./NeoLogo.png";
-import { DropdownButton, Dropdown } from 'react-bootstrap';
+import {DropdownButton, Dropdown, Container, Row, Col} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Button = styled.button`
@@ -19,6 +19,7 @@ const Button = styled.button`
   margin-right:40%;
 `;
 
+
 let selectedPatient = ""; // stores selected patient ID
 
 class PatientSelection extends React.Component {
@@ -27,7 +28,7 @@ class PatientSelection extends React.Component {
         super(props);
         this.state = {
             users:[],
-            title: "Select Patient ID"
+            title: "Patient ID"
         }
         this.handleSelect = this.handleSelect.bind(this);
     }
@@ -56,33 +57,33 @@ class PatientSelection extends React.Component {
                     <img src={neologo} height={55} width={112} style={{ margin: '30px' }}/>
                 </center>
                 <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Patient Selection</h1>
-                <table className = "table table-striped">
-                    <thead>
-                        <tr>
-                            <td>Patient ID</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <DropdownButton
-                            id="dropdown-basic-button"
-                            title={this.state.title}
-                            onSelect={this.handleSelect}
-                        >
-                            {
-                                this.state.users.map(
-                                    user =>
-                                        <Dropdown.Item
-                                            eventKey={user.id}
-                                            value={user.id}
-                                            key={user.id}
-                                        >{user.id}</Dropdown.Item>
-                                )
-                            }
-                        </DropdownButton>
-                    </tbody>
-                </table>
-                <a href="./menu">
-                    <Button> Next </Button>
+
+                <Container style={{position:"absolute", top:"30%", alignItems:"centre"}}>
+                    <Row>
+                        <Col style={{color: "#565656", fontFamily: "ruluko", textAlign:"right", fontSize: "30px"}}>Select patient</Col>
+                        <Col >
+                            <DropdownButton variant={"light"} size={"lg"} style={{fontFamily:"ruluko", color:"#565656"}}
+                                id="dropdown-basic-button"
+                                title={this.state.title}
+                                onSelect={this.handleSelect}
+                            >
+                                {
+                                    this.state.users.map(
+                                        user =>
+                                            <Dropdown.Item style={{fontSize:"30px"}}
+                                                eventKey={user.id}
+                                                value={user.id}
+                                                key={user.id}
+                                            >{user.id}</Dropdown.Item>
+                                    )
+                                }
+                            </DropdownButton>
+                        </Col>
+                    </Row>
+                </Container>
+
+                <a href="./menu" >
+                    <Button style={{position:"absolute", top:"80%", alignItems:"centre"}}> Next </Button>
                 </a>
             </div>
         )
