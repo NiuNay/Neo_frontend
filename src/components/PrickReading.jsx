@@ -3,7 +3,7 @@ import neologo from "./NeoLogo.png";
 import styled from 'styled-components'
 import TimeInput from 'react-input-time';
 import UserService from '../services/UserService';
-
+import PatientTable from "./PatientTable";
 
 
 var today = new Date();
@@ -77,7 +77,9 @@ render(){
                 <img src={neologo} height={55} width={112} style={{ margin: '30px' }}/>
             </center>
             <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Prick Readings</h1>
-       
+
+            <PatientTable/>
+
             <div className = "container">
                 <div className = "row">
                     <div className = " col-md-8 offset-md-3 offset-md-3">

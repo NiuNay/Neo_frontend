@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import "@fontsource/ruluko"
 import neologo from './NeoLogo.png';
+import PatientTable from "./PatientTable";
 
 const Button = styled.button`
   background-color: #F8F8F8;
@@ -37,6 +38,9 @@ function MainMenu() {
                 <img src={neologo} height={55} width={112} style={{ margin: '30px' }}/>
             </center>
             <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}> Menu</h1>
+
+            <PatientTable/>
+
             <a href="./calibration">
                 <Button> Calibration </Button>
             </a>

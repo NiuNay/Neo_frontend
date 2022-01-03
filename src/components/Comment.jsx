@@ -6,6 +6,7 @@ import UserService from '../services/UserService';
 import ListCommentsTable from './ListCommentsTable';
 import { ContinueButton } from './ContinueButton';
 import { alignPropType } from 'react-bootstrap/esm/types';
+import PatientTable from "./PatientTable";
 
 var today = new Date();
 var defDate=today.getDate() + "/" + (today.getMonth()+1) + "/" +  today.getFullYear();
@@ -66,7 +67,8 @@ render(){
                 <img src={neologo} height={55} width={112} style={{ margin: '30px' }}/>
             </center>
             <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Comment</h1>
-       
+
+            <PatientTable/>
 
             <br></br>
                    <div className = "container">
