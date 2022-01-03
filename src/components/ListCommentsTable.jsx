@@ -1,12 +1,8 @@
 import React, { Component, useState } from 'react'
 import UserService from '../services/UserService'
 import styled from 'styled-components'
-import TimeInput from 'react-input-time';
 
 
-var today = new Date();
-var defDate=today.getDate() + "/" + (today.getMonth()+1) + "/" +  today.getFullYear();
-var deftime =today.getHours() + ":" + today.getMinutes();
 const id = localStorage.getItem("selectedPatient");
 
 
@@ -86,12 +82,11 @@ render() {
                                 </tr>
                             ))}
                         </tbody>
-                    </table>
-                    
+                    </table>  
              </div>
-             <div>
-            <button className="btn btn-primary" onClick={this.saveNote}> Add new note</button>
-             </div>
+             <a href='./comment'>
+             <AddButton onClick={this.saveNote}> Add new note</AddButton>
+             </a>
         </div>
     )
 } }
@@ -104,9 +99,9 @@ export default ListCommentsTable
 const AddButton = styled.button`
 background-color: #E9E9E9;
 color: #515050;
-font-size: 20px;
+font-size: 15px;
 font-family: ruluko;
-padding: 10px;
+padding: 5px;
 border-radius: 5px;
 margin: 10px 0px;
 cursor: pointer;
