@@ -3,14 +3,12 @@ import neologo from "./NeoLogo.png";
 import styled from 'styled-components'
 import TimeInput from 'react-input-time';
 import UserService from '../services/UserService';
+import ListCommentsTable from './ListCommentsTable';
 
 
-
-var today = new Date(),
-defDate = new String(),
-deftime = new String(),
-defDate=today.getDate() + '/' + (today.getMonth()+1) + '/' +  today.getFullYear()
-deftime =today.getHours() + ':' + today.getMinutes()
+var today = new Date();
+var defDate=today.getDate() + "/" + (today.getMonth()+1) + "/" +  today.getFullYear();
+var deftime =today.getHours() + ":" + today.getMinutes();
 const id = localStorage.getItem("selectedPatient");
 
 class Comment extends Component {
@@ -38,6 +36,7 @@ class Comment extends Component {
         if (this.state.note) {
         console.log('patient => ' + JSON.stringify(patient));
         UserService.addNote(patient,this.state.id);}
+        alert("Data saved!")
         
     }
     
@@ -81,11 +80,11 @@ render(){
             </a>
         
             <a href="./menu">
-                <BackButton> Back to menu </BackButton>
+                <BackButton> Back</BackButton>
             </a>
 
         </center>     
-     
+         <ListCommentsTable/> 
          </div>
 
 
