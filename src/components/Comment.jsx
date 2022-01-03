@@ -3,7 +3,9 @@ import neologo from "./NeoLogo.png";
 import styled from 'styled-components'
 import TimeInput from 'react-input-time';
 import UserService from '../services/UserService';
-
+import ListCommentsTable from './ListCommentsTable';
+import { ContinueButton } from './ContinueButton';
+import { alignPropType } from 'react-bootstrap/esm/types';
 
 
 var today = new Date(),
@@ -13,9 +15,8 @@ defDate=today.getDate() + '/' + (today.getMonth()+1) + '/' +  today.getFullYear(
 deftime =today.getHours() + ':' + today.getMinutes()
 const id = localStorage.getItem("selectedPatient");
 
+
 class Comment extends Component {
-
-
 
     constructor(props) {
         super(props)
@@ -56,7 +57,10 @@ class Comment extends Component {
         this.setState({time: event.target.value});
     }
 
+    
+
 render(){
+
     return (
         <div>
 
@@ -65,14 +69,47 @@ render(){
             </center>
             <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Comment</h1>
        
-         <div className="grid-columns">
-            <text style={text1}> Input comment </text>
-            <input placeholder="type note..." name="note" className="form-control" value={this.state.note} onChange={this.changeCommentHandler}/>
-            <text style={text1}> Input date </text>
-            <input name="time_instant" className="form-control" value={this.state.date} onChange={this.changeDateHandler}/>
-            <text style={text1}> Input time </text>
-            <TimeInput defaultValue={deftime} className="form-control" value= {this.state.time} onChange={this.changeTimeHandler} /> 
-        </div> 
+
+            <br></br>
+                   <div className = "container">
+                        <div className = "row">
+                            <div className = " col-md-8 offset-md-3 offset-md-3">
+
+                    <form>
+                        <center>
+                            <div className = "form-group row">
+                                <label className="col-4 col-form-label" style={text1}> Input comment </label>
+                                <div class="col-5">
+                                <input placeholder="type note..." name="note" className="form-control" value={this.state.note} onChange={this.changeCommentHandler}/>
+                                </div>
+                            </div>
+                        </center>
+                        <center>
+                            <div className = "form-group row">
+                                <label className="col-4 col-form-label" style={text1}> Input date </label>
+                                <div class="col-5">
+                                <input name="time_instant" className="form-control" value={this.state.date} onChange={this.changeDateHandler}/>
+                                </div>
+                            </div>
+                        </center>
+                        <center>
+                            <div className = "form-group row">
+                                <label className="col-4 col-form-label" style={text1}> Input time </label>
+                                <div class="col-5">
+                                <TimeInput defaultValue={deftime} className="form-control" value= {this.state.time} onChange={this.changeTimeHandler} /> 
+                                </div>
+                            </div>
+                        </center>
+                    </form>
+                    </div>
+                    </div>  
+                    </div>      
+            
+                   
+           
+
+        
+           
         
         <center className="button-grid-2" >
 
@@ -81,11 +118,10 @@ render(){
             </a>
         
             <a href="./menu">
-                <BackButton> Back to menu </BackButton>
+                <ContinueButton/>
             </a>
 
         </center>     
-     
          </div>
 
 
@@ -125,6 +161,6 @@ export default Comment
 
     const text1 = {
         fontSize: 20,
-        ontFamily: 'ruluko', 
+        fontFamily: 'ruluko', 
         color: '#565656',
     }
