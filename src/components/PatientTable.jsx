@@ -20,14 +20,16 @@ class PatientTable extends PureComponent {
             <div style={{position:"relative", left:"5%", top:"20%"}}>
                 <h1 style={{fontFamily:"ruluko", fontSize:"20px"}}>Selected Patient</h1>
                 <table style={{ fontFamily:"ruluko", width:"200px", padding:"50px 50px 50px 50px" }}>
-                    <tr style={{backgroundColor:"white", }}>
-                        <td style={{border:"1px solid black", padding:"5px 10px 5px 10px", }}>
-                            Patient ID:
-                        </td>
-                        <td style={{border:"1px solid black",padding:"5px 10px 5px 10px"}}>
-                            {this.state.id}
-                        </td>
-                    </tr>
+                    <tbody>
+                        <tr style={{backgroundColor:"white", }}>
+                            <td style={{border:"1px solid black", padding:"5px 10px 5px 10px", }}>
+                                Patient ID:
+                            </td>
+                            <td style={{border:"1px solid black",padding:"5px 10px 5px 10px"}}>
+                                {this.state.id}
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         )
