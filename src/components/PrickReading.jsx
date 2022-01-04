@@ -158,6 +158,6 @@ export default PrickReading
 
     const text1 = {
         fontSize: 20,
-        ontFamily: 'ruluko', 
+        fontFamily: 'ruluko',
         color: '#565656',
     }
