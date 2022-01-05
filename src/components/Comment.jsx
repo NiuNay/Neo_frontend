@@ -9,7 +9,7 @@ import ContinueButton from './ContinueButton'
 import "./App.css";
 
 var today = new Date();
-var defDate=today.getFullYear() + '-' (today.getMonth()+1) + '-' + today.getDate();
+var defDate=today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
 var deftime =today.getHours() + ":" + today.getMinutes();
 const id = localStorage.getItem("selectedPatient");
 
