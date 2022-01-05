@@ -29,9 +29,10 @@ class Calibration extends Component {
         let delay = {delay: this.state.delay}
         console.log('calibration => ' + JSON.stringify(calibration));
         console.log('delay => ' + JSON.stringify(delay));
+        if(this.state.delay && this.state.gradient && this.state.intercept){
         UserService.addCalibration(calibration,this.state.id);
         UserService.addDelay(delay,this.state.id);
-        alert("Data saved!")
+        alert("Data saved!")}
         
     }
     
