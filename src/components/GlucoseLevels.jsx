@@ -1,10 +1,10 @@
 import React from 'react';
-import neologo from "./NeoLogo.png";
 import styles from "./styles.css"
 import CanvasJSReact from '../lib/canvasjs.react';
 import styled from "styled-components";
 import UserService from "../services/UserService";
 import PatientTable from "./PatientTable";
+import PageHeader from "./PageHeader";
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const id = localStorage.getItem("selectedPatient");
@@ -126,10 +126,7 @@ class GlucoseLevels extends React.Component {
 
         return (
             <div>
-                <center>
-                    <img src={neologo} height={55} width={112} style={{ margin: '30px' }}/>
-                </center>
-                <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Glucose Levels</h1>
+                <PageHeader title={"Glucose Levels"}/>
 
                 <PatientTable/>
 

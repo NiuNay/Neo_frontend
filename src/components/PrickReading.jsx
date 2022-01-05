@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import neologo from "./NeoLogo.png";
 import styled from 'styled-components'
 import TimeInput from 'react-input-time';
 import UserService from '../services/UserService';
 import PatientTable from "./PatientTable";
+import PageHeader from "./PageHeader";
 
 
 var today = new Date();
@@ -72,11 +72,7 @@ class PrickReading extends Component {
 render(){
     return (
         <div>
-
-            <center>
-                <img src={neologo} height={55} width={112} style={{ margin: '30px' }}/>
-            </center>
-            <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Prick Readings</h1>
+            <PageHeader title={"Prick Readings"}/>
 
             <PatientTable/>
 
