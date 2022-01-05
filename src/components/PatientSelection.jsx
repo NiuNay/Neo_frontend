@@ -1,9 +1,9 @@
 import React from 'react';
 import UserService from '../services/UserService';
 import styled from "styled-components";
-import neologo from "./NeoLogo.png";
 import { DropdownButton, Dropdown, Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import PageHeader from "./PageHeader";
 
 const Button = styled.button`
   background-color: #E9E9E9;
@@ -64,10 +64,7 @@ class PatientSelection extends React.Component {
 render (){
         return (
             <div>
-                <center>
-                    <img src={neologo} height={55} width={112} style={{ margin: '30px' }}/>
-                </center>
-                <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Patient Selection</h1>
+                <PageHeader title={"Patient Selection"} />
 
                 <Container style={{position:"absolute", top:"30%", alignItems:"centre"}}>
                     <Row>

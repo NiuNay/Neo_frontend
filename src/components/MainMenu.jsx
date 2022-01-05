@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import "@fontsource/ruluko"
-import neologo from './NeoLogo.png';
 import PatientTable from "./PatientTable";
+import PageHeader from "./PageHeader";
 
 const Button = styled.button`
   background-color: #F8F8F8;
@@ -34,10 +34,7 @@ const BackButton = styled.button`
 function MainMenu() {
     return (
         <div>
-            <center>
-                <img src={neologo} height={55} width={112} style={{ margin: '30px' }}/>
-            </center>
-            <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}> Menu</h1>
+            <PageHeader title={"Menu"}/>
 
             <PatientTable/>
 

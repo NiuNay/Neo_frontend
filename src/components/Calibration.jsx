@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import neologo from "./NeoLogo.png";
 import styled from 'styled-components'
 import UserService from '../services/UserService';
 import PatientTable from "./PatientTable";
+import PageHeader from "./PageHeader";
 const id = localStorage.getItem("selectedPatient");
+
 
 class Calibration extends Component {
 
@@ -52,11 +53,7 @@ class Calibration extends Component {
 render(){
     return (
         <div>
-
-            <center>
-                <img src={neologo} height={55} width={112} style={{ margin: '30px' }}/>
-            </center>
-            <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Callibration and Settings</h1>
+            <PageHeader title={"Calibration and Settings"}/>
 
             <PatientTable/>
       
