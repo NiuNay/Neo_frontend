@@ -34,10 +34,10 @@ class Comment extends Component {
     saveNote = (e) => {
         e.preventDefault();
         let patient = {note: this.state.note, time_instant: this.state.date + ' ' + this.state.time + ":00"};
-        if (this.state.note) {
+        if (this.state.note && this.state.date && this.state.time) {
         console.log('patient => ' + JSON.stringify(patient));
-        UserService.addNote(patient,this.state.id);}
-        alert("Data saved!")
+        UserService.addNote(patient,this.state.id);
+        alert("Data saved!")}
         
     }
     
