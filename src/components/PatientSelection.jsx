@@ -1,23 +1,9 @@
 import React from 'react';
 import UserService from '../services/UserService';
-import styled from "styled-components";
 import { DropdownButton, Dropdown, Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PageHeader from "./PageHeader";
-
-const Button = styled.button`
-  background-color: #E9E9E9;
-  color: #515050;
-  font-size: 20px;
-  font-family: ruluko;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px 0px;
-  cursor: pointer;
-  width:20%;
-  margin-left:40%;
-  margin-right:40%;
-`;
+import "./App.css";
 
 let selectedPatient = ""; // stores selected patient ID
 
@@ -90,9 +76,10 @@ render (){
                     </Row>
                 </Container>
 
-                <Button style={{position:"absolute", top:"80%", alignItems:"centre"}}
+                <button className={"pageButton"} 
+                        style={{position:"absolute", top:"80%", alignItems:"centre"}}
                         onClick={this.handleClick}
-                >Next</Button>
+                >Next</button>
             </div>
         )
     }
