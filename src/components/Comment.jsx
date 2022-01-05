@@ -6,8 +6,7 @@ import { alignPropType } from 'react-bootstrap/esm/types';
 import PatientTable from "./PatientTable";
 import PageHeader from "./PageHeader";
 import ContinueButton from './ContinueButton'
-
-
+import "./App.css";
 
 var today = new Date();
 var defDate=today.getFullYear() + '-' (today.getMonth()+1) + '-' + today.getDate();
@@ -104,7 +103,10 @@ render(){
         <center className="button-grid-2" >
 
             <a href="./menu">
-                <SaveButton onClick={this.saveNote}>Upload note</SaveButton>
+                <button className={"pageButton"}
+                        style={{backgroundColor:"#D3F8D6"}}
+                        onClick={this.saveNote}
+                >Upload note</button>
             </a>
 
                 <ContinueButton/>
@@ -117,35 +119,6 @@ render(){
 }}
 
 export default Comment
-
-    
-    const SaveButton = styled.button`
-    background-color: #d3f8d6;
-    color: #515050;
-    font-size: 20px;
-    font-family: ruluko;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px 0px;
-    cursor: pointer;
-    width:20%;
-    margin-left:40%;
-    margin-right:40%;
-    `;
-
-    const BackButton = styled.button`
-    background-color: #E9E9E9;
-    color: #515050;
-    font-size: 20px;
-    font-family: ruluko;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px 0px;
-    cursor: pointer;
-    width:20%;
-    margin-left:40%;
-    margin-right:40%;
-    `;
 
     const text1 = {
         fontSize: 20,

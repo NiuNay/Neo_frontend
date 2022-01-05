@@ -4,6 +4,7 @@ import TimeInput from 'react-input-time';
 import UserService from '../services/UserService';
 import PatientTable from "./PatientTable";
 import PageHeader from "./PageHeader";
+import "./App.css";
 
 
 var today = new Date();
@@ -105,10 +106,13 @@ render(){
      
         <center className= "button-grid-2">
         <a href="./menu">
-                <SaveButton onClick={this.savePrickData}>Upload data</SaveButton>
+                <button className={"pageButton"} 
+                        style={{backgroundColor:"#D3F8D6"}}
+                        onClick={this.savePrickData}
+                >Upload data</button>
             </a>
             <a href="./menu">
-                <BackButton> Back to menu </BackButton>
+                <button className={"pageButton"}> Back to menu </button>
             </a>
            
 
@@ -122,35 +126,6 @@ render(){
 }}
 
 export default PrickReading
-
-        
-    const SaveButton = styled.button`
-    background-color: #d3f8d6;
-    color: #515050;
-    font-size: 20px;
-    font-family: ruluko;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px 0px;
-    cursor: pointer;
-    width:20%;
-    margin-left:40%;
-    margin-right:40%;
-    `;
-
-    const BackButton = styled.button`
-    background-color: #E9E9E9;
-    color: #515050;
-    font-size: 20px;
-    font-family: ruluko;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px 0px;
-    cursor: pointer;
-    width:20%;
-    margin-left:40%;
-    margin-right:40%;
-    `;
 
     const text1 = {
         fontSize: 20,
