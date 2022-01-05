@@ -19,7 +19,6 @@ const Button = styled.button`
   margin-right:40%;
 `;
 
-
 let selectedPatient = ""; // stores selected patient ID
 
 class PatientSelection extends React.Component {
@@ -27,7 +26,7 @@ class PatientSelection extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            users:[],
+            patients:[],
             title: "Patient ID"
         }
         this.handleSelect = this.handleSelect.bind(this);
@@ -36,9 +35,9 @@ class PatientSelection extends React.Component {
     componentDidMount(){
         UserService.getUsers()
             .then((response) => {
-                this.setState({ users: response.data })
+                this.setState({ patients: response.data })
             })
-            .catch(() => { // checks data was retrieved
+            .catch(() => {  // displays an alert if patient data is not retrieved
                 alert("Error retrieving patient data");
             });
     }
@@ -58,7 +57,7 @@ class PatientSelection extends React.Component {
             }
             window.open("./menu", "_self")
         } catch(err) {
-            alert("Please select a patient")
+            alert("Please select a patient");
         }
     }
 
@@ -73,20 +72,20 @@ render (){
                 <Container style={{position:"absolute", top:"30%", alignItems:"centre"}}>
                     <Row>
                         <Col style={{color: "#565656", fontFamily: "ruluko", textAlign:"right", fontSize: "30px"}}>Select patient</Col>
-                        <Col >
+                        <Col>
                             <DropdownButton variant={"light"} size={"lg"} style={{fontFamily:"ruluko", color:"#565656"}}
                                 id="dropdown-basic-button"
-                                title={this.state.title}
+                                title={this.state.title}    // displays "Patient ID" as default text
                                 onSelect={this.handleSelect}
                             >
                                 {
-                                    this.state.users.map(
-                                        user =>
+                                    this.state.patients.map(   // displays all patient IDs
+                                        patient =>
                                             <Dropdown.Item style={{fontSize:"30px"}}
-                                                eventKey={user.id}
-                                                value={user.id}
-                                                key={user.id}
-                                            >{user.id}</Dropdown.Item>
+                                                eventKey={patient.id}
+                                                value={patient.id}
+                                                key={patient.id}
+                                            >{patient.id}</Dropdown.Item>
                                     )
                                 }
                             </DropdownButton>
