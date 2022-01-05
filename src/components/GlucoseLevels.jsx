@@ -169,7 +169,7 @@ class GlucoseLevels extends React.Component {
                                 </table>  
                              </div>
                         <a href='./comment'>
-                        <AddButton> Add new note</AddButton>
+                        <SaveButton> Add new note</SaveButton>
                         </a>
                     </div>
                             <h3 style={title}>Time Frame</h3>
