@@ -39,23 +39,6 @@ saveNote = (e) => {
 }
 
 
-changeCommentHandler= (event) => {
-
-    this.setState({note: event.target.value});
-}
-
-changeDateHandler= (event) => {
-
-    this.setState({date: event.target.value});
-}
-
-changeTimeHandler= (event) => {
-
-    this.setState({time: event.target.value});
-}
-
-
-
 render() {
 
     var note_data = [];
@@ -85,7 +68,7 @@ render() {
                     </table>  
              </div>
              <a href='./comment'>
-             <AddButton onClick={this.saveNote}> Add new note</AddButton>
+             <AddButton> Add new note</AddButton>
              </a>
         </div>
     )
