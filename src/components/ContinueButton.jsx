@@ -1,14 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 
-export const ContinueButton = () => {
-    const history = useNavigate();
+ const ContinueButton = () => {
+    const navigate = useNavigate();
     return (
         <>
-          <ConButton onClick={() => history.goBack()}>Continue</ConButton>
+          <ConButton onClick={() => navigate.goBack()}>Continue</ConButton>
         </>
     );
 };
+
+export default ContinueButton
 
 const ConButton = styled.button`
     background-color: #E9E9E9;

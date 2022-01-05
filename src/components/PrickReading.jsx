@@ -7,7 +7,7 @@ import PageHeader from "./PageHeader";
 
 
 var today = new Date();
-var defDate=today.getDate() + "/" + (today.getMonth()+1) + "/" +  today.getFullYear();
+var defDate=today.getFullYear() + '-' (today.getMonth()+1) + '-' + today.getDate();
 var deftime =today.getHours() + ":" + today.getMinutes();
 const id = localStorage.getItem("selectedPatient");
 
