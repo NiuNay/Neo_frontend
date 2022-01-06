@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import neologo from "./NeoLogo.png";
 import styled from 'styled-components'
 import TimeInput from 'react-input-time';
 import UserService from '../services/UserService';
@@ -7,6 +6,8 @@ import ListCommentsTable from './ListCommentsTable';
 import { ContinueButton } from './ContinueButton';
 import { alignPropType } from 'react-bootstrap/esm/types';
 import PatientTable from "./PatientTable";
+import PageHeader from "./PageHeader";
+import "./App.css";
 
 var today = new Date();
 var defDate=today.getDate() + "/" + (today.getMonth()+1) + "/" +  today.getFullYear();
@@ -34,10 +35,10 @@ class Comment extends Component {
     saveNote = (e) => {
         e.preventDefault();
         let patient = {note: this.state.note, time_instant: this.state.date + ' ' + this.state.time + ":00"};
-        if (this.state.note) {
+        if (this.state.note && this.state.date && this.state.time) {
         console.log('patient => ' + JSON.stringify(patient));
-        UserService.addNote(patient,this.state.id);}
-        alert("Data saved!")
+        UserService.addNote(patient,this.state.id);
+        alert("Data saved!")}
         
     }
     
@@ -62,11 +63,7 @@ render(){
 
     return (
         <div>
-
-            <center>
-                <img src={neologo} height={55} width={112} style={{ margin: '30px' }}/>
-            </center>
-            <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Comment</h1>
+            <PageHeader title={"Comment"}/>
 
             <PatientTable/>
 
@@ -112,7 +109,10 @@ render(){
         <center className="button-grid-2" >
 
             <a href="./menu">
-                <SaveButton onClick={this.saveNote}>Upload note</SaveButton>
+                <button className={"pageButton"}
+                        style={{backgroundColor:"#D3F8D6"}}
+                        onClick={this.saveNote}
+                >Upload note</button>
             </a>
         
             <a href="./menu">
@@ -127,35 +127,6 @@ render(){
 }}
 
 export default Comment
-
-    
-    const SaveButton = styled.button`
-    background-color: #d3f8d6;
-    color: #515050;
-    font-size: 20px;
-    font-family: ruluko;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px 0px;
-    cursor: pointer;
-    width:20%;
-    margin-left:40%;
-    margin-right:40%;
-    `;
-
-    const BackButton = styled.button`
-    background-color: #E9E9E9;
-    color: #515050;
-    font-size: 20px;
-    font-family: ruluko;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px 0px;
-    cursor: pointer;
-    width:20%;
-    margin-left:40%;
-    margin-right:40%;
-    `;
 
     const text1 = {
         fontSize: 20,

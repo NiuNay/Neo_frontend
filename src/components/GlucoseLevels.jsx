@@ -1,10 +1,11 @@
 import React from 'react';
-import neologo from "./NeoLogo.png";
 import styles from "./styles.css"
 import CanvasJSReact from '../lib/canvasjs.react';
 import styled from "styled-components";
 import UserService from "../services/UserService";
 import PatientTable from "./PatientTable";
+import PageHeader from "./PageHeader";
+import "./App.css";
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const id = localStorage.getItem("selectedPatient");
@@ -126,10 +127,7 @@ class GlucoseLevels extends React.Component {
 
         return (
             <div>
-                <center>
-                    <img src={neologo} height={55} width={112} style={{ margin: '30px' }}/>
-                </center>
-                <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Glucose Levels</h1>
+                <PageHeader title={"Glucose Levels"}/>
 
                 <PatientTable/>
 
@@ -152,7 +150,7 @@ class GlucoseLevels extends React.Component {
                     </div>
                 </div>
                 <a href="./menu">
-                    <BackButton> Back </BackButton>
+                    <button className={"pageButton"}> Back </button>
                 </a>
             </div>
         )
@@ -160,6 +158,7 @@ class GlucoseLevels extends React.Component {
 }
 
 export default GlucoseLevels
+
 
 const SaveButton = styled.button`
     background-color: #E9E9E9;
@@ -173,20 +172,6 @@ const SaveButton = styled.button`
     width:30%;
     margin-left:35%;
     margin-right:35%;
-    `;
-
-const BackButton = styled.button`
-    background-color: #E9E9E9;
-    color: #515050;
-    font-size: 20px;
-    font-family: ruluko;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px 0px;
-    cursor: pointer;
-    width:20%;
-    margin-left:40%;
-    margin-right:40%;
     `;
 
 const text1 = {

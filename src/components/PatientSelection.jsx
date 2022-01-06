@@ -1,24 +1,9 @@
 import React from 'react';
 import UserService from '../services/UserService';
-import styled from "styled-components";
-import neologo from "./NeoLogo.png";
 import { DropdownButton, Dropdown, Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-const Button = styled.button`
-  background-color: #E9E9E9;
-  color: #515050;
-  font-size: 20px;
-  font-family: ruluko;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px 0px;
-  cursor: pointer;
-  width:20%;
-  margin-left:40%;
-  margin-right:40%;
-`;
-
+import PageHeader from "./PageHeader";
+import "./App.css";
 
 let selectedPatient = ""; // stores selected patient ID
 
@@ -27,7 +12,7 @@ class PatientSelection extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            users:[],
+            patients:[],
             title: "Patient ID"
         }
         this.handleSelect = this.handleSelect.bind(this);
@@ -36,9 +21,9 @@ class PatientSelection extends React.Component {
     componentDidMount(){
         UserService.getUsers()
             .then((response) => {
-                this.setState({ users: response.data })
+                this.setState({ patients: response.data })
             })
-            .catch(() => { // checks data was retrieved
+            .catch(() => {  // displays an alert if patient data is not retrieved
                 alert("Error retrieving patient data");
             });
     }
@@ -58,35 +43,32 @@ class PatientSelection extends React.Component {
             }
             window.open("./menu", "_self")
         } catch(err) {
-            alert("Please select a patient")
+            alert("Please select a patient");
         }
     }
 
 render (){
         return (
             <div>
-                <center>
-                    <img src={neologo} height={55} width={112} style={{ margin: '30px' }}/>
-                </center>
-                <h1 className = "text-center" style={{ color: '#565656', fontFamily: 'ruluko', fontWeight: "bold", fontSize: "40px"}}>Patient Selection</h1>
+                <PageHeader title={"Patient Selection"} />
 
                 <Container style={{position:"absolute", top:"30%", alignItems:"centre"}}>
                     <Row>
                         <Col style={{color: "#565656", fontFamily: "ruluko", textAlign:"right", fontSize: "30px"}}>Select patient</Col>
-                        <Col >
+                        <Col>
                             <DropdownButton variant={"light"} size={"lg"} style={{fontFamily:"ruluko", color:"#565656"}}
                                 id="dropdown-basic-button"
-                                title={this.state.title}
+                                title={this.state.title}    // displays "Patient ID" as default text
                                 onSelect={this.handleSelect}
                             >
                                 {
-                                    this.state.users.map(
-                                        user =>
+                                    this.state.patients.map(   // displays all patient IDs
+                                        patient =>
                                             <Dropdown.Item style={{fontSize:"30px"}}
-                                                eventKey={user.id}
-                                                value={user.id}
-                                                key={user.id}
-                                            >{user.id}</Dropdown.Item>
+                                                eventKey={patient.id}
+                                                value={patient.id}
+                                                key={patient.id}
+                                            >{patient.id}</Dropdown.Item>
                                     )
                                 }
                             </DropdownButton>
@@ -94,9 +76,10 @@ render (){
                     </Row>
                 </Container>
 
-                <Button style={{position:"absolute", top:"80%", alignItems:"centre"}}
+                <button className={"pageButton"} 
+                        style={{position:"absolute", top:"80%", alignItems:"centre"}}
                         onClick={this.handleClick}
-                >Next</Button>
+                >Next</button>
             </div>
         )
     }
