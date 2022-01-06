@@ -1,12 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import "./App.css";
 
-export const ContinueButton = () => {
-    const history = useNavigate();
+
+ const ContinueButton = () => {
+    const navigate = useNavigate();
     return (
         <>
-          <button className={"pageButton"} onClick={() => history.goBack()}>Continue</button>
+          <button className={"pageButton"} onClick={() => navigate.goBack()}>Continue</button>
         </>
     );
 };
+
+export default ContinueButton
 

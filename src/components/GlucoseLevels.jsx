@@ -7,6 +7,7 @@ import PatientTable from "./PatientTable";
 import PageHeader from "./PageHeader";
 import "./App.css";
 
+
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const id = localStorage.getItem("selectedPatient");
 
@@ -20,6 +21,9 @@ class GlucoseLevels extends React.Component {
             sweat_glucose_data: [],
             prick_time_data: [],
             prick_glucose_data: [],
+            note_time_data: [],
+            note: [],
+            note_data_length:0,
             sweat_data_length: 0,
             prick_data_length: 0,
             start_date: [],
@@ -35,8 +39,8 @@ class GlucoseLevels extends React.Component {
     componentDidMount(){
         UserService.getData(this.state.id)
             .then((response) => {
-                this.setState({ sweat_time_data: response.data[0], sweat_glucose_data: response.data[1], prick_time_data: response.data[2], prick_glucose_data: response.data[3]})
-                this.setState({sweat_data_length: this.state.sweat_time_data.length, prick_data_length: this.state.prick_time_data.length})
+                this.setState({ sweat_time_data: response.data[0], sweat_glucose_data: response.data[1], prick_time_data: response.data[2], prick_glucose_data: response.data[3], note_time_data: response.data[4], note: response.data[5]})
+                this.setState({sweat_data_length: this.state.sweat_time_data.length, prick_data_length: this.state.prick_time_data.length, note_data_length: this.state.note_time_data.length})
                 const last_date = new Date(this.state.sweat_time_data[this.state.sweat_data_length-1]);
                 const start_string = (last_date.getMonth()+1) + "-" + (last_date.getDate()) + "-" +  last_date.getFullYear();
                 const start = new Date(start_string);
@@ -80,7 +84,7 @@ class GlucoseLevels extends React.Component {
         for (let i = 0; i < this.state.sweat_data_length; i++) {
             var t = new Date(this.state.sweat_time_data[i]);
             if(t>this.state.start_date && t<this.state.end_date) {
-            sweat_data.push({x: t, y: this.state.sweat_glucose_data[i]})
+                sweat_data.push({x: t, y: this.state.sweat_glucose_data[i]})
             }
         }
 
@@ -89,6 +93,14 @@ class GlucoseLevels extends React.Component {
             var t = new Date(this.state.prick_time_data[i]);
             prick_data.push({x: t, y: this.state.prick_glucose_data[i]})
         }
+
+        var note_data = [];
+        for (let i = 0; i < this.state.note_time_data.length; i++) {   
+            var t = new Date(this.state.note_time_data[i]);
+            // if(t>this.state.start_date && t<this.state.end_date){
+            note_data.push({x: this.state.note_time_data[i], y: this.state.note[i]})
+            // }
+        }   
 
         const options = {
             zoomEnabled: true,
@@ -136,7 +148,30 @@ class GlucoseLevels extends React.Component {
                         <div className='column'>
                             <br></br>
                             <h3 style={title}>Comments</h3>
-                            <br></br>
+                            
+                            <div>
+                                <div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th> Time</th>
+                                                <th> Note</th>
+                                            </tr>
+                                        </thead>
+                                    <tbody>
+                                        {note_data.map(el => (
+                                            <tr>
+                                            <td>{el.x}</td>
+                                            <td>{el.y}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>  
+                             </div>
+                        <a href='./comment'>
+                        <SaveButton> Add new note</SaveButton>
+                        </a>
+                    </div>
                             <h3 style={title}>Time Frame</h3>
                             <text style={text1}>From: </text>
                             <input name="time_instant" className="form-control" value={this.state.start_input} onChange={this.changeStartHandler}/>
@@ -149,6 +184,7 @@ class GlucoseLevels extends React.Component {
                         </div>
                     </div>
                 </div>
+
                 <a href="./menu">
                     <button className={"pageButton"}> Back </button>
                 </a>

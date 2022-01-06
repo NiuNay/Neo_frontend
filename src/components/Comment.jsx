@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import TimeInput from 'react-input-time';
 import UserService from '../services/UserService';
-import ListCommentsTable from './ListCommentsTable';
-import { ContinueButton } from './ContinueButton';
 import { alignPropType } from 'react-bootstrap/esm/types';
 import PatientTable from "./PatientTable";
 import PageHeader from "./PageHeader";
+import ContinueButton from './ContinueButton'
 import "./App.css";
 
 var today = new Date();
-var defDate=today.getDate() + "/" + (today.getMonth()+1) + "/" +  today.getFullYear();
+var defDate=today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
 var deftime =today.getHours() + ":" + today.getMinutes();
 const id = localStorage.getItem("selectedPatient");
+
 
 
 class Comment extends Component {
@@ -99,13 +99,7 @@ render(){
                     </div>
                     </div>  
                     </div>      
-            
-                   
-           
-
-        
-           
-        
+                    
         <center className="button-grid-2" >
 
             <a href="./menu">
@@ -114,11 +108,9 @@ render(){
                         onClick={this.saveNote}
                 >Upload note</button>
             </a>
-        
-            <a href="./menu">
-                <ContinueButton/>
-            </a>
 
+                <ContinueButton/>
+           
         </center>     
          </div>
 
