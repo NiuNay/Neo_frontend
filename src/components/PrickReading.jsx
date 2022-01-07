@@ -82,19 +82,19 @@ render(){
                     <div className = " col-md-8 offset-md-3 offset-md-3">
                     <form>
                         <div className = "form-group row">
-                            <text className="col-5 col-form-label" style={text1}> Input prick readings (nA) </text>
+                            <text className="col-5 col-form-label labelText"> Input prick readings (nA) </text>
                             <div class="col-5">
                                 <input type = "number" placeholder="input data..." name="data" className="form-control" value={this.state.prick_data} onChange={this.changeDataHandler}/>
                             </div> 
                         </div>
                         <div className = "form-group row">
-                            <text className="col-5 col-form-label" style={text1}> Input date </text>
+                            <text className="col-5 col-form-label labelText"> Input date </text>
                             <div class="col-5">
                                 <input name="time_instant" className="form-control" value={this.state.date} onChange={this.changeDateHandler}/>
                             </div>
                         </div>
                         <div className = "form-group row">
-                            <text className="col-5 col-form-label" style={text1}> Input time </text>
+                            <text className="col-5 col-form-label labelText"> Input time </text>
                             <div class="col-5">
                                 <TimeInput defaultValue={deftime} className="form-control" value= {this.state.time} onChange={this.changeTimeHandler} /> 
                             </div>
@@ -127,8 +127,4 @@ render(){
 
 export default PrickReading
 
-    const text1 = {
-        fontSize: 20,
-        fontFamily: 'ruluko',
-        color: '#565656',
-    }
+

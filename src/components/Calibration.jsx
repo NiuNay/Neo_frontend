@@ -4,10 +4,8 @@ import UserService from '../services/UserService';
 import PatientTable from "./PatientTable";
 import PageHeader from "./PageHeader";
 import "./App.css";
-import "./Calibration.css";
 
 const id = localStorage.getItem("selectedPatient");
-
 
 class Calibration extends Component {
 

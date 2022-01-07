@@ -173,9 +173,9 @@ class GlucoseLevels extends React.Component {
                         </a>
                     </div>
                             <h3 style={title}>Time Frame</h3>
-                            <text style={text1}>From: </text>
+                            <text className={"labelText"}>From: </text>
                             <input name="time_instant" className="form-control" value={this.state.start_input} onChange={this.changeStartHandler}/>
-                            <text style={text1}>To: </text>
+                            <text className={"labelText"}>To: </text>
                             <input name="time_instant" className="form-control" value={this.state.end_input} onChange={this.changeEndHandler}/>
                             <SaveButton onClick={this.saveTimeFrame}>Load graph</SaveButton>
                         </div>
@@ -210,11 +210,6 @@ const SaveButton = styled.button`
     margin-right:35%;
     `;
 
-const text1 = {
-    fontSize: 20,
-    fontFamily: 'ruluko',
-    color: '#565656',
-}
 
 const title = {
     color: '#565656',
