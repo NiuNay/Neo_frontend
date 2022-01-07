@@ -4,6 +4,7 @@ import UserService from '../services/UserService';
 import PatientTable from "./PatientTable";
 import PageHeader from "./PageHeader";
 import "./App.css";
+import "./Calibration.css";
 
 const id = localStorage.getItem("selectedPatient");
 
@@ -64,19 +65,19 @@ render(){
                     <div className = "row">
                         <div className = " col-md-8 offset-md-3 offset-md-3">
                             <div className = "form-group row">
-                                <label className="col-5 col-form-label" style={text1}> Input gradient parameter (nA)</label>
+                                <label className="col-5 col-form-label labelText"> Input gradient parameter (nA)</label>
                                 <div class="col-5">
                                     <input type ="number" name="number" className="form-control" value={this.state.gradient} onChange={this.changeGradHandler}/>
                                 </div>
                             </div>
                             <div className = "form-group row">
-                                <label className="col-5 col-form-label" style={text1}> Input intercept parameter (nA) </label>
+                                <label className="col-5 col-form-label labelText"> Input intercept parameter (nA) </label>
                                 <div class="col-5">
                                     <input type = "number" name="number" className="form-control" value={this.state.intercept} onChange={this.changeInterHandler}/>
                                 </div>
                             </div>
                             <div className = "form-group row">
-                                <label className="col-5 col-form-label" style={text1}> Input time delay (min) </label>
+                                <label className="col-5 col-form-label labelText"> Input time delay (min) </label>
                                 <div class="col-5">
                                     <input type = "number" name="delay" className="form-control" value= {this.state.delay} onChange={this.changeDelayHandler} /> 
                                 </div>
@@ -108,8 +109,3 @@ render(){
 
 export default Calibration
 
-    const text1 = {
-        fontSize: 20,
-        ontFamily: 'ruluko', 
-        color: '#565656',
-    }

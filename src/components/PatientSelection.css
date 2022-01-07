@@ -1,0 +1,23 @@
+.divs {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    align-items: center;
+}
+
+.container {
+    position: relative;
+    top: 10%;
+    left: 3%;
+    align-items: center;
+}
+
+.leftCol {
+    color: #565656;
+    text-align: right;
+    font-size: 30px;
+}
+
+.dropdownItem {
+    font-size: 30px;
+}

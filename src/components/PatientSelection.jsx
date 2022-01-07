@@ -4,6 +4,7 @@ import { DropdownButton, Dropdown, Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PageHeader from "./PageHeader";
 import "./App.css";
+import "./PatientSelection.css";
 
 let selectedPatient = ""; // stores selected patient ID
 
@@ -49,14 +50,14 @@ class PatientSelection extends React.Component {
 
 render (){
         return (
-            <div>
+            <div className={"divs"}>
                 <PageHeader title={"Patient Selection"} />
 
-                <Container style={{position:"absolute", top:"30%", alignItems:"centre"}}>
+                <Container className={"container"}>
                     <Row>
-                        <Col style={{color: "#565656", fontFamily: "ruluko", textAlign:"right", fontSize: "30px"}}>Select patient</Col>
+                        <Col className={"leftCol"}>Select patient</Col>
                         <Col>
-                            <DropdownButton variant={"light"} size={"lg"} style={{fontFamily:"ruluko", color:"#565656"}}
+                            <DropdownButton variant={"light"} size={"lg"} style={{color:"#565656"}}
                                 id="dropdown-basic-button"
                                 title={this.state.title}    // displays "Patient ID" as default text
                                 onSelect={this.handleSelect}
@@ -64,10 +65,10 @@ render (){
                                 {
                                     this.state.patients.map(   // displays all patient IDs
                                         patient =>
-                                            <Dropdown.Item style={{fontSize:"30px"}}
-                                                eventKey={patient.id}
-                                                value={patient.id}
-                                                key={patient.id}
+                                            <Dropdown.Item className={"dropdownItem"}
+                                                           eventKey={patient.id}
+                                                           value={patient.id}
+                                                           key={patient.id}
                                             >{patient.id}</Dropdown.Item>
                                     )
                                 }
