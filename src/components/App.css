@@ -2,7 +2,7 @@
     font-family: Ruluko, Arial, Helvetica, sans-serif;
 }
 
-.pageButton {
+.page-button {
     background-color: #E9E9E9;
     color: #515050;
     font-size: 20px;
@@ -16,7 +16,20 @@
     align-items: center;
 }
 
-.labelText {
+.menu-button {
+    background-color: #F8F8F8;
+    color: #515050;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    cursor: pointer;
+    width: 30%;
+    margin-left: 35%;
+    margin-right: 35%;
+}
+
+.label-text {
     font-size: 20px;
     color: #565656;
 }

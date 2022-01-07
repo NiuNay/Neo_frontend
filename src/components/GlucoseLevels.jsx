@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from "./styles.css"
 import CanvasJSReact from '../lib/canvasjs.react';
-import styled from "styled-components";
 import UserService from "../services/UserService";
 import PatientTable from "./PatientTable";
 import PageHeader from "./PageHeader";
 import "./App.css";
+import "./GlucoseLevels.css"
 
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -147,7 +147,7 @@ class GlucoseLevels extends React.Component {
                     <div className='row'>
                         <div className='column'>
                             <br></br>
-                            <h3 style={title}>Comments</h3>
+                            <h3 className={"title"}>Comments</h3>
                             
                             <div>
                                 <div>
@@ -169,15 +169,15 @@ class GlucoseLevels extends React.Component {
                                 </table>  
                              </div>
                         <a href='./comment'>
-                        <SaveButton> Add new note</SaveButton>
+                        <button className={"g-save-button"}> Add new note</button>
                         </a>
                     </div>
-                            <h3 style={title}>Time Frame</h3>
-                            <text className={"labelText"}>From: </text>
-                            <input name="time_instant" className="form-control" value={this.state.start_input} onChange={this.changeStartHandler}/>
-                            <text className={"labelText"}>To: </text>
-                            <input name="time_instant" className="form-control" value={this.state.end_input} onChange={this.changeEndHandler}/>
-                            <SaveButton onClick={this.saveTimeFrame}>Load graph</SaveButton>
+                            <h3 className={"title"}>Time Frame</h3>
+                            <text className={"label-text"}>From: </text>
+                            <input name="time_instant" className={"form-control"} value={this.state.start_input} onChange={this.changeStartHandler}/>
+                            <text className={"label-text"}>To: </text>
+                            <input name="time_instant" className={"form-control"} value={this.state.end_input} onChange={this.changeEndHandler}/>
+                            <button className={"g-save-button"} onClick={this.saveTimeFrame}>Load graph</button>
                         </div>
                         <div className='column'>
                             <CanvasJSChart options = {options}/>
@@ -186,7 +186,7 @@ class GlucoseLevels extends React.Component {
                 </div>
 
                 <a href="./menu">
-                    <button className={"pageButton"}> Back </button>
+                    <button className={"page-button"}> Back </button>
                 </a>
             </div>
         )
@@ -194,25 +194,3 @@ class GlucoseLevels extends React.Component {
 }
 
 export default GlucoseLevels
-
-
-const SaveButton = styled.button`
-    background-color: #E9E9E9;
-    color: #515050;
-    font-size: 18.72px;
-    font-family: ruluko;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px 0px;
-    cursor: pointer;
-    width:30%;
-    margin-left:35%;
-    margin-right:35%;
-    `;
-
-
-const title = {
-    color: '#565656',
-    fontFamily: 'ruluko',
-    fontWeight: "bold"
-}

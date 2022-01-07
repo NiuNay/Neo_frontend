@@ -1,4 +1,4 @@
-.divs {
+.main-div {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -12,12 +12,12 @@
     align-items: center;
 }
 
-.leftCol {
+.left-col {
     color: #565656;
     text-align: right;
     font-size: 30px;
 }
 
-.dropdownItem {
+.dropdown-item {
     font-size: 30px;
 }

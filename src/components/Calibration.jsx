@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components'
 import UserService from '../services/UserService';
 import PatientTable from "./PatientTable";
 import PageHeader from "./PageHeader";
@@ -59,25 +58,25 @@ render(){
 
             <PatientTable/>
       
-                <div className = "container">
-                    <div className = "row">
-                        <div className = " col-md-8 offset-md-3 offset-md-3">
+                <div className={"container"}>
+                    <div className={"row"}>
+                        <div className = {"col-md-8 offset-md-3 offset-md-3"}>
                             <div className = "form-group row">
-                                <label className="col-5 col-form-label labelText"> Input gradient parameter (nA)</label>
+                                <label className={"col-5 col-form-label label-text"}> Input gradient parameter (nA)</label>
                                 <div class="col-5">
-                                    <input type ="number" name="number" className="form-control" value={this.state.gradient} onChange={this.changeGradHandler}/>
+                                    <input type ="number" name="number" className={"form-control"} value={this.state.gradient} onChange={this.changeGradHandler}/>
                                 </div>
                             </div>
                             <div className = "form-group row">
-                                <label className="col-5 col-form-label labelText"> Input intercept parameter (nA) </label>
+                                <label className="col-5 col-form-label label-text"> Input intercept parameter (nA) </label>
                                 <div class="col-5">
-                                    <input type = "number" name="number" className="form-control" value={this.state.intercept} onChange={this.changeInterHandler}/>
+                                    <input type = "number" name="number" className={"form-control"} value={this.state.intercept} onChange={this.changeInterHandler}/>
                                 </div>
                             </div>
                             <div className = "form-group row">
-                                <label className="col-5 col-form-label labelText"> Input time delay (min) </label>
+                                <label className="col-5 col-form-label label-text"> Input time delay (min) </label>
                                 <div class="col-5">
-                                    <input type = "number" name="delay" className="form-control" value= {this.state.delay} onChange={this.changeDelayHandler} /> 
+                                    <input type = "number" name="delay" className={"form-control"} value= {this.state.delay} onChange={this.changeDelayHandler} /> 
                                 </div>
                             </div>
                         </div> 
@@ -87,14 +86,14 @@ render(){
         <center className="button-grid-2" >
 
             <a href="./menu">
-                <button className={"pageButton"} 
+                <button className={"page-button"} 
                         style={{backgroundColor:"#D3F8D6"}}
                         onClick={this.saveConstants}
                 >Calibrate</button>
             </a>
         
             <a href="./menu">
-                <button className={"pageButton"}>Back to menu</button>
+                <button className={"page-button"}>Back to menu</button>
             </a>
 
         </center>     

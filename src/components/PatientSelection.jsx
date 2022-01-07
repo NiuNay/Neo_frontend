@@ -50,12 +50,12 @@ class PatientSelection extends React.Component {
 
 render (){
         return (
-            <div className={"divs"}>
+            <div className={"main-div"}>
                 <PageHeader title={"Patient Selection"} />
 
                 <Container className={"container"}>
                     <Row>
-                        <Col className={"leftCol"}>Select patient</Col>
+                        <Col className={"left-col"}>Select patient</Col>
                         <Col>
                             <DropdownButton variant={"light"} size={"lg"} style={{color:"#565656"}}
                                 id="dropdown-basic-button"
@@ -65,7 +65,7 @@ render (){
                                 {
                                     this.state.patients.map(   // displays all patient IDs
                                         patient =>
-                                            <Dropdown.Item className={"dropdownItem"}
+                                            <Dropdown.Item className={"dropdown-item"}
                                                            eventKey={patient.id}
                                                            value={patient.id}
                                                            key={patient.id}
@@ -77,7 +77,7 @@ render (){
                     </Row>
                 </Container>
 
-                <button className={"pageButton"} 
+                <button className={"page-button"} 
                         style={{position:"absolute", top:"80%", alignItems:"centre"}}
                         onClick={this.handleClick}
                 >Next</button>
