@@ -7,7 +7,7 @@ import "./App.css";
 
 const id = localStorage.getItem("selectedPatient");
 
-
+/**This class handles calibration parameter inputs and their submission to the system */
 class Calibration extends Component {
 
     constructor(props) {
@@ -25,6 +25,8 @@ class Calibration extends Component {
         this.saveConstants = this.saveConstants.bind(this);
     }
 
+
+/**Saves the inputted values in the desired format and sends the data via corresponding services */
     saveConstants = (e) => {
         e.preventDefault();
         let calibration = {gradient: this.state.gradient, intercept: this.state.intercept};
@@ -37,7 +39,8 @@ class Calibration extends Component {
         alert("Data saved!")}
         
     }
-    
+
+    /**Handles the change from the default value to the user specified value */
     changeGradHandler= (event) => {
 
         this.setState({gradient: event.target.value});
@@ -60,6 +63,7 @@ render(){
 
             <PatientTable/>
       
+    {/* some comment */}
                 <div className = "container">
                     <div className = "row">
                         <div className = " col-md-8 offset-md-3 offset-md-3">

@@ -14,7 +14,7 @@ var deftime =today.getHours() + ":" + today.getMinutes();
 const id = localStorage.getItem("selectedPatient");
 
 
-
+/**This class handles note input and submission with its corresponding time-stamp */
 class Comment extends Component {
 
     constructor(props) {
