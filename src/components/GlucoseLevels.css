@@ -1,0 +1,17 @@
+.title {
+    color: #565656;
+    font-weight: bold;
+}
+
+.gSaveButton {
+    background-color: #E9E9E9;
+    color: #515050;
+    font-size: 18.72px;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    cursor: pointer;
+    width: 30%;
+    margin-left: 35%;
+    margin-right: 35%;
+}

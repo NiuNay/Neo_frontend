@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components'
 import TimeInput from 'react-input-time';
 import UserService from '../services/UserService';
 import { alignPropType } from 'react-bootstrap/esm/types';
@@ -68,28 +67,28 @@ render(){
             <PatientTable/>
 
             <br></br>
-                   <div className = "container">
+                   <div className="container">
                         <div className = "row">
-                            <div className = " col-md-8 offset-md-3 offset-md-3">
+                            <div className="col-md-8 offset-md-3 offset-md-3">
 
                     <form>
                         
-                            <div className = "form-group row">
-                                <label className="col-5 col-form-label" style={text1}> Input comment </label>
+                            <div className="form-group row">
+                                <label className="col-5 col-form-label label-text"> Input comment </label>
                                 <div class="col-5">
                                 <input placeholder="type note..." name="note" className="form-control" value={this.state.note} onChange={this.changeCommentHandler}/>
                                 </div>
                             </div>
                         
-                            <div className = "form-group row">
-                                <label className="col-5 col-form-label" style={text1}> Input date </label>
+                            <div className="form-group row">
+                                <label className="col-5 col-form-label label-text"> Input date </label>
                                 <div class="col-5">
                                 <input name="time_instant" className="form-control" value={this.state.date} onChange={this.changeDateHandler}/>
                                 </div>
                             </div>
                         
-                            <div className = "form-group row">
-                                <label className="col-5 col-form-label" style={text1}> Input time </label>
+                            <div className="form-group row">
+                                <label className="col-5 col-form-label label-text"> Input time </label>
                                 <div class="col-5">
                                 <TimeInput defaultValue={deftime} className="form-control" value= {this.state.time} onChange={this.changeTimeHandler} /> 
                                 </div>
@@ -103,7 +102,7 @@ render(){
         <center className="button-grid-2" >
 
             <a href="./menu">
-                <button className={"pageButton"}
+                <button className={"page-button"}
                         style={{backgroundColor:"#D3F8D6"}}
                         onClick={this.saveNote}
                 >Upload note</button>
@@ -112,7 +111,7 @@ render(){
                 <ContinueButton/>
            
         </center>     
-         </div>
+        </div>
 
 
     )
@@ -120,8 +119,3 @@ render(){
 
 export default Comment
 
-    const text1 = {
-        fontSize: 20,
-        fontFamily: 'ruluko', 
-        color: '#565656',
-    }

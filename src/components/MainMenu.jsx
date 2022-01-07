@@ -1,23 +1,7 @@
-import styled from 'styled-components'
 import "@fontsource/ruluko"
 import PatientTable from "./PatientTable";
 import PageHeader from "./PageHeader";
 import "./App.css";
-
-const Button = styled.button`
-  background-color: #F8F8F8;
-  color: #515050;
-  font-size: 20px;
-  font-family: ruluko;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px 0px;
-  cursor: pointer;
-  width:30%;
-  margin-left:35%;
-  margin-right:35%;
-`;
-
 
 function MainMenu() {
     return (
@@ -27,19 +11,19 @@ function MainMenu() {
             <PatientTable/>
 
             <a href="./calibration">
-                <Button> Calibration </Button>
+                <button className={"menu-button"}> Calibration </button>
             </a>
             <a href="./comment">
-                <Button> Comment </Button>
+                <button className={"menu-button"}> Comment </button>
             </a>
             <a href="./prickreading">
-                <Button> Prick Reading </Button>
+                <button className={"menu-button"}> Prick Reading </button>
             </a>
             <a href="./glucoselevels">
-                <Button> Glucose Levels </Button>
+                <button className={"menu-button"}> Glucose Levels </button>
             </a>
             <a href="./patientselection">
-                <button className={"pageButton"}> Back </button>
+                <button className={"page-button"}> Back </button>
             </a>
         </div>
     )

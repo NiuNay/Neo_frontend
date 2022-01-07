@@ -1,0 +1,22 @@
+.pt-div {
+    position: relative;
+    left: 5%;
+    top: 20%;
+}
+.pt-h1 {
+    font-size: 20px;
+}
+
+.pt-table {
+    width: 200px;
+    padding: 50px 50px 50px 50px;
+}
+
+.pt-tr {
+    background-color: white;
+}
+
+.pt-td {
+    border: 1px solid black;
+    padding: 5px 10px 5px 10px
+}

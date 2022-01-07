@@ -8,7 +8,7 @@ function Login() {
             <PageHeader title={"Login"}/>
 
             <a href="./patientselection">
-                <button className={"pageButton"}> Log In </button>
+                <button className={"page-button"}> Log In </button>
             </a>
         </div>
     )

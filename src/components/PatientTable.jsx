@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import "./PatientTable.css";
 class PatientTable extends PureComponent {
 
     constructor(props) {
@@ -17,15 +17,15 @@ class PatientTable extends PureComponent {
 
     render() {
         return (
-            <div style={{position:"relative", left:"5%", top:"20%"}}>
-                <h1 style={{fontFamily:"ruluko", fontSize:"20px"}}>Selected Patient</h1>
-                <table style={{ fontFamily:"ruluko", width:"200px", padding:"50px 50px 50px 50px" }}>
+            <div className={"pt-div"}>
+                <h1 className={"pt-h1"}>Selected Patient</h1>
+                <table className={"pt-table"}>
                     <tbody>
-                        <tr style={{backgroundColor:"white", }}>
-                            <td style={{border:"1px solid black", padding:"5px 10px 5px 10px", }}>
+                        <tr className={"pt-tr"}>
+                            <td className={"pt-td"}>
                                 Patient ID:
                             </td>
-                            <td style={{border:"1px solid black",padding:"5px 10px 5px 10px"}}>
+                            <td className={"pt-td"}>
                                 {this.state.id}
                             </td>
                         </tr>

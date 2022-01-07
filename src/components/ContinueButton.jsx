@@ -6,7 +6,7 @@ import "./App.css";
     const navigate = useNavigate();
     return (
         <>
-          <button className={"pageButton"} onClick={() => navigate.goBack()}>Continue</button>
+          <button className={"page-button"} onClick={() => navigate.goBack()}>Continue</button>
         </>
     );
 };

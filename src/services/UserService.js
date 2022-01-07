@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const patient_list_url = 'http://localhost:8080';
+const patient_list_url = 'https://neo-monitoring.herokuapp.com';
 
 class UserService {
 

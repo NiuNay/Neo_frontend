@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components'
 import TimeInput from 'react-input-time';
 import UserService from '../services/UserService';
 import PatientTable from "./PatientTable";
@@ -82,19 +81,19 @@ render(){
                     <div className = " col-md-8 offset-md-3 offset-md-3">
                     <form>
                         <div className = "form-group row">
-                            <text className="col-5 col-form-label" style={text1}> Input prick readings (nA) </text>
+                            <text className="col-5 col-form-label label-text"> Input prick readings (nA) </text>
                             <div class="col-5">
                                 <input type = "number" placeholder="input data..." name="data" className="form-control" value={this.state.prick_data} onChange={this.changeDataHandler}/>
                             </div> 
                         </div>
                         <div className = "form-group row">
-                            <text className="col-5 col-form-label" style={text1}> Input date </text>
+                            <text className="col-5 col-form-label label-text"> Input date </text>
                             <div class="col-5">
                                 <input name="time_instant" className="form-control" value={this.state.date} onChange={this.changeDateHandler}/>
                             </div>
                         </div>
                         <div className = "form-group row">
-                            <text className="col-5 col-form-label" style={text1}> Input time </text>
+                            <text className="col-5 col-form-label label-text"> Input time </text>
                             <div class="col-5">
                                 <TimeInput defaultValue={deftime} className="form-control" value= {this.state.time} onChange={this.changeTimeHandler} /> 
                             </div>
@@ -106,13 +105,13 @@ render(){
      
         <center className= "button-grid-2">
         <a href="./menu">
-                <button className={"pageButton"} 
+                <button className={"page-button"} 
                         style={{backgroundColor:"#D3F8D6"}}
                         onClick={this.savePrickData}
                 >Upload data</button>
             </a>
             <a href="./menu">
-                <button className={"pageButton"}> Back to menu </button>
+                <button className={"page-button"}> Back to menu </button>
             </a>
            
 
@@ -127,8 +126,4 @@ render(){
 
 export default PrickReading
 
-    const text1 = {
-        fontSize: 20,
-        fontFamily: 'ruluko',
-        color: '#565656',
-    }
+
