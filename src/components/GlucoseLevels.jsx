@@ -98,7 +98,7 @@ class GlucoseLevels extends React.Component {
         for (let i = 0; i < this.state.note_time_data.length; i++) {   
             var t = new Date(this.state.note_time_data[i]);
             if(t>this.state.start_date && t<this.state.end_date){
-            note_data.push({x: (this.state.note_time_data[i]), y: this.state.note[i]})
+            note_data.push({x: ((this.state.note_time_data[i]).substring(0,10) + ' ' +(this.state.note_time_data[i]).substring(11,19)), y: this.state.note[i]})
             }
         }   
 
