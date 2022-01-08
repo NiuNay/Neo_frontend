@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import TimeInput from 'react-input-time';
 import UserService from '../services/UserService';
 import PatientTable from "./PatientTable";
 import PageHeader from "./PageHeader";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import TimePicker from 'react-time-picker';
+
 import "./App.css";
 
 
 var today = new Date();
-var defDate=today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
-var deftime =today.getHours() + ":" + today.getMinutes();
+var currentTime =today.getHours() + ":" + today.getMinutes();
 const id = localStorage.getItem("selectedPatient");
 
 class PrickReading extends Component {
@@ -20,8 +22,8 @@ class PrickReading extends Component {
 
         this.state = {
             id: id,
-            date: defDate,
-            time: deftime,
+            startDate: new Date,
+            defTime: currentTime,
 	        prick_data:''
         }
         this.changeDataHandler = this.changeDataHandler.bind(this);
@@ -44,8 +46,8 @@ class PrickReading extends Component {
 
     savePrickData = (e) => {
         e.preventDefault();
-        let patient = {prick_data: this.state.prick_data, time_instant: this.state.date + ' ' + this.state.time + ":00"};
-        if (this.state.prick_data && this.state.date && this.state.time) {
+        let patient = {prick_data: this.state.prick_data, time_instant: (this.state.startDate).toLocaleDateString().substring(0,14) + 'T' + this.state.defTime + ":00"};
+        if (this.state.prick_data && this.state.startDate && this.state.defTime) {
         console.log('patient => ' + JSON.stringify(patient));
         UserService.addPrickData(patient,this.state.id)
         alert("Data saved!")
@@ -59,14 +61,14 @@ class PrickReading extends Component {
         this.setState({prick_data: event.target.value});
     }
 
-    changeDateHandler= (event) => {
+    changeDateHandler(date) {
 
-        this.setState({date: event.target.value});
+        this.setState({startDate: date});
     }
 
-    changeTimeHandler= (event) => {
+    changeTimeHandler= (time) => {
 
-        this.setState({time: event.target.value});
+        this.setState({defTime: time});
     }
 
 render(){
@@ -89,13 +91,13 @@ render(){
                         <div className = "form-group row">
                             <text className="col-5 col-form-label label-text"> Input date </text>
                             <div class="col-5">
-                                <input name="time_instant" className="form-control" value={this.state.date} onChange={this.changeDateHandler}/>
+                                <DatePicker className='form-control' selected={ this.state.startDate } onChange={this.changeDateHandler} />
                             </div>
                         </div>
                         <div className = "form-group row">
                             <text className="col-5 col-form-label label-text"> Input time </text>
                             <div class="col-5">
-                                <TimeInput defaultValue={deftime} className="form-control" value= {this.state.time} onChange={this.changeTimeHandler} /> 
+                                <TimePicker className='form-control' value={ this.state.defTime } onChange={this.changeTimeHandler}/> 
                             </div>
                         </div>
                     </form>
