@@ -1,15 +1,20 @@
 import React from 'react';
-import styles from "./styles.css"
+import  "./styles.css";
 import CanvasJSReact from '../lib/canvasjs.react';
 import UserService from "../services/UserService";
 import PatientTable from "./PatientTable";
 import PageHeader from "./PageHeader";
+import DatePicker from "react-datepicker";
+import TimePicker from 'react-time-picker';
+import "react-datepicker/dist/react-datepicker.css";
 import "./App.css";
 import "./GlucoseLevels.css"
 
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const id = localStorage.getItem("selectedPatient");
+var today = new Date();
+var currentTime =today.getHours() + ":" + today.getMinutes();
 
 /**This class handles the graphing of the patient's glucose levels over time and associated functionalities (choosing
  * a custom time frame of data to view, viewing and inputting notes).*/
@@ -19,6 +24,9 @@ class GlucoseLevels extends React.Component {
         super(props)
         this.state = {
             id: id,
+            startDate: new Date(),
+            defTime: currentTime,
+	        newNote:'',
             sweat_time_data:[],
             sweat_glucose_data: [],
             prick_time_data: [],
@@ -28,14 +36,27 @@ class GlucoseLevels extends React.Component {
             note_data_length:0,
             sweat_data_length: 0,
             prick_data_length: 0,
+            start_input: localStorage.getItem("start"),
+            end_input: localStorage.getItem("end"),
             start_date: [],
             end_date: [],
-            start_input: [],
-            end_input: [],
             title: "Select Patient ID"
         }
         this.changeEndHandler = this.changeEndHandler.bind(this);
         this.changeStartHandler = this.changeStartHandler.bind(this);
+        this.changeCommentHandler = this.changeCommentHandler.bind(this);
+        this.changeDateHandler = this.changeDateHandler.bind(this);
+        this.changeTimeHandler = this.changeTimeHandler.bind(this);
+        this.saveNote = this.saveNote.bind(this)
+    }
+
+    fetchNewNotes(){
+        UserService.getData(this.state.id)
+        .then((response) => {
+            this.setState({ note_time_data: response.data[4], note: response.data[5]})
+            this.setState({ note_data_length: this.state.note_time_data.length})
+        })
+
     }
 
     /**Retrieves sweat and prick data from the database and sets the default time frame (start and end dates) to plot.
@@ -61,6 +82,7 @@ class GlucoseLevels extends React.Component {
     /**Saves the inputted values in the desired format*/
     saveTimeFrame = (e) => {
         e.preventDefault();
+
         var end_string = this.state.end_input;
         // Changing format from dd/mm/yyyy to mm/dd/yyyy so that Date() works as intended
         const end_array = end_string.split('/');
@@ -78,14 +100,44 @@ class GlucoseLevels extends React.Component {
 
         // Saving the start and end date values
         this.setState({end_date: end, start_date: start});
+       
+    }
+
+    saveNote = (e) => {
+        e.preventDefault();
+        let patient = {note: this.state.newNote, time_instant: (this.state.startDate.getFullYear()) + "-" + (this.state.startDate.getMonth()+1)+'-'+(this.state.startDate.getDate()) + 'T' + this.state.defTime + ":00"};
+        if (this.state.newNote && this.state.defTime && this.state.startDate) {
+        console.log('patient => ' + JSON.stringify(patient));
+        UserService.addNote(patient,this.state.id);
+        this.fetchNewNotes();
+        alert("Data saved!")}
+        
     }
 
     /**Handles the change from the default value to the user specified value */
     changeEndHandler = (event) => {
         this.setState({end_input: event.target.value});
+        localStorage.setItem("end", this.state.end_input )
+
     }
     changeStartHandler = (event) => {
         this.setState({start_input: event.target.value});
+        localStorage.setItem("start", this.state.start_input )
+    }
+       
+    changeCommentHandler= (event) => {
+
+        this.setState({newNote: event.target.value});
+    }
+
+    changeDateHandler(date) {
+
+        this.setState({startDate: date});
+    }
+
+    changeTimeHandler= (time) => {
+
+        this.setState({defTime: time});
     }
 
     render (){
@@ -163,16 +215,39 @@ class GlucoseLevels extends React.Component {
 
                 <div className='pagewrapper'>
                     <div className='row'>
+                        
                         <div className='column'>
-                            <br></br>
+                       
                             <h3 className={"title"}>Comments</h3>
+                            <div className='card'>
+                                <div className='row'>
+                                   
+                                    <div className='col-md-3'>
+                                    <DatePicker className='form-control' selected={ this.state.startDate } onChange={this.changeDateHandler} />
+                                    </div>
+                                    <div className='col'>
+                                    <TimePicker className='form-control' value={ this.state.defTime } onChange={this.changeTimeHandler}/> 
+                                    </div>
+                                    
+                                    <div className='col-md-5'>
+                                        <input placeholder="type note..." name="newNote" className="form-control" value={this.state.newNote} onChange={this.changeCommentHandler}/>
+                                    </div> 
+                                    
+                                     
+                                    </div> 
+                                    
+                                    <button className={"g-save-button"} onClick={this.saveNote}> Add</button> 
+                                   
+                                </div>  
+                                    
                             
+                                 
                             <div>
                                 <div>
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th> Time</th>
+                                                <th className='col-4'> Time</th>
                                                 <th> Note</th>
                                             </tr>
                                         </thead>
@@ -186,10 +261,8 @@ class GlucoseLevels extends React.Component {
                                     </tbody>
                                 </table>  
                              </div>
-                        <a href='./comment'>
-                        <button className={"g-save-button"}> Add new note</button>
-                        </a>
-                    </div>
+                             </div>
+                             
                             <h3 className={"title"}>Time Frame</h3>
                             <text className={"label-text"}>From: </text>
                             <input name="time_instant" className={"form-control"} value={this.state.start_input} onChange={this.changeStartHandler}/>

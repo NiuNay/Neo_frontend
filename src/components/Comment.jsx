@@ -3,9 +3,10 @@ import UserService from '../services/UserService';
 import PatientTable from "./PatientTable";
 import PageHeader from "./PageHeader";
 import DatePicker from "react-datepicker";
+import TimePicker from 'react-time-picker';
 import "react-datepicker/dist/react-datepicker.css";
 import "./App.css";
-import TimePicker from 'react-time-picker';
+
 
 var today = new Date();
 var currentTime =today.getHours() + ":" + today.getMinutes();
@@ -33,7 +34,7 @@ class Comment extends Component {
 
     saveNote = (e) => {
         e.preventDefault();
-        let patient = {note: this.state.note, time_instant: (this.state.startDate.getFullYear()) + "-" + (this.state.startDate.getMonth()+1)+'-'+(this.state.startDate.getDate()) + 'T' + this.state.defTime + ":00"};
+        let patient = {note: this.state.note, time_instant: (this.state.startDate.getMonth()+1) + "-" + (this.state.startDate.getDate())+'-'+(this.state.startDate.getFullYear()) + 'T' + this.state.defTime + ":00"};
         if (this.state.note && this.state.defTime) {
         console.log('patient => ' + JSON.stringify(patient));
         UserService.addNote(patient,this.state.id);
