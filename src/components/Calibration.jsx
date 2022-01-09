@@ -39,17 +39,19 @@ class Calibration extends Component {
         
     }
 
-    /**Handles the change from the default value to the user specified value */
+    /**Handles the change from the default calibration gradient value to the user specified value */
     changeGradHandler= (event) => {
 
         this.setState({gradient: event.target.value});
     }
 
+    /**Handles the change from the default calibration intercept value to the user specified value */
     changeInterHandler= (event) => {
 
         this.setState({intercept: event.target.value});
     }
-
+    
+    /**Handles the change from the default time delay value to the user specified value */
     changeDelayHandler= (event) => {
 
         this.setState({delay: event.target.value});

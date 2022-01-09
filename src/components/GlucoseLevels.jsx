@@ -105,7 +105,7 @@ class GlucoseLevels extends React.Component {
 
     saveNote = (e) => {
         e.preventDefault();
-        let patient = {note: this.state.newNote, time_instant: (this.state.startDate.getFullYear()) + "-" + (this.state.startDate.getMonth()+1)+'-'+(this.state.startDate.getDate()) + 'T' + this.state.defTime + ":00"};
+        let patient = {note: this.state.newNote, time_instant: (this.state.startDate.getFullYear()) + "-" + (this.state.startDate.getMonth()+1)+'-'+(this.state.startDate.getDate()) + ' ' + this.state.defTime + ":00"};
         if (this.state.newNote && this.state.defTime && this.state.startDate) {
         console.log('patient => ' + JSON.stringify(patient));
         UserService.addNote(patient,this.state.id);

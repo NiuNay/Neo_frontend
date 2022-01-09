@@ -22,35 +22,36 @@ class PrickReading extends Component {
 
         this.state = {
             id: id,
-            startDate: new Date,
+            startDate: new Date(),
             defTime: currentTime,
-	        prick_data:''
+	        prick_data:0
         }
         this.changeDataHandler = this.changeDataHandler.bind(this);
         this.changeDateHandler = this.changeDateHandler.bind(this);
+        this.changeTimeHandler= this.changeTimeHandler.bind(this)
         this.savePrickData= this.savePrickData.bind(this);
     }
 
-    componentDidMount(){
-
-            UserService.getPatientById(this.state.id).then( (res) =>{
-                let patient = res.data;
-                this.setState({prick_data: patient.prick_data,
-                    time_instant: patient.time_instant,
-                    
-                });
-            });
-               
-    }
-
-
+  
     savePrickData = (e) => {
         e.preventDefault();
-        let patient = {prick_data: this.state.prick_data, time_instant: (this.state.startDate).toLocaleDateString().substring(0,14) + 'T' + this.state.defTime + ":00"};
+
+        var date = this.state.startDate.getDate();
+           
+         if (date < 10) {
+             date = "0"+date;
+        }
+
+        var month = this.state.startDate.getMonth()+1;
+         if (month < 10) {
+             month = "0"+month;
+        }
+
+        let patient = {time_instant:  date + "/"+ month +'/'+ this.state.startDate.getFullYear() + " " +  this.state.defTime + ":00", prick_data: parseFloat(this.state.prick_data)};
         if (this.state.prick_data && this.state.startDate && this.state.defTime) {
         console.log('patient => ' + JSON.stringify(patient));
-        UserService.addPrickData(patient,this.state.id)
-        alert("Data saved!")
+        UserService.addPrickData(patient,this.state.id);
+        alert("Data saved!");
         }
     
         
@@ -66,7 +67,7 @@ class PrickReading extends Component {
         this.setState({startDate: date});
     }
 
-    changeTimeHandler= (time) => {
+    changeTimeHandler(time) {
 
         this.setState({defTime: time});
     }

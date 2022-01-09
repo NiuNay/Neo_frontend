@@ -13,7 +13,7 @@ var currentTime =today.getHours() + ":" + today.getMinutes();
 const id = localStorage.getItem("selectedPatient");
 
 
-/**This class handles note input and submission with its corresponding time-stamp */
+/**This class handles note input and submission with its corresponding time-stamps to the database */
 class Comment extends Component {
 
     constructor(props) {
@@ -31,10 +31,10 @@ class Comment extends Component {
         this.saveNote = this.saveNote.bind(this);
     }
 
-
+/**Saves the inputted values in the desired format and sends the data via corresponding services */
     saveNote = (e) => {
         e.preventDefault();
-        let patient = {note: this.state.note, time_instant: (this.state.startDate.getMonth()+1) + "-" + (this.state.startDate.getDate())+'-'+(this.state.startDate.getFullYear()) + 'T' + this.state.defTime + ":00"};
+        let patient = {note: this.state.note, time_instant: (this.state.startDate.getMonth()+1) + "-" + (this.state.startDate.getDate())+'-'+(this.state.startDate.getFullYear()) + ' ' + this.state.defTime + ":00"};
         if (this.state.note && this.state.defTime) {
         console.log('patient => ' + JSON.stringify(patient));
         UserService.addNote(patient,this.state.id);
@@ -42,16 +42,19 @@ class Comment extends Component {
         
     }
     
+    /**Sets the value of the note object based on the user input */
     changeCommentHandler= (event) => {
 
         this.setState({note: event.target.value});
     }
 
+    /**Handles the change of the default date to the user specified date*/
     changeDateHandler(date) {
 
         this.setState({startDate: date});
     }
 
+    /**Handles the change of the default time to the user specified time*/
     changeTimeHandler= (time) => {
 
         this.setState({defTime: time});
