@@ -13,9 +13,10 @@ var today = new Date();
 var currentTime =today.getHours() + ":" + today.getMinutes();
 const id = localStorage.getItem("selectedPatient");
 
+
+
+/**This class handles prick reading input and submission with its corresponding time-stamps to the database */
 class PrickReading extends Component {
-
-
 
     constructor(props) {
         super(props)
@@ -33,9 +34,11 @@ class PrickReading extends Component {
     }
 
   
+/**Save prick reading in the desired format {time_instant: string, prick_date: float} and sends the data via corresponding services */
     savePrickData = (e) => {
         e.preventDefault();
 
+        // preprocess the date string to the desired format dd/mm/yyyy 
         var date = this.state.startDate.getDate();
            
          if (date < 10) {
@@ -50,6 +53,7 @@ class PrickReading extends Component {
         let patient = {time_instant:  date + "/"+ month +'/'+ this.state.startDate.getFullYear() + " " +  this.state.defTime + ":00", prick_data: parseFloat(this.state.prick_data)};
         if (this.state.prick_data && this.state.startDate && this.state.defTime) {
         console.log('patient => ' + JSON.stringify(patient));
+        // service call
         UserService.addPrickData(patient,this.state.id);
         alert("Data saved!");
         }
@@ -57,16 +61,19 @@ class PrickReading extends Component {
         
     }
     
+    /**Sets the value of the prick reading object based on the user input */
     changeDataHandler= (event) => {
 
         this.setState({prick_data: event.target.value});
     }
 
+    /**Handles the change from the default date to the user specified date and sets the value of the startDate object */
     changeDateHandler(date) {
 
         this.setState({startDate: date});
     }
 
+    /**Handles the change from the default time to the user specified time and sets the value of the defTime object*/
     changeTimeHandler(time) {
 
         this.setState({defTime: time});

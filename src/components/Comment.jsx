@@ -31,7 +31,7 @@ class Comment extends Component {
         this.saveNote = this.saveNote.bind(this);
     }
 
-/**Saves the inputted values in the desired format and sends the data via corresponding services */
+/**Saves the inputted values in the desired format {note: string, time_instant: string} and sends the data via corresponding services */
     saveNote = (e) => {
         e.preventDefault();
         let patient = {note: this.state.note, time_instant: (this.state.startDate.getMonth()+1) + "-" + (this.state.startDate.getDate())+'-'+(this.state.startDate.getFullYear()) + ' ' + this.state.defTime + ":00"};

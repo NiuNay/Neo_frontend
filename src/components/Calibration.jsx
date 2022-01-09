@@ -34,6 +34,7 @@ class Calibration extends Component {
         console.log('delay => ' + JSON.stringify(delay));
         if(this.state.delay && this.state.gradient && this.state.intercept){
         UserService.addCalibration(calibration,this.state.id);
+        //service call
         UserService.addDelay(delay,this.state.id);
         alert("Data saved!")}
         

@@ -114,7 +114,7 @@ class GlucoseLevels extends React.Component {
         
     }
 
-    /**Handles the change from the default value to the user specified value.*/
+    /**Handles the change from the default value to the user specified value*/
     changeEndHandler = (event) => {
         this.setState({end_input: event.target.value});
         localStorage.setItem("end", this.state.end_input )
