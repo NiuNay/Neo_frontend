@@ -79,7 +79,7 @@ class GlucoseLevels extends React.Component {
             });
     }
 
-    /**Saves the inputted values in the desired format*/
+    /**Saves the inputted values in the desired format.*/
     saveTimeFrame = (e) => {
         e.preventDefault();
 
@@ -114,7 +114,7 @@ class GlucoseLevels extends React.Component {
         
     }
 
-    /**Handles the change from the default value to the user specified value */
+    /**Handles the change from the default value to the user specified value.*/
     changeEndHandler = (event) => {
         this.setState({end_input: event.target.value});
         localStorage.setItem("end", this.state.end_input )
@@ -142,30 +142,30 @@ class GlucoseLevels extends React.Component {
 
     render (){
         var sweat_data = [];
-        // Looping through the entire list of sweat data
+        // Loops through the entire list of sweat data
         for (let i = 0; i < this.state.sweat_data_length; i++) {
             var t = new Date(this.state.sweat_time_data[i]);
-            // Only retrieving data between the default (or specified) start and end dates
+            // Only retrieves data between the default (or specified) start and end dates
             if(t>this.state.start_date && t<this.state.end_date) {
                 sweat_data.push({x: t, y: this.state.sweat_glucose_data[i]})
             }
         }
 
-        // Looping through the entire list of prick data
+        // Loops through the entire list of prick data
         var prick_data = [];
         for (let i = 0; i < this.state.prick_data_length; i++) {
             var t = new Date(this.state.prick_time_data[i]);
-            // Only retrieving data between the default (or specified) start and end dates
+            // Only retrievs data between the default (or specified) start and end dates
             if(t>this.state.start_date && t<this.state.end_date) {
                 prick_data.push({x: t, y: this.state.prick_glucose_data[i]})
             }
         }
 
-        // Looping through the entire list of note data
+        // Loops through the entire list of note data
         var note_data = [];
         for (let i = 0; i < this.state.note_time_data.length; i++) {   
             var t = new Date(this.state.note_time_data[i]);
-            // Only retrieving data between the default (or specified) start and end dates
+            // Only retrieves data between the default (or specified) start and end dates
             if(t>this.state.start_date && t<this.state.end_date){
             note_data.push({x: ((this.state.note_time_data[i]).substring(0,10) + ' ' +(this.state.note_time_data[i]).substring(11,19)), y: this.state.note[i]})
             }
