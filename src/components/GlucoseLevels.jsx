@@ -11,6 +11,8 @@ import "./GlucoseLevels.css"
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const id = localStorage.getItem("selectedPatient");
 
+/**This class handles the graphing of the patient's glucose levels over time and associated functionalities (choosing
+ * a custom time frame of data to view, viewing and inputting notes).*/
 class GlucoseLevels extends React.Component {
 
     constructor(props){
@@ -36,6 +38,8 @@ class GlucoseLevels extends React.Component {
         this.changeStartHandler = this.changeStartHandler.bind(this);
     }
 
+    /**Retrieves sweat and prick data from the database and sets the default time frame (start and end dates) to plot.
+     * The default time frame is the most recent day with any recorded sweat data.*/
     componentDidMount(){
         UserService.getData(this.state.id)
             .then((response) => {
@@ -54,9 +58,11 @@ class GlucoseLevels extends React.Component {
             });
     }
 
+    /**Saves the inputted values in the desired format*/
     saveTimeFrame = (e) => {
         e.preventDefault();
         var end_string = this.state.end_input;
+        // Changing format from dd/mm/yyyy to mm/dd/yyyy so that Date() works as intended
         const end_array = end_string.split('/');
         [end_array[0], end_array[1]] = [end_array[1], end_array[0]];
         end_string = end_array.join("-")
@@ -64,14 +70,17 @@ class GlucoseLevels extends React.Component {
         end.setDate(end.getDate()+1);
 
         var start_string = this.state.start_input;
+        // Changing format from dd/mm/yyyy to mm/dd/yyyy so that Date() works as intended
         const start_array = start_string.split('/');
         [start_array[0], start_array[1]] = [start_array[1], start_array[0]];
         start_string = start_array.join("-")
         const start = new Date(start_string);
 
+        // Saving the start and end date values
         this.setState({end_date: end, start_date: start});
     }
 
+    /**Handles the change from the default value to the user specified value */
     changeEndHandler = (event) => {
         this.setState({end_input: event.target.value});
     }
@@ -81,32 +90,41 @@ class GlucoseLevels extends React.Component {
 
     render (){
         var sweat_data = [];
+        // Looping through the entire list of sweat data
         for (let i = 0; i < this.state.sweat_data_length; i++) {
             var t = new Date(this.state.sweat_time_data[i]);
+            // Only retrieving data between the default (or specified) start and end dates
             if(t>this.state.start_date && t<this.state.end_date) {
                 sweat_data.push({x: t, y: this.state.sweat_glucose_data[i]})
             }
         }
 
+        // Looping through the entire list of prick data
         var prick_data = [];
         for (let i = 0; i < this.state.prick_data_length; i++) {
             var t = new Date(this.state.prick_time_data[i]);
-            prick_data.push({x: t, y: this.state.prick_glucose_data[i]})
+            // Only retrieving data between the default (or specified) start and end dates
+            if(t>this.state.start_date && t<this.state.end_date) {
+                prick_data.push({x: t, y: this.state.prick_glucose_data[i]})
+            }
         }
 
+        // Looping through the entire list of note data
         var note_data = [];
         for (let i = 0; i < this.state.note_time_data.length; i++) {   
             var t = new Date(this.state.note_time_data[i]);
+            // Only retrieving data between the default (or specified) start and end dates
             if(t>this.state.start_date && t<this.state.end_date){
             note_data.push({x: ((this.state.note_time_data[i]).substring(0,10) + ' ' +(this.state.note_time_data[i]).substring(11,19)), y: this.state.note[i]})
             }
         }   
 
+        // Options for the graph
         const options = {
             zoomEnabled: true,
             animationEnabled: true,
             exportEnabled: true,
-            theme: "light2", // "light1", "dark1", "dark2"
+            theme: "light2",
             title:{
                 text: "Glucose Levels over Time"
             },
