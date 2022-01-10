@@ -1,40 +1,32 @@
-import axios from "axios";
+/* Reference - this service was referenced from: https://github.com/pardeep16/Spring-Security-Auth-Demo/blob/main/UI/src/api/authenticationService.js */
+import React from 'react';
+import axios from 'axios';
 
-const API_URL = "http://localhost:8080/api/auth";
+const getToken=()=>{
+    console.log("getting key from storage");
 
-class AuthService {
-    login(username, password) {
-        return axios
-            .post(API_URL + "signin", {
-                username,
-                password
-            })
-            .then(response => {
-                // if (response.data.accessToken) {
-                alert("posted!");
-                    alert(response.data);
-                    // localStorage.setItem("user", JSON.stringify(response.data));
-                // }
-                return response.data;
-            })
-            .catch((error) => console.log(error));
-    }
-
-    logout() {
-        localStorage.removeItem("user");
-    }
-
-    // register(username, email, password) {
-    //     return axios.post(API_URL + "signup", {
-    //         username,
-    //         email,
-    //         password
-    //     });
-    // }
-
-    // getCurrentUser() {
-    //     return JSON.parse(localStorage.getItem('user'));;
-    // }
+    return localStorage.getItem('USER_KEY'); // prev USER_KEY
 }
 
-export default new AuthService();
+export const userLogin=(authRequest)=>{
+    console.log("posting in process")
+
+    return axios({
+        method:'POST',
+        url: `http://localhost:8080/api/login`,
+        // 'url':`${process.env.hostUrl||'http://localhost:8080'}/api/login`, // (original url code copied over)
+        data: authRequest,
+    })
+}
+
+export const fetchUserData=(authRequest)=>{
+    console.log("getting in process")
+
+    return axios({
+        "method":'GET',
+        "url":`${process.env.hostUrl||'http://localhost:8080'}/api/user`,
+        "headers":{
+            'Authorization':'Bearer '+getToken()
+        }
+    })
+}
