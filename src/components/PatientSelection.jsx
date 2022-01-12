@@ -8,6 +8,8 @@ import "./PatientSelection.css";
 
 let selectedPatient = ""; // stores selected patient ID
 
+/**This class allows the user to select the patient ID from those stored in the database. It stores the selected ID
+ * and makes it accessible to all other components*/
 class PatientSelection extends React.Component {
 
     constructor(props){
@@ -19,6 +21,7 @@ class PatientSelection extends React.Component {
         this.handleSelect = this.handleSelect.bind(this);
     }
 
+    /**Retrieves all patient IDs stored in the database*/
     componentDidMount(){
         UserService.getUsers()
             .then((response) => {
@@ -29,14 +32,15 @@ class PatientSelection extends React.Component {
             });
     }
 
+    /**Stores the selected patient ID after user selection*/
     handleSelect(eventKey) {
         selectedPatient = eventKey;
         this.setState({title: eventKey})
-        console.log("Patient selected!"  + eventKey);  // for programmer to check handleSelect worked as expected
+        console.log("Patient ID saved: "  + eventKey);  // for programmer to easily check patient ID has been saved
         localStorage.setItem("selectedPatient", selectedPatient); // saves selected patient ID into browser local storage, making it retrievable by all other application webpages and components
     }
 
-    // only allows user to proceed to main menu page if a patient has been selected. Else, throws error.
+    /**Allows the user to proceed to the main menu page only if a patient has been selected*/
     handleClick=()=>{
         try {
             if (this.state.title === "Patient ID") {
@@ -59,7 +63,7 @@ render (){
                         <Col>
                             <DropdownButton variant={"light"} size={"lg"} style={{color:"#565656"}}
                                 id="dropdown-basic-button"
-                                title={this.state.title}    // displays "Patient ID" as default text
+                                title={this.state.title}       // displays "Patient ID" as default text
                                 onSelect={this.handleSelect}
                             >
                                 {
