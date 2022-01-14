@@ -9,7 +9,7 @@ import "./PatientSelection.css";
 let selectedPatient = ""; // stores selected patient ID
 
 /**This class allows the user to select the patient ID from those stored in the database. It stores the selected ID
- * and makes it accessible to all other components*/
+ * and makes it accessible to all other components.*/
 class PatientSelection extends React.Component {
 
     constructor(props){
@@ -21,7 +21,7 @@ class PatientSelection extends React.Component {
         this.handleSelect = this.handleSelect.bind(this);
     }
 
-    /**Retrieves all patient IDs stored in the database*/
+    /**Retrieves all patient IDs stored in the database.*/
     componentDidMount(){
         UserService.getUsers()
             .then((response) => {
@@ -32,7 +32,7 @@ class PatientSelection extends React.Component {
             });
     }
 
-    /**Stores the selected patient ID after user selection*/
+    /**Stores the selected patient ID after user selection.*/
     handleSelect(eventKey) {
         selectedPatient = eventKey;
         this.setState({title: eventKey})
@@ -40,7 +40,7 @@ class PatientSelection extends React.Component {
         localStorage.setItem("selectedPatient", selectedPatient); // saves selected patient ID into browser local storage, making it retrievable by all other application webpages and components
     }
 
-    /**Allows the user to proceed to the main menu page only if a patient has been selected*/
+    /**Allows the user to proceed to the main menu page only if a patient has been selected.*/
     handleClick=()=>{
         try {
             if (this.state.title === "Patient ID") {

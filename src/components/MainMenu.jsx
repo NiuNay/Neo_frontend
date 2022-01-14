@@ -3,6 +3,7 @@ import PatientTable from "./PatientTable";
 import PageHeader from "./PageHeader";
 import "./App.css";
 
+/**This class redirects the user to any app functionality they select and wish to use.*/
 function MainMenu() {
     return (
         <div>

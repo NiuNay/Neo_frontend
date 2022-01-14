@@ -13,8 +13,8 @@ import "./GlucoseLevels.css"
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const id = localStorage.getItem("selectedPatient");
-var today = new Date();
-var currentTime =today.getHours() + ":" + today.getMinutes();
+const today = new Date();
+var current_time = today.getHours() + ":" + today.getMinutes();
 
 /**This class handles the graphing of the patient's glucose levels over time and associated functionalities (choosing
  * a custom time frame of data to view, viewing and inputting notes).*/
@@ -24,9 +24,9 @@ class GlucoseLevels extends React.Component {
         super(props)
         this.state = {
             id: id,
-            startDate: new Date(),
-            defTime: currentTime,
-	        newNote:'',
+            comment_date: new Date(),
+            comment_time: current_time,
+            new_note:'',
             sweat_time_data:[],
             sweat_glucose_data: [],
             prick_time_data: [],
@@ -36,8 +36,8 @@ class GlucoseLevels extends React.Component {
             note_data_length:0,
             sweat_data_length: 0,
             prick_data_length: 0,
-            start_input: localStorage.getItem("start"),
-            end_input: localStorage.getItem("end"),
+            start_input:  '',
+            end_input:  '',
             start_date: [],
             end_date: [],
             title: "Select Patient ID"
@@ -52,10 +52,10 @@ class GlucoseLevels extends React.Component {
 
     fetchNewNotes(){
         UserService.getData(this.state.id)
-        .then((response) => {
-            this.setState({ note_time_data: response.data[4], note: response.data[5]})
-            this.setState({ note_data_length: this.state.note_time_data.length})
-        })
+            .then((response) => {
+                this.setState({ note_time_data: response.data[4], note: response.data[5]})
+                this.setState({ note_data_length: this.state.note_time_data.length})
+            })
 
     }
 
@@ -71,8 +71,7 @@ class GlucoseLevels extends React.Component {
                 const start = new Date(start_string);
                 const end = new Date(start_string);
                 end.setDate(end.getDate()+1);
-                const plotted_day = start.getDate()+ "/" + (start.getMonth()+1) +"/" + start.getFullYear();
-                this.setState({start_date: start, end_date: end, end_input: plotted_day, start_input: plotted_day})
+                this.setState({start_date: start, end_date: end, end_input: start, start_input: start})
             })
             .catch(() => {                          // checks data was retrieved
                 alert("Error retrieving patient data");
@@ -82,94 +81,83 @@ class GlucoseLevels extends React.Component {
     /**Saves the inputted values in the desired format.*/
     saveTimeFrame = (e) => {
         e.preventDefault();
-
-        var end_string = this.state.end_input;
-        // Changing format from dd/mm/yyyy to mm/dd/yyyy so that Date() works as intended
-        const end_array = end_string.split('/');
-        [end_array[0], end_array[1]] = [end_array[1], end_array[0]];
-        end_string = end_array.join("-")
-        const end = new Date(end_string);
+        const end = new Date(this.state.end_input);
         end.setDate(end.getDate()+1);
-
-        var start_string = this.state.start_input;
-        // Changing format from dd/mm/yyyy to mm/dd/yyyy so that Date() works as intended
-        const start_array = start_string.split('/');
-        [start_array[0], start_array[1]] = [start_array[1], start_array[0]];
-        start_string = start_array.join("-")
-        const start = new Date(start_string);
-
-        // Saving the start and end date values
-        this.setState({end_date: end, start_date: start});
-       
+        this.setState({end_date: end, start_date: this.state.start_input});
     }
 
     saveNote = (e) => {
         e.preventDefault();
-        let patient = {note: this.state.newNote, time_instant: (this.state.startDate.getFullYear()) + "-" + (this.state.startDate.getMonth()+1)+'-'+(this.state.startDate.getDate()) + ' ' + this.state.defTime + ":00"};
-        if (this.state.newNote && this.state.defTime && this.state.startDate) {
-        console.log('patient => ' + JSON.stringify(patient));
-        UserService.addNote(patient,this.state.id);
-        this.fetchNewNotes();
-        alert("Data saved!")}
-        
+        var date = this.state.comment_date.getDate();
+
+        if (date < 10) {
+            date = "0"+date;
+        }
+
+        var month = this.state.comment_date.getMonth()+1;
+        if (month < 10) {
+            month = "0"+month;
+        }
+        let patient = {note: this.state.new_note, time_instant: month + "/" + date + '/' + this.state.comment_date.getFullYear() + ' ' + this.state.comment_time + ":00"};
+        if (this.state.new_note && this.state.comment_time && this.state.comment_date) {
+            console.log('patient => ' + JSON.stringify(patient));
+            UserService.addNote(patient,this.state.id);
+            this.fetchNewNotes();
+            alert("Data saved!")
+        }
     }
 
-    /**Handles the change from the default value to the user specified value*/
-    changeEndHandler = (event) => {
-        this.setState({end_input: event.target.value});
-        localStorage.setItem("end", this.state.end_input )
+    /**Handles the change from the default value to the user specified value.*/
+    changeEndHandler = (date) => {
+        this.setState({end_input: date});
+    }
 
+    changeStartHandler = (date) => {
+        this.setState({start_input: date});
     }
-    changeStartHandler = (event) => {
-        this.setState({start_input: event.target.value});
-        localStorage.setItem("start", this.state.start_input )
-    }
-       
+
     changeCommentHandler= (event) => {
-
-        this.setState({newNote: event.target.value});
+        this.setState({new_note: event.target.value});
     }
 
     changeDateHandler(date) {
-
-        this.setState({startDate: date});
+        this.setState({comment_date: date});
     }
 
     changeTimeHandler= (time) => {
-
-        this.setState({defTime: time});
+        this.setState({comment_time: time});
     }
 
     render (){
         var sweat_data = [];
         // Loops through the entire list of sweat data
         for (let i = 0; i < this.state.sweat_data_length; i++) {
-            var t = new Date(this.state.sweat_time_data[i]);
+            var t_sweat = new Date(this.state.sweat_time_data[i]);
             // Only retrieves data between the default (or specified) start and end dates
-            if(t>this.state.start_date && t<this.state.end_date) {
-                sweat_data.push({x: t, y: this.state.sweat_glucose_data[i]})
+            if(t_sweat>this.state.start_date && t_sweat<this.state.end_date) {
+                sweat_data.push({x: t_sweat, y: this.state.sweat_glucose_data[i]})
             }
         }
 
         // Loops through the entire list of prick data
         var prick_data = [];
         for (let i = 0; i < this.state.prick_data_length; i++) {
-            var t = new Date(this.state.prick_time_data[i]);
-            // Only retrievs data between the default (or specified) start and end dates
-            if(t>this.state.start_date && t<this.state.end_date) {
-                prick_data.push({x: t, y: this.state.prick_glucose_data[i]})
+            var t_prick = new Date(this.state.prick_time_data[i]);
+            // Only retrieves data between the default (or specified) start and end dates
+            if(t_prick>this.state.start_date && t_prick<this.state.end_date) {
+                prick_data.push({x: t_prick, y: this.state.prick_glucose_data[i]})
             }
         }
 
         // Loops through the entire list of note data
         var note_data = [];
-        for (let i = 0; i < this.state.note_time_data.length; i++) {   
-            var t = new Date(this.state.note_time_data[i]);
-            // Only retrieves data between the default (or specified) start and end dates
-            if(t>this.state.start_date && t<this.state.end_date){
-            note_data.push({x: ((this.state.note_time_data[i]).substring(0,10) + ' ' +(this.state.note_time_data[i]).substring(11,19)), y: this.state.note[i]})
+        for (let i = 0; i < this.state.note_data_length; i++) {
+            var t_notes = new Date(this.state.note_time_data[i]);
+            //Only retrieves data between the default (or specified) start and end dates
+            if(t_notes>this.state.start_date && t_notes<this.state.end_date){
+                note_data.push({x: this.state.note_time_data[i], y: this.state.note[i]})
             }
-        }   
+        }
 
         // Options for the graph
         const options = {
@@ -203,7 +191,7 @@ class GlucoseLevels extends React.Component {
                 showInLegend: true,
                 toolTipContent: "{x}: {y}mmol/L",
                 dataPoints: prick_data
-                }
+            }
             ]
         }
 
@@ -215,62 +203,64 @@ class GlucoseLevels extends React.Component {
 
                 <div className='pagewrapper'>
                     <div className='row'>
-                        
                         <div className='column'>
-                       
+                            <br></br>
+                            <h3 className={"title"}>Time Frame</h3>
+                            <div className='row'>
+                                <div className='col-md-4'>
+                                    <text className={"label-text"}>From: </text>
+                                    <DatePicker className='form-control' selected={ this.state.start_input } onChange={this.changeStartHandler} />
+                                </div>
+                                <div className='col-md-4'>
+                                    <text className={"label-text"}>To: </text>
+                                    <DatePicker className='form-control' selected={ this.state.end_input } onChange={this.changeEndHandler} />
+                                </div>
+                            </div>
+                            <br></br>
+                            <button className={"g-save-button"} onClick={this.saveTimeFrame}>Use Time Frame</button>
+
+                            <br></br>
                             <h3 className={"title"}>Comments</h3>
                             <div className='card'>
                                 <div className='row'>
-                                   
+
                                     <div className='col-md-3'>
-                                    <DatePicker className='form-control' selected={ this.state.startDate } onChange={this.changeDateHandler} />
+                                        <DatePicker className='form-control' selected={ this.state.comment_date } onChange={this.changeDateHandler} />
                                     </div>
                                     <div className='col'>
-                                    <TimePicker className='form-control' value={ this.state.defTime } onChange={this.changeTimeHandler}/> 
+                                        <TimePicker className='form-control' value={ this.state.comment_time } onChange={this.changeTimeHandler}/>
                                     </div>
-                                    
+
                                     <div className='col-md-5'>
-                                        <input placeholder="type note..." name="newNote" className="form-control" value={this.state.newNote} onChange={this.changeCommentHandler}/>
-                                    </div> 
-                                    
-                                     
-                                    </div> 
-                                    
-                                    <button className={"g-save-button"} onClick={this.saveNote}> Add</button> 
-                                   
-                                </div>  
-                                    
-                            
-                                 
+                                        <input placeholder="type note..." name="new_note" className="form-control" value={this.state.new_note} onChange={this.changeCommentHandler}/>
+                                    </div>
+                                </div>
+                                <button className={"g-save-button"} onClick={this.saveNote}>Add</button>
+                            </div>
                             <div>
                                 <div>
                                     <table>
                                         <thead>
-                                            <tr>
-                                                <th className='col-4'> Time</th>
-                                                <th> Note</th>
-                                            </tr>
+                                        <tr>
+                                            <th className='col-4'> Time (mm/dd/yyyy) </th>
+                                            <th> Note</th>
+                                        </tr>
                                         </thead>
-                                    <tbody>
+                                        <tbody>
                                         {note_data.map(el => (
                                             <tr>
-                                            <td>{el.x}</td>
-                                            <td>{el.y}</td>
+                                                <td>{el.x}</td>
+                                                <td>{el.y}</td>
                                             </tr>
                                         ))}
-                                    </tbody>
-                                </table>  
-                             </div>
-                             </div>
-                             
-                            <h3 className={"title"}>Time Frame</h3>
-                            <text className={"label-text"}>From: </text>
-                            <input name="time_instant" className={"form-control"} value={this.state.start_input} onChange={this.changeStartHandler}/>
-                            <text className={"label-text"}>To: </text>
-                            <input name="time_instant" className={"form-control"} value={this.state.end_input} onChange={this.changeEndHandler}/>
-                            <button className={"g-save-button"} onClick={this.saveTimeFrame}>Load graph</button>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
+
                         <div className='column'>
+                            <br></br>
                             <CanvasJSChart options = {options}/>
                         </div>
                     </div>

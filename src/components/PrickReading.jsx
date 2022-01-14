@@ -15,7 +15,7 @@ const id = localStorage.getItem("selectedPatient");
 
 
 
-/**This class handles prick reading input and submission with its corresponding time-stamps to the database */
+/**This class handles prick reading input and submission with its corresponding time-stamps to the database.*/
 class PrickReading extends Component {
 
     constructor(props) {
@@ -34,7 +34,7 @@ class PrickReading extends Component {
     }
 
   
-/**Save prick reading in the desired format {time_instant: string, prick_date: float} and sends the data via corresponding services */
+/**Save prick reading in the desired format {time_instant: string, prick_date: float} and sends the data via corresponding services.*/
     savePrickData = (e) => {
         e.preventDefault();
 
@@ -61,19 +61,19 @@ class PrickReading extends Component {
         
     }
     
-    /**Sets the value of the prick reading object based on the user input */
+    /**Sets the value of the prick reading object based on the user input.*/
     changeDataHandler= (event) => {
 
         this.setState({prick_data: event.target.value});
     }
 
-    /**Handles the change from the default date to the user specified date and sets the value of the startDate object */
+    /**Handles the change from the default date to the user specified date and sets the value of the startDate object.*/
     changeDateHandler(date) {
 
         this.setState({startDate: date});
     }
 
-    /**Handles the change from the default time to the user specified time and sets the value of the defTime object*/
+    /**Handles the change from the default time to the user specified time and sets the value of the defTime object.*/
     changeTimeHandler(time) {
 
         this.setState({defTime: time});

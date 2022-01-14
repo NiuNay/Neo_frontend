@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./PatientTable.css";
 
-/**This class display the selected patient ID number in a table. This table is imported and displayed on every page of
- * the app*/
+/**This class displays the selected patient ID number in a table. This table is imported and displayed on every page of
+ * the app.*/
 class PatientTable extends PureComponent {
 
     constructor(props) {

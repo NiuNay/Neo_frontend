@@ -2,6 +2,8 @@ import axios from 'axios'
 
 const patient_list_url = 'https://neo-monitoring.herokuapp.com';
 
+/**This class regroups all the different functions that can be used to communicate with the backend (send and receive
+ * data) using HTTPS links.*/
 class UserService {
 
     getUsers(){
