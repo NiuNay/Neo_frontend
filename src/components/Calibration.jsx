@@ -25,19 +25,24 @@ class Calibration extends Component {
     }
 
 
-/**Saves the inputted values in the desired format and sends the data via corresponding services */
+/**Saves the inputted values in the desired format and sends the data via corresponding services only if all calibration
+ * fields are filled */
     saveConstants = (e) => {
         e.preventDefault();
         let calibration = {gradient: this.state.gradient, intercept: this.state.intercept};
         let delay = {delay: this.state.delay}
         console.log('calibration => ' + JSON.stringify(calibration));
         console.log('delay => ' + JSON.stringify(delay));
-        if(this.state.delay && this.state.gradient && this.state.intercept){
-        UserService.addCalibration(calibration,this.state.id);
-        //service call
-        UserService.addDelay(delay,this.state.id);
-        alert("Data saved!")}
-        
+
+        if(this.state.delay && this.state.gradient && this.state.intercept){ // saves data if all three fields are filled
+            //service call
+            UserService.addCalibration(calibration,this.state.id);
+            UserService.addDelay(delay,this.state.id);
+            alert("Data saved!")
+        }
+        else {
+            alert("Please fill in all fields");
+        }
     }
 
     /**Handles the change from the default calibration gradient value to the user specified value */
@@ -70,19 +75,19 @@ render(){
                         <div className = {"col-md-8 offset-md-3 offset-md-3"}>
                             <div className = "form-group row">
                                 <label className={"col-5 col-form-label label-text"}> Input gradient parameter (nA)</label>
-                                <div class="col-5">
+                                <div className="col-5">
                                     <input type ="number" name="number" className={"form-control"} value={this.state.gradient} onChange={this.changeGradHandler}/>
                                 </div>
                             </div>
                             <div className = "form-group row">
                                 <label className="col-5 col-form-label label-text"> Input intercept parameter (nA) </label>
-                                <div class="col-5">
+                                <div className="col-5">
                                     <input type = "number" name="number" className={"form-control"} value={this.state.intercept} onChange={this.changeInterHandler}/>
                                 </div>
                             </div>
                             <div className = "form-group row">
                                 <label className="col-5 col-form-label label-text"> Input time delay (min) </label>
-                                <div class="col-5">
+                                <div className="col-5">
                                     <input type = "number" name="delay" className={"form-control"} value= {this.state.delay} onChange={this.changeDelayHandler} /> 
                                 </div>
                             </div>

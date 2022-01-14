@@ -42,13 +42,11 @@ class PatientSelection extends React.Component {
 
     /**Allows the user to proceed to the main menu page only if a patient has been selected*/
     handleClick=()=>{
-        try {
-            if (this.state.title === "Patient ID") {
-                throw "Patient not selected";
-            }
-            window.open("./menu", "_self")
-        } catch(err) {
+        if (this.state.title === "Patient ID") {
             alert("Please select a patient");
+        }
+        else {
+            window.open("./menu", "_self")
         }
     }
 

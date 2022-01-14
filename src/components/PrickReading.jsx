@@ -52,10 +52,13 @@ class PrickReading extends Component {
 
         let patient = {time_instant:  date + "/"+ month +'/'+ this.state.startDate.getFullYear() + " " +  this.state.defTime + ":00", prick_data: parseFloat(this.state.prick_data)};
         if (this.state.prick_data && this.state.startDate && this.state.defTime) {
-        console.log('patient => ' + JSON.stringify(patient));
-        // service call
-        UserService.addPrickData(patient,this.state.id);
-        alert("Data saved!");
+            console.log('patient => ' + JSON.stringify(patient));
+            // service call
+            UserService.addPrickData(patient,this.state.id);
+            alert("Data saved!");
+        }
+        else {
+            alert("Please enter prick data");
         }
     
         
@@ -92,19 +95,19 @@ render(){
                     <form>
                         <div className = "form-group row">
                             <text className="col-5 col-form-label label-text"> Input prick readings (nA) </text>
-                            <div class="col-5">
+                            <div className="col-5">
                                 <input type = "number" placeholder="input data..." name="data" className="form-control" value={this.state.prick_data} onChange={this.changeDataHandler}/>
                             </div> 
                         </div>
                         <div className = "form-group row">
                             <text className="col-5 col-form-label label-text"> Input date </text>
-                            <div class="col-5">
+                            <div className="col-5">
                                 <DatePicker className='form-control' selected={ this.state.startDate } onChange={this.changeDateHandler} />
                             </div>
                         </div>
                         <div className = "form-group row">
                             <text className="col-5 col-form-label label-text"> Input time </text>
-                            <div class="col-5">
+                            <div className="col-5">
                                 <TimePicker className='form-control' value={ this.state.defTime } onChange={this.changeTimeHandler}/> 
                             </div>
                         </div>
