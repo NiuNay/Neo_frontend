@@ -34,7 +34,17 @@ class Comment extends Component {
 /**Saves the inputted values in the desired format {note: string, time_instant: string} and sends the data via corresponding services */
     saveNote = (e) => {
         e.preventDefault();
-        let patient = {note: this.state.note, time_instant: (this.state.startDate.getMonth()+1) + "-" + (this.state.startDate.getDate())+'-'+(this.state.startDate.getFullYear()) + ' ' + this.state.defTime + ":00"};
+        var date = this.state.startDate.getDate();
+           
+        if (date < 10) {
+            date = "0"+date;
+       }
+
+       var month = this.state.startDate.getMonth()+1;
+        if (month < 10) {
+            month = "0"+month;
+       }
+        let patient = {note: this.state.note, time_instant: month + "/" + date + '/'+(this.state.startDate.getFullYear()) + ' ' + this.state.defTime + ":00"};
         if (this.state.note && this.state.defTime) {
         console.log('patient => ' + JSON.stringify(patient));
         UserService.addNote(patient,this.state.id);
@@ -84,14 +94,14 @@ render(){
                             </div>
                         
                             <div className="form-group row">
-                                <label className="col-4 col-form-label label-text"> Input date </label>
+                                <label className="col-4 col-form-label label-text"> Input date (mm/dd/yyyy)</label>
                                 <div class="col-6">
                                     <DatePicker className='form-control' selected={ this.state.startDate } onChange={this.changeDateHandler} /> 
                                 </div>
                             </div>
                         
                             <div className="form-group row">
-                                <label className="col-4 col-form-label label-text"> Input time </label>
+                                <label className="col-4 col-form-label label-text"> Input time  </label>
                                 <div class="col-6">
                                      <TimePicker className='form-control' value={ this.state.defTime } onChange={this.changeTimeHandler}/> 
                             </div> </div>
