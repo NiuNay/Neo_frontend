@@ -1,5 +1,4 @@
 import React from 'react';
-import  "./styles.css";
 import CanvasJSReact from '../lib/canvasjs.react';
 import UserService from "../services/UserService";
 import PatientTable from "./PatientTable";
@@ -9,7 +8,6 @@ import TimePicker from 'react-time-picker';
 import "react-datepicker/dist/react-datepicker.css";
 import "./App.css";
 import "./GlucoseLevels.css"
-
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const id = localStorage.getItem("selectedPatient");
@@ -56,7 +54,6 @@ class GlucoseLevels extends React.Component {
                 this.setState({ note_time_data: response.data[4], note: response.data[5]})
                 this.setState({ note_data_length: this.state.note_time_data.length})
             })
-
     }
 
     /**Retrieves sweat and prick data from the database and sets the default time frame (start and end dates) to plot.
@@ -79,17 +76,17 @@ class GlucoseLevels extends React.Component {
     }
 
     /**Saves the inputted values in the desired format.*/
-    saveTimeFrame = (e) => {
+    saveTimeFrame=(e)=>{
         e.preventDefault();
         const end = new Date(this.state.end_input);
         end.setDate(end.getDate()+1);
         this.setState({end_date: end, start_date: this.state.start_input});
     }
 
-    saveNote = (e) => {
+    saveNote=(e)=>{
         e.preventDefault();
-        var date = this.state.comment_date.getDate();
 
+        var date = this.state.comment_date.getDate();
         if (date < 10) {
             date = "0"+date;
         }
@@ -98,9 +95,10 @@ class GlucoseLevels extends React.Component {
         if (month < 10) {
             month = "0"+month;
         }
-        let patient = {note: this.state.new_note, time_instant: month + "/" + date + '/' + this.state.comment_date.getFullYear() + ' ' + this.state.comment_time + ":00"};
+
+        let patient = {note: this.state.new_note, time_instant: month + "/" + date + "/" + this.state.comment_date.getFullYear() + " " + this.state.comment_time + ":00"};
         if (this.state.new_note && this.state.comment_time && this.state.comment_date) {
-            console.log('patient => ' + JSON.stringify(patient));
+            console.log("patient => " + JSON.stringify(patient));
             UserService.addNote(patient,this.state.id);
             this.fetchNewNotes();
             alert("Data saved!")
@@ -130,12 +128,14 @@ class GlucoseLevels extends React.Component {
 
     render (){
         var sweat_data = [];
+
         // Loops through the entire list of sweat data
         for (let i = 0; i < this.state.sweat_data_length; i++) {
             var t_sweat = new Date(this.state.sweat_time_data[i]);
+
             // Only retrieves data between the default (or specified) start and end dates
             if(t_sweat>this.state.start_date && t_sweat<this.state.end_date) {
-                sweat_data.push({x: t_sweat, y: this.state.sweat_glucose_data[i]})
+                sweat_data.push({x: t_sweat, y: this.state.sweat_glucose_data[i]});
             }
         }
 
@@ -143,9 +143,10 @@ class GlucoseLevels extends React.Component {
         var prick_data = [];
         for (let i = 0; i < this.state.prick_data_length; i++) {
             var t_prick = new Date(this.state.prick_time_data[i]);
+
             // Only retrieves data between the default (or specified) start and end dates
             if(t_prick>this.state.start_date && t_prick<this.state.end_date) {
-                prick_data.push({x: t_prick, y: this.state.prick_glucose_data[i]})
+                prick_data.push({x: t_prick, y: this.state.prick_glucose_data[i]});
             }
         }
 
@@ -153,9 +154,10 @@ class GlucoseLevels extends React.Component {
         var note_data = [];
         for (let i = 0; i < this.state.note_data_length; i++) {
             var t_notes = new Date(this.state.note_time_data[i]);
+
             //Only retrieves data between the default (or specified) start and end dates
             if(t_notes>this.state.start_date && t_notes<this.state.end_date){
-                note_data.push({x: this.state.note_time_data[i], y: this.state.note[i]})
+                note_data.push({x: this.state.note_time_data[i], y: this.state.note[i]});
             }
         }
 
@@ -173,7 +175,7 @@ class GlucoseLevels extends React.Component {
             },
             axisX: {
                 title: "Time of Day",
-                valueFormatString: 'D MMM h:mm TT',
+                valueFormatString: "D MMM h:mm TT",
                 labelAngle: -50
             },
             toolTip: {
@@ -201,73 +203,86 @@ class GlucoseLevels extends React.Component {
 
                 <PatientTable/>
 
-                <div className='pagewrapper'>
-                    <div className='row'>
-                        <div className='column'>
+                <div className="pagewrapper">
+                    <div className="row">
+                        <div className="column">
                             <br></br>
-                            <h3 className={"title"}>Time Frame</h3>
-                            <div className='row'>
-                                <div className='col-md-4'>
-                                    <text className={"label-text"}>From: </text>
-                                    <DatePicker className='form-control' selected={ this.state.start_input } onChange={this.changeStartHandler} />
+                            <h3 className="title">Time Frame</h3>
+                            <div className="row">
+                                <div className="col-md-4">
+                                    <text className="label-text">From: </text>
+                                    <DatePicker className="form-control"
+                                                selected={this.state.start_input}
+                                                onChange={this.changeStartHandler}/>
                                 </div>
-                                <div className='col-md-4'>
-                                    <text className={"label-text"}>To: </text>
-                                    <DatePicker className='form-control' selected={ this.state.end_input } onChange={this.changeEndHandler} />
+                                <div className="col-md-4">
+                                    <text className="label-text">To: </text>
+                                    <DatePicker className="form-control"
+                                                selected={this.state.end_input}
+                                                onChange={this.changeEndHandler}/>
                                 </div>
                             </div>
                             <br></br>
-                            <button className={"g-save-button"} onClick={this.saveTimeFrame}>Use Time Frame</button>
-
+                            <button className={"g-save-button"}
+                                    onClick={this.saveTimeFrame}
+                            >Use Time Frame</button>
                             <br></br>
-                            <h3 className={"title"}>Comments</h3>
-                            <div className='card'>
-                                <div className='row'>
-
-                                    <div className='col-md-3'>
-                                        <DatePicker className='form-control' selected={ this.state.comment_date } onChange={this.changeDateHandler} />
+                            <h3 className="title">Comments</h3>
+                            <div className="card">
+                                <div className="row">
+                                    <div className="col-md-3">
+                                        <DatePicker className="form-control"
+                                                    selected={this.state.comment_date}
+                                                    onChange={this.changeDateHandler} />
                                     </div>
-                                    <div className='col'>
-                                        <TimePicker className='form-control' value={ this.state.comment_time } onChange={this.changeTimeHandler}/>
+                                    <div className="col">
+                                        <TimePicker className="form-control"
+                                                    value={this.state.comment_time}
+                                                    onChange={this.changeTimeHandler}/>
                                     </div>
-
-                                    <div className='col-md-5'>
-                                        <input placeholder="type note..." name="new_note" className="form-control" value={this.state.new_note} onChange={this.changeCommentHandler}/>
+                                    <div className="col-md-5">
+                                        <input placeholder="type note..."
+                                               name="new_note"
+                                               className="form-control"
+                                               value={this.state.new_note}
+                                               onChange={this.changeCommentHandler}/>
                                     </div>
                                 </div>
-                                <button className={"g-save-button"} onClick={this.saveNote}>Add</button>
+                                <button className="g-save-button"
+                                        onClick={this.saveNote}
+                                >Add</button>
                             </div>
                             <div>
                                 <div>
                                     <table>
                                         <thead>
                                         <tr>
-                                            <th className='col-4'> Time (mm/dd/yyyy) </th>
-                                            <th> Note</th>
+                                            <th className="col-4">Time (mm/dd/yyyy)</th>
+                                            <th>Note</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {note_data.map(el => (
-                                            <tr>
-                                                <td>{el.x}</td>
-                                                <td>{el.y}</td>
-                                            </tr>
-                                        ))}
+                                            {note_data.map(el => (
+                                                <tr>
+                                                    <td>{el.x}</td>
+                                                    <td>{el.y}</td>
+                                                </tr>
+                                            ))}
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
 
-                        <div className='column'>
+                        <div className="column">
                             <br></br>
-                            <CanvasJSChart options = {options}/>
+                            <CanvasJSChart options={options}/>
                         </div>
                     </div>
                 </div>
 
                 <a href="./menu">
-                    <button className={"page-button"}> Back </button>
+                    <button className="page-button">Back</button>
                 </a>
             </div>
         )

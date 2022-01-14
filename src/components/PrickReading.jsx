@@ -20,7 +20,7 @@ class PrickReading extends Component {
             id: id,
             startDate: new Date(),
             defTime: currentTime,
-	        prick_data:0
+            prick_data:0
         }
         this.savePrickData= this.savePrickData.bind(this);
         this.changeDataHandler = this.changeDataHandler.bind(this);
@@ -28,11 +28,11 @@ class PrickReading extends Component {
         this.changeTimeHandler= this.changeTimeHandler.bind(this)
     }
 
-/**Save prick reading in the desired format {time_instant: string, prick_date: float} and sends the data via corresponding services.*/
+    /**Save prick reading in the desired format {time_instant: string, prick_date: float} and sends the data via corresponding services.*/
     savePrickData = (e) => {
         e.preventDefault();
 
-        // preprocess the date string to the desired format dd/mm/yyyy 
+        // preprocess the date string to the desired format dd/mm/yyyy
         var date = this.state.startDate.getDate();
         if (date < 10) {
             date = "0"+date;
@@ -54,7 +54,7 @@ class PrickReading extends Component {
             alert("Please enter prick data");
         }
     }
-    
+
     /**Sets the value of the prick reading object based on the user input.*/
     changeDataHandler= (event) => {
         this.setState({prick_data: event.target.value});
@@ -127,5 +127,4 @@ class PrickReading extends Component {
 }
 
 export default PrickReading
-
 
