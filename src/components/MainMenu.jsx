@@ -1,6 +1,7 @@
 import PatientTable from "./PatientTable";
 import PageHeader from "./PageHeader";
 import "./App.css";
+import "@fontsource/ruluko";
 
 function MainMenu() {
     return (
