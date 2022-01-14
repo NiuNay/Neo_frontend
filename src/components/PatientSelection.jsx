@@ -1,7 +1,6 @@
-import React from 'react';
-import UserService from '../services/UserService';
-import { DropdownButton, Dropdown, Container, Row, Col } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import { DropdownButton, Dropdown, Container, Row, Col } from "react-bootstrap";
+import UserService from "../services/UserService";
 import PageHeader from "./PageHeader";
 import "./App.css";
 import "./PatientSelection.css";
@@ -46,20 +45,19 @@ class PatientSelection extends React.Component {
             alert("Please select a patient");
         }
         else {
-            window.open("./menu", "_self")
+            window.open("./menu", "_self");
         }
     }
 
 render (){
         return (
-            <div className={"main-div"}>
-                <PageHeader title={"Patient Selection"} />
-
-                <Container className={"container"}>
+            <div className="main-div">
+                <PageHeader title="Patient Selection" />
+                <Container className="container">
                     <Row>
-                        <Col className={"left-col"}>Select patient</Col>
+                        <Col className="left-col">Select patient</Col>
                         <Col>
-                            <DropdownButton variant={"light"} size={"lg"} style={{color:"#565656"}}
+                            <DropdownButton variant={"light"} size={"lg"} style={{ color:"#565656" }}
                                 id="dropdown-basic-button"
                                 title={this.state.title}       // displays "Patient ID" as default text
                                 onSelect={this.handleSelect}
@@ -67,7 +65,7 @@ render (){
                                 {
                                     this.state.patients.map(   // displays all patient IDs
                                         patient =>
-                                            <Dropdown.Item className={"dropdown-item"}
+                                            <Dropdown.Item className="dropdown-item"
                                                            eventKey={patient.id}
                                                            value={patient.id}
                                                            key={patient.id}
@@ -79,8 +77,8 @@ render (){
                     </Row>
                 </Container>
 
-                <button className={"page-button"} 
-                        style={{position:"absolute", top:"80%", alignItems:"centre"}}
+                <button className="page-button"
+                        style={{ position:"absolute", top:"80%", alignItems:"centre" }}
                         onClick={this.handleClick}
                 >Next</button>
             </div>
