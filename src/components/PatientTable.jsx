@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { PureComponent } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./PatientTable.css";
 
 /**This class displays the selected patient ID number in a table. This table is imported and displayed on every page of
@@ -21,17 +21,13 @@ class PatientTable extends PureComponent {
 
     render() {
         return (
-            <div className={"pt-div"}>
-                <h1 className={"pt-h1"}>Selected Patient</h1>
-                <table className={"pt-table"}>
+            <div className="pt-div">
+                <h1 className="pt-h1">Selected Patient</h1>
+                <table className="pt-table">
                     <tbody>
-                        <tr className={"pt-tr"}>
-                            <td className={"pt-td"}>
-                                Patient ID:
-                            </td>
-                            <td className={"pt-td"}>
-                                {this.state.id}
-                            </td>
+                        <tr className="pt-tr">
+                            <td className="pt-td">Patient ID:</td>
+                            <td className="pt-td">{this.state.id}</td>
                         </tr>
                     </tbody>
                 </table>
