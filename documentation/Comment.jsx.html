@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Comment.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Comment.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component }from 'react';
+import UserService from '../services/UserService';
+import PatientTable from "./PatientTable";
+import PageHeader from "./PageHeader";
+import DatePicker from "react-datepicker";
+import TimePicker from 'react-time-picker';
+import "react-datepicker/dist/react-datepicker.css";
+import "./App.css";
+
+var today = new Date();
+var currentTime = today.getHours() + ":" + today.getMinutes();
+const id = localStorage.getItem("selectedPatient");
+
+/**This class handles note input and submission with its corresponding time-stamps to the database */
+class Comment extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: id,
+            startDate: new Date,
+            defTime: currentTime,
+	        note:""
+        }
+        this.changeCommentHandler = this.changeCommentHandler.bind(this);
+        this.changeDateHandler = this.changeDateHandler.bind(this);
+        this.changeTimeHandler = this.changeTimeHandler.bind(this);
+        this.saveNote = this.saveNote.bind(this);
+    }
+
+/**Saves the inputted values in the desired format {note: string, time_instant: string} and sends the data via corresponding services */
+    saveNote=(e)=>{
+        e.preventDefault();
+
+        var date = this.state.startDate.getDate();
+        if (date &lt; 10) {
+            date = "0"+date;
+        }
+
+        var month = this.state.startDate.getMonth()+1;
+        if (month &lt; 10) {
+            month = "0"+month;
+        }
+        let patient = {note: this.state.note, time_instant: month + "/" + date + "/" + (this.state.startDate.getFullYear()) + " " + this.state.defTime + ":00"};
+        if (this.state.note &amp;&amp; this.state.defTime) {
+            console.log("patient => " + JSON.stringify(patient));
+            UserService.addNote(patient,this.state.id);
+            alert("Data saved!");
+        }
+        else {
+            alert("Please enter comment");
+        }
+    }
+    
+    /**Sets the value of the note object based on the user input */
+    changeCommentHandler=(event)=>{
+        this.setState({note: event.target.value});
+    }
+
+    /**Handles the change of the default date to the user specified date*/
+    changeDateHandler(date) {
+        this.setState({startDate: date});
+    }
+
+    /**Handles the change of the default time to the user specified time*/
+    changeTimeHandler=(time)=>{
+        this.setState({defTime: time});
+    }
+
+    render(){
+        return (
+            &lt;div>
+                &lt;PageHeader title={"Comment"}/>
+                &lt;PatientTable/>
+                &lt;br>&lt;/br>
+                       &lt;div className="container">
+                            &lt;div className="row">
+                                &lt;div className="col-md-8 offset-md-2 offset-md-2">
+                                    &lt;form>
+                                        &lt;div className="form-group row">
+                                            &lt;label className="col-4 col-form-label label-text">Input comment&lt;/label>
+                                            &lt;div className="col-6">
+                                                &lt;input placeholder="type note..."
+                                                       name="note"
+                                                       className="form-control"
+                                                       value={this.state.note}
+                                                       onChange={this.changeCommentHandler}/>
+                                            &lt;/div>
+                                        &lt;/div>
+                                        &lt;div className="form-group row">
+                                            &lt;label className="col-4 col-form-label label-text">Input date (mm/dd/yyyy)&lt;/label>
+                                                &lt;div className="col-6">
+                                                    &lt;DatePicker className="form-control"
+                                                                selected={ this.state.startDate }
+                                                                onChange={this.changeDateHandler}/>
+                                                &lt;/div>
+                                        &lt;/div>
+                                        &lt;div className="form-group row">
+                                            &lt;label className="col-4 col-form-label label-text">Input time&lt;/label>
+                                            &lt;div className="col-6">
+                                                &lt;TimePicker className="form-control"
+                                                            value={ this.state.defTime }
+                                                            onChange={this.changeTimeHandler}/>
+                                            &lt;/div>
+                                        &lt;/div>
+                                    &lt;/form>
+                                &lt;/div>
+                            &lt;/div>
+                       &lt;/div>
+                &lt;center className="button-grid-2" >
+                    &lt;a>
+                        &lt;button className="page-button"
+                                style={{ backgroundColor:"#D3F8D6" }}
+                                onClick={this.saveNote}
+                        >Upload note&lt;/button>
+                    &lt;/a>
+                    &lt;a href="./menu">
+                        &lt;button className="page-button"
+                        >Go to Menu&lt;/button>
+                    &lt;/a>
+                    &lt;a href="./glucoselevels">
+                        &lt;button className="page-button"
+                        >View Glucose&lt;/button>
+                    &lt;/a>
+                &lt;/center>
+            &lt;/div>
+        )
+    }
+}
+
+export default Comment
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Comment.html">Comment</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jan 15 2022 09:58:44 GMT-0100 (Azores Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

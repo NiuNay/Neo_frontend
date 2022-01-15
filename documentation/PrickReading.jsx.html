@@ -1,4 +1,32 @@
-import React, { Component } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: PrickReading.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: PrickReading.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component } from "react";
 import UserService from "../services/UserService";
 import PatientTable from "./PatientTable";
 import PageHeader from "./PageHeader";
@@ -34,31 +62,31 @@ class PrickReading extends Component {
 
         // preprocess the date string to the desired format dd/mm/yyyy
         var date = this.state.startDate.getDate();
-        if (date < 10) {
+        if (date &lt; 10) {
             date = "0"+date;
         }
 
         var month = this.state.startDate.getMonth()+1;
-        if (month < 10) {
+        if (month &lt; 10) {
             month = "0"+month;
         }
 
         var hh_mm = this.state.defTime.split(':');
         var hh = hh_mm[0];
 
-        if (hh_mm[0].length < 2) {
+        if (hh_mm[0].length &lt; 2) {
 
              hh = "0" + hh_mm[0];
         }
 
         var mm = hh_mm[1];
-        if (hh_mm[1].length < 2) {
+        if (hh_mm[1].length &lt; 2) {
 
             mm = "0" + hh_mm[1];
         }
 
         let patient = {time_instant:  date + "/"+ month +"/"+ this.state.startDate.getFullYear() + " " + hh + ":" + mm + ":00", prick_data: parseFloat(this.state.prick_data)};
-        if (this.state.prick_data && this.state.startDate && this.state.defTime) {
+        if (this.state.prick_data &amp;&amp; this.state.startDate &amp;&amp; this.state.defTime) {
             console.log("patient => " + JSON.stringify(patient));
             // service call
             UserService.addPrickData(patient,this.state.id);
@@ -86,59 +114,82 @@ class PrickReading extends Component {
 
     render(){
         return (
-            <div>
-                <PageHeader title={"Prick Readings"}/>
-                <PatientTable/>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-8 offset-md-3 offset-md-3">
-                            <form>
-                                <div className="form-group row">
-                                    <text className="col-5 col-form-label label-text">Input prick readings (nA)</text>
-                                    <div className="col-5">
-                                        <input type = "number"
+            &lt;div>
+                &lt;PageHeader title={"Prick Readings"}/>
+                &lt;PatientTable/>
+                &lt;div className="container">
+                    &lt;div className="row">
+                        &lt;div className="col-md-8 offset-md-3 offset-md-3">
+                            &lt;form>
+                                &lt;div className="form-group row">
+                                    &lt;text className="col-5 col-form-label label-text">Input prick readings (nA)&lt;/text>
+                                    &lt;div className="col-5">
+                                        &lt;input type = "number"
                                                placeholder="input data..."
                                                name="data"
                                                className="form-control"
                                                value={this.state.prick_data}
                                                onChange={this.changeDataHandler}/>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
-                                    <text className="col-5 col-form-label label-text"> Input date </text>
-                                    <div className="col-5">
-                                        <DatePicker className="form-control"
+                                    &lt;/div>
+                                &lt;/div>
+                                &lt;div className="form-group row">
+                                    &lt;text className="col-5 col-form-label label-text"> Input date &lt;/text>
+                                    &lt;div className="col-5">
+                                        &lt;DatePicker className="form-control"
                                                     selected={this.state.startDate}
                                                     onChange={this.changeDateHandler} />
-                                    </div>
-                                </div>
-                                <div className = "form-group row">
-                                    <text className="col-5 col-form-label label-text">Input time</text>
-                                    <div className="col-5">
-                                        <TimePicker className="form-control"
+                                    &lt;/div>
+                                &lt;/div>
+                                &lt;div className = "form-group row">
+                                    &lt;text className="col-5 col-form-label label-text">Input time&lt;/text>
+                                    &lt;div className="col-5">
+                                        &lt;TimePicker className="form-control"
                                                     value={ this.state.defTime }
                                                     onChange={this.changeTimeHandler}/>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <center className= "button-grid-2">
-                    <a href="./menu">
-                        <button className="page-button"
+                                    &lt;/div>
+                                &lt;/div>
+                            &lt;/form>
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/div>
+                &lt;center className= "button-grid-2">
+                    &lt;a href="./menu">
+                        &lt;button className="page-button"
                                 style={{ backgroundColor:"#D3F8D6" }}
                                 onClick={this.savePrickData}
-                        >Upload data</button>
-                    </a>
-                    <a href="./menu">
-                        <button className="page-button">Back to menu</button>
-                    </a>
-                </center>
-            </div>
+                        >Upload data&lt;/button>
+                    &lt;/a>
+                    &lt;a href="./menu">
+                        &lt;button className="page-button">Back to menu&lt;/button>
+                    &lt;/a>
+                &lt;/center>
+            &lt;/div>
         )
     }
 }
 
 export default PrickReading
 
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="PrickReading.html">PrickReading</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jan 15 2022 10:00:40 GMT-0100 (Azores Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
