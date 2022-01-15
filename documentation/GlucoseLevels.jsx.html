@@ -1,4 +1,32 @@
-import React from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: GlucoseLevels.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: GlucoseLevels.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
 import CanvasJSReact from '../lib/canvasjs.react';
 import UserService from "../services/UserService";
 import PatientTable from "./PatientTable";
@@ -50,7 +78,7 @@ class GlucoseLevels extends React.Component {
 
     fetchNewNotes(){
         UserService.getData(this.state.id)
-            .then((response)=>{
+            .then((response) => {
                 this.setState({ note_time_data: response.data[4], note: response.data[5]})
                 this.setState({ note_data_length: this.state.note_time_data.length})
             })
@@ -60,7 +88,7 @@ class GlucoseLevels extends React.Component {
      * The default time frame is the most recent day with any recorded sweat data.*/
     componentDidMount(){
         UserService.getData(this.state.id)
-            .then((response)=>{
+            .then((response) => {
                 this.setState({ sweat_time_data: response.data[0], sweat_glucose_data: response.data[1], prick_time_data: response.data[2], prick_glucose_data: response.data[3], note_time_data: response.data[4], note: response.data[5]})
                 this.setState({sweat_data_length: this.state.sweat_time_data.length, prick_data_length: this.state.prick_time_data.length, note_data_length: this.state.note_time_data.length})
                 const last_date = new Date(this.state.sweat_time_data[this.state.sweat_data_length-1]);
@@ -83,22 +111,22 @@ class GlucoseLevels extends React.Component {
         this.setState({end_date: end, start_date: this.state.start_input});
     }
 
-    /**Saves the new note inputted by the user in the desired format.*/
+    /**Saves the new note inputted by the user in the desired format */
     saveNote=(e)=>{
         e.preventDefault();
 
         var date = this.state.comment_date.getDate();
-        if (date < 10) {
+        if (date &lt; 10) {
             date = "0"+date;
         }
 
         var month = this.state.comment_date.getMonth()+1;
-        if (month < 10) {
+        if (month &lt; 10) {
             month = "0"+month;
         }
 
         let patient = {note: this.state.new_note, time_instant: month + "/" + date + "/" + this.state.comment_date.getFullYear() + " " + this.state.comment_time + ":00"};
-        if (this.state.new_note && this.state.comment_time && this.state.comment_date) {
+        if (this.state.new_note &amp;&amp; this.state.comment_time &amp;&amp; this.state.comment_date) {
             console.log("patient => " + JSON.stringify(patient));
             UserService.addNote(patient,this.state.id);
             this.fetchNewNotes();
@@ -107,26 +135,27 @@ class GlucoseLevels extends React.Component {
     }
 
     /**Handles the change from the default end date value to the user specified value.*/
-    changeEndHandler=(date)=>{
+    changeEndHandler = (date) => {
         this.setState({end_input: date});
     }
 
      /**Handles the change from the default start date value to the user specified value.*/
-    changeStartHandler=(date)=>{
+    changeStartHandler = (date) => {
         this.setState({start_input: date});
     }
 
-    /**Sets the value of the note object based on the user input.*/
-    changeCommentHandler=(event)=>{
+    /**Sets the value of the note object based on the user input */
+    changeCommentHandler= (event) => {
         this.setState({new_note: event.target.value});
     }
 
-    /**Handles the change of the default date to the user specified date.*/
-    changeDateHandler(date){
+    /**Handles the change of the default date to the user specified date*/
+    changeDateHandler(date) {
         this.setState({comment_date: date});
     }
 
-    changeTimeHandler=(time)=>{
+    /**Handles the change of the default time to the user specified time*/
+    changeTimeHandler= (time) => {
         this.setState({comment_time: time});
     }
 
@@ -134,33 +163,33 @@ class GlucoseLevels extends React.Component {
         var sweat_data = [];
 
         // Loops through the entire list of sweat data
-        for (let i = 0; i < this.state.sweat_data_length; i++) {
+        for (let i = 0; i &lt; this.state.sweat_data_length; i++) {
             var t_sweat = new Date(this.state.sweat_time_data[i]);
 
             // Only retrieves data between the default (or specified) start and end dates
-            if(t_sweat>this.state.start_date && t_sweat<this.state.end_date) {
+            if(t_sweat>this.state.start_date &amp;&amp; t_sweat&lt;this.state.end_date) {
                 sweat_data.push({x: t_sweat, y: this.state.sweat_glucose_data[i]});
             }
         }
 
         // Loops through the entire list of prick data
         var prick_data = [];
-        for (let i = 0; i < this.state.prick_data_length; i++) {
+        for (let i = 0; i &lt; this.state.prick_data_length; i++) {
             var t_prick = new Date(this.state.prick_time_data[i]);
 
             // Only retrieves data between the default (or specified) start and end dates
-            if(t_prick>this.state.start_date && t_prick<this.state.end_date) {
+            if(t_prick>this.state.start_date &amp;&amp; t_prick&lt;this.state.end_date) {
                 prick_data.push({x: t_prick, y: this.state.prick_glucose_data[i]});
             }
         }
 
         // Loops through the entire list of note data
         var note_data = [];
-        for (let i = 0; i < this.state.note_data_length; i++) {
+        for (let i = 0; i &lt; this.state.note_data_length; i++) {
             var t_notes = new Date(this.state.note_time_data[i]);
 
             //Only retrieves data between the default (or specified) start and end dates
-            if(t_notes>this.state.start_date && t_notes<this.state.end_date){
+            if(t_notes>this.state.start_date &amp;&amp; t_notes&lt;this.state.end_date){
                 note_data.push({x: this.state.note_time_data[i], y: this.state.note[i]});
             }
         }
@@ -202,95 +231,118 @@ class GlucoseLevels extends React.Component {
         }
 
         return (
-            <div>
-                <PageHeader title={"Glucose Levels"}/>
+            &lt;div>
+                &lt;PageHeader title={"Glucose Levels"}/>
 
-                <PatientTable/>
+                &lt;PatientTable/>
 
-                <div className="pagewrapper">
-                    <div className="row">
-                        <div className="column">
-                            <br></br>
-                            <h3 className="title">Time Frame</h3>
-                            <div className="row">
-                                <div className="col-md-4">
-                                    <text className="label-text">From: </text>
-                                    <DatePicker className="form-control"
+                &lt;div className="pagewrapper">
+                    &lt;div className="row">
+                        &lt;div className="column">
+                            &lt;br>&lt;/br>
+                            &lt;h3 className="title">Time Frame&lt;/h3>
+                            &lt;div className="row">
+                                &lt;div className="col-md-4">
+                                    &lt;text className="label-text">From: &lt;/text>
+                                    &lt;DatePicker className="form-control"
                                                 selected={this.state.start_input}
                                                 onChange={this.changeStartHandler}/>
-                                </div>
-                                <div className="col-md-4">
-                                    <text className="label-text">To: </text>
-                                    <DatePicker className="form-control"
+                                &lt;/div>
+                                &lt;div className="col-md-4">
+                                    &lt;text className="label-text">To: &lt;/text>
+                                    &lt;DatePicker className="form-control"
                                                 selected={this.state.end_input}
                                                 onChange={this.changeEndHandler}/>
-                                </div>
-                            </div>
-                            <br></br>
-                            <button className={"g-save-button"}
+                                &lt;/div>
+                            &lt;/div>
+                            &lt;br>&lt;/br>
+                            &lt;button className={"g-save-button"}
                                     onClick={this.saveTimeFrame}
-                            >Use Time Frame</button>
-                            <br></br>
-                            <h3 className="title">Comments</h3>
-                            <div className="card">
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <DatePicker className="form-control"
+                            >Use Time Frame&lt;/button>
+                            &lt;br>&lt;/br>
+                            &lt;h3 className="title">Comments&lt;/h3>
+                            &lt;div className="card">
+                                &lt;div className="row">
+                                    &lt;div className="col-md-3">
+                                        &lt;DatePicker className="form-control"
                                                     selected={this.state.comment_date}
                                                     onChange={this.changeDateHandler} />
-                                    </div>
-                                    <div className="col">
-                                        <TimePicker className="form-control"
+                                    &lt;/div>
+                                    &lt;div className="col">
+                                        &lt;TimePicker className="form-control"
                                                     value={this.state.comment_time}
                                                     onChange={this.changeTimeHandler}/>
-                                    </div>
-                                    <div className="col-md-5">
-                                        <input placeholder="type note..."
+                                    &lt;/div>
+                                    &lt;div className="col-md-5">
+                                        &lt;input placeholder="type note..."
                                                name="new_note"
                                                className="form-control"
                                                value={this.state.new_note}
                                                onChange={this.changeCommentHandler}/>
-                                    </div>
-                                </div>
-                                <button className="g-save-button"
+                                    &lt;/div>
+                                &lt;/div>
+                                &lt;button className="g-save-button"
                                         onClick={this.saveNote}
-                                >Add</button>
-                            </div>
-                            <div>
-                                <div>
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <th className="col-4">Time (mm/dd/yyyy)</th>
-                                            <th>Note</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
+                                >Add&lt;/button>
+                            &lt;/div>
+                            &lt;div>
+                                &lt;div>
+                                    &lt;table>
+                                        &lt;thead>
+                                        &lt;tr>
+                                            &lt;th className="col-4">Time (mm/dd/yyyy)&lt;/th>
+                                            &lt;th>Note&lt;/th>
+                                        &lt;/tr>
+                                        &lt;/thead>
+                                        &lt;tbody>
                                             {note_data.map(el => (
-                                                <tr>
-                                                    <td>{el.x}</td>
-                                                    <td>{el.y}</td>
-                                                </tr>
+                                                &lt;tr>
+                                                    &lt;td>{el.x}&lt;/td>
+                                                    &lt;td>{el.y}&lt;/td>
+                                                &lt;/tr>
                                             ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                                        &lt;/tbody>
+                                    &lt;/table>
+                                &lt;/div>
+                            &lt;/div>
+                        &lt;/div>
 
-                        <div className="column">
-                            <br></br>
-                            <CanvasJSChart options={options}/>
-                        </div>
-                    </div>
-                </div>
+                        &lt;div className="column">
+                            &lt;br>&lt;/br>
+                            &lt;CanvasJSChart options={options}/>
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/div>
 
-                <a href="./menu">
-                    <button className="page-button">Back</button>
-                </a>
-            </div>
+                &lt;a href="./menu">
+                    &lt;button className="page-button">Back&lt;/button>
+                &lt;/a>
+            &lt;/div>
         )
     }
 }
 
 export default GlucoseLevels
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="GlucoseLevels.html">GlucoseLevels</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jan 15 2022 09:59:01 GMT-0100 (Azores Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
