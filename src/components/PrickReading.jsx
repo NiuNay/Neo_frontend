@@ -43,7 +43,20 @@ class PrickReading extends Component {
             month = "0"+month;
         }
 
-        let patient = {time_instant:  date + "/"+ month +"/"+ this.state.startDate.getFullYear() + " " + this.state.defTime + ":00", prick_data: parseFloat(this.state.prick_data)};
+        var hh_mm = this.state.defTime.split(':');
+        if (hh_mm[0].length < 2) {
+
+            var hh = "0" + hh_mm[0];
+        }
+
+        if (hh_mm[1].length < 2) {
+
+            var mm = "0" + hh_mm[1];
+        }
+
+        
+
+        let patient = {time_instant:  date + "/"+ month +"/"+ this.state.startDate.getFullYear() + " " + hh + ":" + mm + ":00", prick_data: parseFloat(this.state.prick_data)};
         if (this.state.prick_data && this.state.startDate && this.state.defTime) {
             console.log("patient => " + JSON.stringify(patient));
             // service call
