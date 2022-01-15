@@ -50,7 +50,7 @@ class GlucoseLevels extends React.Component {
 
     fetchNewNotes(){
         UserService.getData(this.state.id)
-            .then((response) => {
+            .then((response)=>{
                 this.setState({ note_time_data: response.data[4], note: response.data[5]})
                 this.setState({ note_data_length: this.state.note_time_data.length})
             })
@@ -60,7 +60,7 @@ class GlucoseLevels extends React.Component {
      * The default time frame is the most recent day with any recorded sweat data.*/
     componentDidMount(){
         UserService.getData(this.state.id)
-            .then((response) => {
+            .then((response)=>{
                 this.setState({ sweat_time_data: response.data[0], sweat_glucose_data: response.data[1], prick_time_data: response.data[2], prick_glucose_data: response.data[3], note_time_data: response.data[4], note: response.data[5]})
                 this.setState({sweat_data_length: this.state.sweat_time_data.length, prick_data_length: this.state.prick_time_data.length, note_data_length: this.state.note_time_data.length})
                 const last_date = new Date(this.state.sweat_time_data[this.state.sweat_data_length-1]);
@@ -106,23 +106,23 @@ class GlucoseLevels extends React.Component {
     }
 
     /**Handles the change from the default value to the user specified value.*/
-    changeEndHandler = (date) => {
+    changeEndHandler=(date)=>{
         this.setState({end_input: date});
     }
 
-    changeStartHandler = (date) => {
+    changeStartHandler=(date)=>{
         this.setState({start_input: date});
     }
 
-    changeCommentHandler= (event) => {
+    changeCommentHandler=(event)=>{
         this.setState({new_note: event.target.value});
     }
 
-    changeDateHandler(date) {
+    changeDateHandler(date){
         this.setState({comment_date: date});
     }
 
-    changeTimeHandler= (time) => {
+    changeTimeHandler=(time)=>{
         this.setState({comment_time: time});
     }
 
