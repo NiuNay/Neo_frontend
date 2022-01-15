@@ -1,4 +1,4 @@
-/* Reference - this file was referenced from: https://github.com/pardeep16/Spring-Security-Auth-Demo/blob/main/UI/src/redux/authActions.js */
+/* Reference - this file was referenced from: https://github.com/pardeep16/Spring-Security-Auth-Demo/blob/main/UI/src/pages/LoginPage.js */
 
 import {AUTH_REQ,AUTH_SUCCESS,AUTH_FAILURE} from './types';
 

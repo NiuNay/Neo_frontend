@@ -1,6 +1,6 @@
-import react,{useState} from 'react';
-import { connect } from 'react-redux';
-import { authenticate, authFailure, authSuccess } from '../redux/authActions';
+import react,{useState} from "react";
+import { connect } from "react-redux";
+import { authenticate, authFailure, authSuccess } from "../redux/authActions";
 import {userLogin} from '../services/AuthService.js';
 import {Alert,Spinner} from 'react-bootstrap';
 
@@ -13,17 +13,17 @@ const Login=({loading,error,...props})=>{
 
     const handleSubmit=(evt)=>{
         evt.preventDefault();
-        props.authenticate();                                    // does something with redux, type now is AUTH_REQ
+        props.authenticate();
 
-        userLogin(values).then((response)=>{  // we now go to the userLogin function in ./services/AuthService.js
+        userLogin(values).then((response)=>{
 
             console.log("response",response);
-            console.log("response has been logged ");           // this step is not reached. therefore problem must be in userLogin method
+            console.log("response has been logged ");     // this step is not reached. Therefore the problem must be in userLogin method
 
-            if(response.status===200){                          // if everything is fine
-                props.setUser(response.data);                   // stores user data in local storage
+            if(response.status===200){
+                props.setUser(response.data);
                 alert("request has succeeded!");
-                // props.history.push('/dashboard'); // TODO: replace with navigate to patient selection page
+                window.open("./patientselection", "_self");
             }
             else{
                 console.log("fail");
@@ -50,8 +50,6 @@ const Login=({loading,error,...props})=>{
             }
 
         });
-        //console.log("Loading again",loading);
-
 
     }
 
