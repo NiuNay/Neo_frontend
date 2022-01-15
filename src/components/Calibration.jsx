@@ -27,7 +27,7 @@ class Calibration extends Component {
     * fields are filled */
     saveConstants = (e) => {
         e.preventDefault();
-        let calibration = {gradient: this.state.gradient, intercept: this.state.intercept};
+        let calibration = {gradient: parseFloat(this.state.gradient), intercept: parseFloat(this.state.intercept)};
         let delay = {delay: this.state.delay}
         console.log("calibration => " + JSON.stringify(calibration));
         console.log("delay => " + JSON.stringify(delay));
