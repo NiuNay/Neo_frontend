@@ -44,14 +44,16 @@ class PrickReading extends Component {
         }
 
         var hh_mm = this.state.defTime.split(':');
+        var hh = hh_mm[0];
         if (hh_mm[0].length < 2) {
 
-            var hh = "0" + hh_mm[0];
+             hh = "0" + hh_mm[0];
         }
 
+        var mm = hh_mm[1];
         if (hh_mm[1].length < 2) {
 
-            var mm = "0" + hh_mm[1];
+            mm = "0" + hh_mm[1];
         }
 
         
