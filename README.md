@@ -29,6 +29,8 @@ In general clinicians check patient vital signs every 4 hours, and assuming that
 
 If the user wants to input prick data, calibration (in the form of gradient or intercept) or delay they can do so on the respective input pages. Once the save data button is clicked, the data will be funneled to the MongoDB Atlas database.
 
+Please note: Calibration and delay can only be put for the current day.
+
 After inputting the desired fields, if the user goes back to the "View glucose levels page", they will see the updated values for notes on the table on the left, the corresponding shifts in the sweat data plot and the prick data values that have been inputted in the graph on the right. 
 
 Notes can be added on the "View Glucose Levels" page - you must be in the appropriate time frame to be able to view the corresponding notes that have been added for that period.
