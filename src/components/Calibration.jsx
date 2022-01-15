@@ -28,7 +28,7 @@ class Calibration extends Component {
     saveConstants = (e) => {
         e.preventDefault();
         let calibration = {gradient: parseFloat(this.state.gradient), intercept: parseFloat(this.state.intercept)};
-        let delay = {delay: this.state.delay}
+        let delay = {delay: parseFloat(this.state.delay)}
         console.log("calibration => " + JSON.stringify(calibration));
         console.log("delay => " + JSON.stringify(delay));
 
